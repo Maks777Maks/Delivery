@@ -12,7 +12,6 @@ namespace Delivery.DAL.EFContext
     {
         [Key, ForeignKey("User")]
         public string Id { get; set; }
-
         public virtual DbUser User { get; set; }
     }
 }

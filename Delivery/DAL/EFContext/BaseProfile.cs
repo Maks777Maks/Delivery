@@ -25,5 +25,10 @@ namespace Delivery.DAL.EFContext
         /// Дата реєстрації
         /// </summary>
         public DateTime RegistrationDate { get; set; }
+
+        /// <summary>
+        /// Дата реєстрації
+        /// </summary>
+        public DateTime BirthDate { get; set; }
     }
 }

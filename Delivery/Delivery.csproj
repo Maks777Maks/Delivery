@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DAL\Models\" />
     <Folder Include="DAL\Interfaces\" />
     <Folder Include="DAL\Repositories\" />
   </ItemGroup>
