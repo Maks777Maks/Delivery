@@ -15,23 +15,14 @@ namespace Delivery
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Config = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Config { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EFDbContext>(options =>
-            options.UseSqlServer(
-                Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddIdentity<DbUser, DbRole>(options => options.Stores.MaxLengthForKeys = 128)
-                .AddEntityFrameworkStores<EFDbContext>()
-                .AddDefaultTokenProviders();
-
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the React files will be served from this directory
@@ -39,6 +30,15 @@ namespace Delivery
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddDbContext<EFDbContext>(options =>
+            options.UseSqlServer(
+                Config.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<DbUser, DbRole>(options =>
+            options.Stores.MaxLengthForKeys = 128)
+            .AddEntityFrameworkStores<EFDbContext>()
+            .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +57,8 @@ namespace Delivery
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            SeederDb.SeedData(app.ApplicationServices, env, Config);
 
             app.UseMvc(routes =>
             {
