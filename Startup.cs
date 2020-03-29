@@ -58,7 +58,7 @@ namespace Delivery
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            SeederDb.SeedData(app.ApplicationServices, env, Config);
+            //SeederDb.SeedData(app.ApplicationServices, env, Config);
 
             app.UseMvc(routes =>
             {
