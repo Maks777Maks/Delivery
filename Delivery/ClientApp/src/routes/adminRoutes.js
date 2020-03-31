@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Login = React.lazy(() => import('../views/defaultViews/LoginPage')); 
+const Login = React.lazy(() => import('../views/defaultviews/LoginPage'));
+
 const CommentsChart = React.lazy(() => import('../views/adminViews/CommentsChart'));
 const PersonsChart = React.lazy(() => import('../views/adminViews/PersonsChart'));
 
