@@ -11,4 +11,4 @@ const routes = [
   { path: '/admin/comments', exact: true, name: 'Login', component: CommentsChart },
 ];
 
-export default routes; 
+export default routes;  
