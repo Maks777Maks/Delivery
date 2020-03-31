@@ -101,13 +101,13 @@ function getUrlToRedirect() {
       if (roles[i] == "Admin") {
         path = "/admin/persons";
         break;
-      } else if (roles[i] === "Client") {
+      } else if (roles[i] === "User") {
         path = "/client/profile";
         break;  
       }
     }
   } else {
-     if (roles === "Client") {
+     if (roles === "User") {
       path = "/client/profile";
     } else if (roles === "Admin") {
       path = "/admin/persons";
