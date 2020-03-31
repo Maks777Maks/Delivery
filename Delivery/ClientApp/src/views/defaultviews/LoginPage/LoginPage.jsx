@@ -24,7 +24,7 @@ import {
   } from "mdbreact";
 
 
-class Login extends Component {
+class LoginPage extends Component {
 
   state = {
     email: '',
@@ -158,7 +158,7 @@ console.log("onSubmitForm", this.state);
   }
 }
 
-Login.propTypes =
+LoginPage.propTypes =
   {
     login: PropTypes.func.isRequired
   }
@@ -178,4 +178,4 @@ const mapDispatch = {
   }
 }
 
-export default connect(mapStateToProps, mapDispatch)(Login);
+export default connect(mapStateToProps, mapDispatch)(LoginPage);
