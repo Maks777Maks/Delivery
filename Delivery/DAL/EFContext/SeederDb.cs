@@ -66,7 +66,7 @@ namespace Delivery.DAL.EFContext
                     Id = user.Id,
                     Reason = "Bad attitude to other customers",
                     DateBlock = DateTime.Now,
-                    IsUnblock = true
+                    IsUnblock = false
                 };
 
                 _context.UserProfile.Add(userProfile);
