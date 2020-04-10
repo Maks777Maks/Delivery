@@ -5,6 +5,7 @@ import createHistory from 'history/createHashHistory';
 
 ///reducers
 import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
+import {getAllUsersReducer} from '../views/adminViews/UsersStats/reducer';
 
 
 // Create browser history to use in the Redux store
@@ -13,7 +14,9 @@ export const history = createHistory({ basename: baseUrl });
 
 export default function configureStore(history, initialState) {
   const reducers = {
-    login: loginReducer
+    login: loginReducer,
+    usersStats: getAllUsersReducer
+
   };
 
   const middleware = [

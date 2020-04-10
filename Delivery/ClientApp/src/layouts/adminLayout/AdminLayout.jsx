@@ -2,6 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { logout } from '../../views/defaultViews/LoginPage/reducer';
 
 import {
   AppAside,
@@ -19,6 +20,8 @@ import {
 import navigation from '../../navs/_adminNavs';
 // routes config
 import routes from '../../routes/adminRoutes';
+import get from 'lodash.get';
+import { connect } from 'react-redux';
 
 
 //const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
@@ -35,50 +38,79 @@ class AdminLayout extends Component {
 
   render() {
 
+    const { login } = this.props;
+    //console.log(login);
+    let isAccess = false;
+    if(login.isAuthenticated===undefined){
+        return (
+            <Redirect to="/login" />  
+          );
+    }
+    if(login.isAuthenticated)
+    {
+      const { roles } = login.user;
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i] === 'Admin')
+          isAccess = true;
+      }
+    }
+
+    const content = (
+      <div className="app">
+      <AppHeader fixed>
+        <Suspense  fallback={this.loading()}>
+          <AdminNavbar onLogout={e=>this.signOut(e)}/>
+        </Suspense>
+      </AppHeader>
+      <div className="app-body">
+        <AppSidebar fixed display="lg">
+          <AppSidebarHeader />
+          <AppSidebarForm />
+          <Suspense>
+          <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+          </Suspense>
+          <AppSidebarFooter />
+          <AppSidebarMinimizer />
+        </AppSidebar>
+        <main className="main">
+          {/* <AppBreadcrumb appRoutes={routes} router={router}/> */}
+          <Container fluid>
+            <Suspense fallback={this.loading()}>
+              <Switch>
+                {routes.map((route, idx) => {
+                  return route.component ? (
+                    <Route
+                      key={idx}
+                      path={route.path}
+                      exact={route.exact}
+                      name={route.name}
+                      render={props => (
+                        <route.component {...props} />
+                      )} />
+                  ) : (null);
+                })}
+                <Redirect from="/" to="/dashboard" />
+              </Switch>
+            </Suspense>
+          </Container>
+        </main>         
+      </div>      
+    </div>
+    )
     
     return (
-      <div className="app">
-        <AppHeader fixed>
-          <Suspense  fallback={this.loading()}>
-            <AdminNavbar onLogout={e=>this.signOut(e)}/>
-          </Suspense>
-        </AppHeader>
-        <div className="app-body">
-          <AppSidebar fixed display="lg">
-            <AppSidebarHeader />
-            <AppSidebarForm />
-            <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
-            </Suspense>
-            <AppSidebarFooter />
-            <AppSidebarMinimizer />
-          </AppSidebar>
-          <main className="main">
-            {/* <AppBreadcrumb appRoutes={routes} router={router}/> */}
-            <Container fluid>
-              <Suspense fallback={this.loading()}>
-                <Switch>
-                  {routes.map((route, idx) => {
-                    return route.component ? (
-                      <Route
-                        key={idx}
-                        path={route.path}
-                        exact={route.exact}
-                        name={route.name}
-                        render={props => (
-                          <route.component {...props} />
-                        )} />
-                    ) : (null);
-                  })}
-                  <Redirect from="/" to="/dashboard" />
-                </Switch>
-              </Suspense>
-            </Container>
-          </main>         
-        </div>      
-      </div>
+     isAccess ? content
+     : <Redirect to='/login'/>
     );
   }
 }
 
-export default AdminLayout;
+const mapStateToProps = (state) => {
+  return {
+    login: get(state, 'login')
+  }
+}
+
+
+
+export default connect(mapStateToProps, {logout}) (AdminLayout);
