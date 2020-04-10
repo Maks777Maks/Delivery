@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import * as loginActions from './reducer';
+import * as loginActions from 'reducer';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
 

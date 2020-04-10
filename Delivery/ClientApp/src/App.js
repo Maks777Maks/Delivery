@@ -4,7 +4,7 @@ import './App.scss';
 
 
 // Pages
-const LoginPage = React.lazy(() => import("./views/defaultViews/LoginPage"));
+const LoginPage = React.lazy(() => import("./views/defaultViews/LoginPage/LoginPage"));
 
 
 // Layouts
