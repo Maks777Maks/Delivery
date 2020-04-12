@@ -99,7 +99,7 @@ function getUrlToRedirect() {
   if (Array.isArray(roles)) {
     for (let i = 0; i < roles.length; i++) {
       if (roles[i] == "Admin") {
-        path = "/admin/persons";
+        path = "/admin/clients";
         break;
       } else if (roles[i] === "User") {
         path = "/client/profile";
@@ -110,7 +110,7 @@ function getUrlToRedirect() {
      if (roles === "User") {
       path = "/client/profile";
     } else if (roles === "Admin") {
-      path = "/admin/persons";
+      path = "/admin/clients";
     }
   }
   
