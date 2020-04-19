@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Delivery.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")] 
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly UserManager<DbUser> _userManager;
@@ -50,6 +50,41 @@ namespace Delivery.Controllers
             await _signInManager.SignInAsync(user, isPersistent: false);
 
             return Ok(new { token = _jwtTokenService.CreateToken(user) });
+        }
+
+        [HttpPost("sendemail")]
+        public ActionResult<string> SendEmailForgotPassword([FromBody] ForgotPasswordModel model)
+        {
+            if (!ModelState.IsValid)
+                return "Введіть пошту";
+
+            var user = _context.Users.FirstOrDefault(x => x.Email == model.Email);
+
+            if (user == null)
+                return "Введена неправильна пошта!";
+
+            string url = $"https://localhost:44362/api/auth/changepassword/{user.Id}";
+            EmailService.SendEmail(model.Email, url);
+            return Ok();
+        }
+
+        [HttpPost("changepassword/{id}")]
+        public ActionResult<string> ChangePassword([FromBody] ChangePasswordModel model)
+        {
+            if (!ModelState.IsValid)
+                return "Введіть всі дані";
+
+            if (!model.NewPassword.Equals(model.ConfirmNewPassword))
+                return "Паролі не збігаються";
+
+            var user = _context.Users.FirstOrDefault(x => x.Id == model.Id);
+            PasswordHasher<DbUser> hasher = new PasswordHasher<DbUser>();
+            string hashedPassword = hasher.HashPassword(user, model.NewPassword);
+            if (hasher.VerifyHashedPassword(user, hashedPassword, model.NewPassword) == PasswordVerificationResult.Success)
+                user.PasswordHash = hashedPassword;
+            _userManager.UpdateAsync(user);
+
+            return Ok();
         }
 
     }

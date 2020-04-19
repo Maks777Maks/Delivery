@@ -154,7 +154,7 @@ namespace Delivery.DAL.EFContext
 
                 var resultAdmin = _userManager.CreateAsync(userAdmin, "Qwerty-0").Result;
                 var dateAdmin = new DateTime(1975, 9, 20);
-                var adminProfile = new AdminProfile
+                var adminProfile = new UserProfile
                 {
                     Id = userAdmin.Id,
                     FirstName = "Batman",
@@ -165,7 +165,7 @@ namespace Delivery.DAL.EFContext
                     Photo = "https://upload.wikimedia.org/wikipedia/ru/a/a2/Batman_Jim_Lee.jpg"
                 };
 
-                _context.AdminProfile.Add(adminProfile);
+                _context.UserProfile.Add(adminProfile);
                 resultAdmin = _userManager.AddToRoleAsync(userAdmin, roleNameAdmin).Result;
                 #endregion
 
