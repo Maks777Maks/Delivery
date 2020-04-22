@@ -4,7 +4,9 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createHistory from 'history/createHashHistory';
 
 ///reducers
-import {loginReducer} from '../views/defaultviews/LoginPage/reducer';
+import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
+import {getAllUsersReducer} from '../views/adminViews/UsersStats/reducer';
+
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -12,7 +14,9 @@ export const history = createHistory({ basename: baseUrl });
 
 export default function configureStore(history, initialState) {
   const reducers = {
-    login: loginReducer
+    login: loginReducer,
+    usersStats: getAllUsersReducer
+
   };
 
   const middleware = [
