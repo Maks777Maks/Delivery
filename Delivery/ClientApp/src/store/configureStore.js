@@ -5,7 +5,7 @@ import { createBrowserHistory as createHistory } from 'history';
 // import createHistory from 'history/createHashHistory';
 
 ///reducers
-import {loginReducer} from '../views/defaultviews/LoginPage/reducer';
+import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
 import {getAllUsersReducer} from '../views/adminViews/UsersStats/reducer';
 import {getProfileReducer} from '../views/ProfileManager/reducer';
 
@@ -18,7 +18,7 @@ export const history = createHistory({ basename: baseUrl });
 export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
-    userProfile: getProfileReducer
+    userProfile: getProfileReducer,
     usersStats: getAllUsersReducer,
     changeImage: changeImageReducer
 
