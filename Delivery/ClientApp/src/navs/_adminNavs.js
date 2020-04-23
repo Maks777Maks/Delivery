@@ -37,13 +37,13 @@ export default {
         },
       },
       {
-        name: 'Base',
-        url: '/base',
+        name: 'Profile',
+        url: '/admin/profile',
         icon: 'icon-puzzle',
         children: [
           {
-            name: 'Breadcrumbs',
-            url: '/base/breadcrumbs',
+            name: 'Profile',
+            url: '/admin/profile',
             icon: 'icon-puzzle',
           },
           {

@@ -29,7 +29,9 @@ namespace Delivery.ViewModels
        
     }
 
-
-
+    public class ChangeImage
+    {
+        public string Photo { get; set; }
+    }
 
 }
