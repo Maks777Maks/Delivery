@@ -3,7 +3,7 @@ import { Route, Switch, HashRouter as Router } from "react-router-dom";
 import './App.scss';
 
 // Pages
-const LoginPage = React.lazy(() => import("./views/defaultviews/LoginPage"));
+const LoginPage = React.lazy(() => import("./views/defaultViews/LoginPage"));
 
 // Layouts
 const AdminLayout = React.lazy(() => import("./layouts/adminLayout/AdminLayout"));

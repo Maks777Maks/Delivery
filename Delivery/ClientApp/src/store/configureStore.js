@@ -5,9 +5,11 @@ import { createBrowserHistory as createHistory } from 'history';
 // import createHistory from 'history/createHashHistory';
 
 ///reducers
-import {loginReducer} from '../views/defaultviews/LoginPage/reducer';
+import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
 import {getAllUsersReducer} from '../views/adminViews/UsersStats/reducer';
 import {getProfileReducer} from '../views/ProfileManager/reducer';
+
+import {changeImageReducer} from '../components/ChangeImage/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -16,8 +18,10 @@ export const history = createHistory({ basename: baseUrl });
 export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
+    userProfile: getProfileReducer,
     usersStats: getAllUsersReducer,
-    userProfile: getProfileReducer
+    changeImage: changeImageReducer
+
   };
 
   const middleware = [

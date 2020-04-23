@@ -1,5 +1,6 @@
 ﻿using Delivery.DAL.EFContext;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -30,14 +31,22 @@ namespace Delivery.Services
             _context = context;
         }
         public string CreateToken(DbUser user)
-        {
+        {          
             var roles = _userManager.GetRolesAsync(user).Result;
             roles = roles.OrderBy(x => x).ToList();
+           
+            string image = user.UserProfile.Photo;         
+            
+            if(image==null)
+            {
+                image = _configuration.GetValue<string>("DefaultImage");
+            }
+
             List<Claim> claims = new List<Claim>()
             {
                 new Claim("id",user.Id),
                 new Claim("name",user.UserName),
-                //new Claim("image",Image)
+                new Claim("image",image)
             };
             foreach (var el in roles)
             {

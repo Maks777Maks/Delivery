@@ -2,7 +2,8 @@ import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
-import { logout } from '../../views/defaultviews/LoginPage/reducer';
+import { logout } from '../../views/defaultViews/LoginPage/reducer';
+import {serverUrl} from '../../config';
 
 import {
   AppAside,
@@ -58,7 +59,8 @@ class AdminLayout extends Component {
       <div className="app">
       <AppHeader fixed>
         <Suspense  fallback={this.loading()}>
-          <AdminNavbar onLogout={e=>this.signOut(e)}/>
+          <AdminNavbar onLogout={e=>this.signOut(e)}
+                       image={`${serverUrl}UsersImages/50_${login.user.image}`}/>
         </Suspense>
       </AppHeader>
       <div className="app-body">

@@ -28,7 +28,9 @@ namespace Delivery.ViewModels
         public int CurrentPage { get; set; }
     }
 
-
-
+    public class ChangeImage
+    {
+        public string Photo { get; set; }
+    }
 
 }
