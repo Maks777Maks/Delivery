@@ -24,7 +24,6 @@ import routes from '../../routes/adminRoutes';
 import get from 'lodash.get';
 import { connect } from 'react-redux';
 
-
 //const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const AdminNavbar = React.lazy(() => import('./AdminNavbar'));
 
@@ -112,7 +111,5 @@ const mapStateToProps = (state) => {
     login: get(state, 'login')
   }
 }
-
-
 
 export default connect(mapStateToProps, {logout}) (AdminLayout);

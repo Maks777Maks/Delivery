@@ -1,11 +1,14 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
-import createHistory from 'history/createHashHistory';
+import { createBrowserHistory as createHistory } from 'history';
+// import createHistory from 'history/createHashHistory';
 
 ///reducers
-import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
+import {loginReducer} from '../views/defaultviews/LoginPage/reducer';
 import {getAllUsersReducer} from '../views/adminViews/UsersStats/reducer';
+import {getProfileReducer} from '../views/ProfileManager/reducer';
+
 import {changeImageReducer} from '../components/ChangeImage/reducer';
 
 // Create browser history to use in the Redux store
@@ -15,6 +18,7 @@ export const history = createHistory({ basename: baseUrl });
 export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
+    userProfile: getProfileReducer
     usersStats: getAllUsersReducer,
     changeImage: changeImageReducer
 
@@ -31,8 +35,6 @@ export default function configureStore(history, initialState) {
   if (isDevelopment && typeof window !== 'undefined' && window.devToolsExtension) {
     enhancers.push(window.devToolsExtension());
   }
-
-
 
   const rootReducer = combineReducers({
     ...reducers,
