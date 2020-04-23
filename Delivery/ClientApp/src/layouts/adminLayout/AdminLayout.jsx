@@ -2,7 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
-import { logout } from '../../views/defaultViews/LoginPage/reducer';
+import { logout } from '../../views/defaultviews/LoginPage/reducer';
 
 import {
   AppAside,
@@ -22,7 +22,6 @@ import navigation from '../../navs/_adminNavs';
 import routes from '../../routes/adminRoutes';
 import get from 'lodash.get';
 import { connect } from 'react-redux';
-
 
 //const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const AdminNavbar = React.lazy(() => import('./AdminNavbar'));
@@ -110,7 +109,5 @@ const mapStateToProps = (state) => {
     login: get(state, 'login')
   }
 }
-
-
 
 export default connect(mapStateToProps, {logout}) (AdminLayout);
