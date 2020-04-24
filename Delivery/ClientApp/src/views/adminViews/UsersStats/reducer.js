@@ -19,7 +19,7 @@ export const getAllUsersData = (model) => {
         dispatch(getListActions.started());
         UsersStatsService.getAllUsers(model)
             .then((response) => {
-                console.log("response",response);
+                console.log("response", response);
                 dispatch(getListActions.success(response));               
             }, err=> { throw err; })
             .catch(err=> {

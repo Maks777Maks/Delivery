@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
 import { logout } from '../../views/defaultViews/LoginPage/reducer';
+import {serverUrl} from '../../config';
 
 import {
   AppAside,
@@ -22,7 +23,6 @@ import navigation from '../../navs/_adminNavs';
 import routes from '../../routes/adminRoutes';
 import get from 'lodash.get';
 import { connect } from 'react-redux';
-
 
 //const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const AdminNavbar = React.lazy(() => import('./AdminNavbar'));
@@ -59,7 +59,8 @@ class AdminLayout extends Component {
       <div className="app">
       <AppHeader fixed>
         <Suspense  fallback={this.loading()}>
-          <AdminNavbar onLogout={e=>this.signOut(e)}/>
+          <AdminNavbar onLogout={e=>this.signOut(e)}
+                       image={`${serverUrl}UsersImages/50_${login.user.image}`}/>
         </Suspense>
       </AppHeader>
       <div className="app-body">
@@ -110,7 +111,5 @@ const mapStateToProps = (state) => {
     login: get(state, 'login')
   }
 }
-
-
 
 export default connect(mapStateToProps, {logout}) (AdminLayout);

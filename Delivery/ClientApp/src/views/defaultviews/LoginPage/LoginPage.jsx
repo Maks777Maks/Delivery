@@ -23,9 +23,7 @@ import {
     MDBInput
   } from "mdbreact";
 
-
 class LoginPage extends Component {
-
   state = {
     email: '',
     password: '',
@@ -53,7 +51,6 @@ class LoginPage extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-  
     return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
 }
 
@@ -78,10 +75,11 @@ class LoginPage extends Component {
     this.setStateByErrors(e.target.name, e.target.value);
 
   }
+
   onSubmitForm = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
-console.log("onSubmitForm", this.state);
+    console.log("onSubmitForm", this.state);
     //const regex_phone = /^(?=\+?([0-9]{2})\(?([0-9]{3})\)?([0-9]{3})-?([0-9]{2})-?([0-9]{2})).{17}$/;
 
     let errors = {};

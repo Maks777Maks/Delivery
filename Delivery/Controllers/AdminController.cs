@@ -36,7 +36,7 @@ namespace Delivery.Controllers
                 return BadRequest("");
             }
 
-            var query = _context.Users.Include(x => x.UserProfile).AsQueryable();
+            var query = _context.UserProfile.Include(u => u.User).AsQueryable();
 
             //if(model.Age !=null)
             //{
@@ -60,17 +60,30 @@ namespace Delivery.Controllers
             //        Description = x.Reason
             //    };
             //result.Users = linq.ToList();
-            result.Users = query.Select(u=> new GetUserViewModel
+
+            result.Users = query.Select(u => new GetUserViewModel
             {
                 Id = u.Id,
-                LastName = u.UserProfile != null? u.UserProfile.LastName: null,
-                Name = u.UserProfile != null ? u.UserProfile.FirstName:null,
-                Email = u.Email,
-                Phone = u.PhoneNumber,
-                Age = u.UserProfile != null ? DateTime.Now.Year - (u.UserProfile.BirthDate.Year):0,
+                LastName = u.LastName,
+                Name = u.FirstName,
+                Email = u.User.Email,
+                Phone = u.User.PhoneNumber,
                 Status = true,
-                Description = "LA LA LA "
+                Description = "LA LA LA ",
+                Age = DateTime.Now.Year - (u.BirthDate.Year),
             }).ToList();
+
+            //result.Users = query.Select(u=> new GetUserViewModel
+            //{
+            //    Id = u.Id,
+            //    LastName = u.UserProfile != null? u.UserProfile.LastName: null,
+            //    Name = u.UserProfile != null ? u.UserProfile.FirstName:null,
+            //    Email = u.Email,
+            //    Phone = u.PhoneNumber,
+            //    Age = u.UserProfile != null ? DateTime.Now.Year - (u.UserProfile.BirthDate.Year):0,
+            //    Status = true,
+            //    Description = "LA LA LA "
+            //}).ToList();
             return Ok(result);
         }
 
