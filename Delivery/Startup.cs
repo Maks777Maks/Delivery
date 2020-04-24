@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
@@ -106,6 +107,27 @@ namespace Delivery
             app.UseAuthentication();
             app.UseSession();
 
+            #region  InitStaticFiles Images
+            string pathRoot = InitStaticFiles
+                .CreateFolderServer(env, this.Configuration,
+                new string[] { "ImagesPath" });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathRoot),
+                RequestPath = new PathString('/'+Configuration.GetValue<string>("UrlImages"))
+            });
+            #endregion
+
+            #region  InitStaticFiles UserImages
+            string pathuser = InitStaticFiles
+                .CreateFolderServer(env, this.Configuration,
+                new string[] { "ImagesPath", "ImagesUserPath" });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathuser),
+                RequestPath = new PathString('/' + Configuration.GetValue<string>("UserUrlImages"))
+            });
+            #endregion
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
