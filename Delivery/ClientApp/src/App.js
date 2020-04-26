@@ -5,7 +5,8 @@ import './App.scss';
 // Pages
 const LoginPage = React.lazy(() => import("./views/defaultViews/LoginPage"));
 const HomePage = React.lazy(() => import("./views/defaultViews/HomePage"));
-
+const ForgotPasswordPage = React.lazy(() => import("./views/defaultViews/ForgotPasswordPage"));
+const ChangePasswordPage = React.lazy(() => import("./views/defaultViews/ChangePasswordPage"));
 // Layouts
 const AdminLayout = React.lazy(() => import("./layouts/adminLayout/AdminLayout"));
 
@@ -29,6 +30,8 @@ const ProfileLayout = React.lazy(() => import("./views/ProfileManager/"));
             <Route path="/admin" name="Admin" render={ props => <AdminLayout { ...props } /> } />
             <Route exact path="/login" name="Login" render={ props => <LoginPage { ...props } /> } />
             <Route exact path="/profile" name="Profile" render={ props => <ProfileLayout { ...props } /> } />
+            <Route exact path="/forgot-password" name="ForgotPassword" render={ props => <ForgotPasswordPage { ...props } /> } />
+            <Route exact path="/change-password/:id" name="ChangePassword" render={ props => <ChangePasswordPage { ...props } /> } />
           </Switch>
         </Suspense>
         </Router> 
