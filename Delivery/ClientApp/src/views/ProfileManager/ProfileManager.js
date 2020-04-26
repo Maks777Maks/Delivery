@@ -82,9 +82,12 @@ class ProfileManager extends Component {
         return yy + '-' + mm + '-' + dd;
     }
 
-    handleChangeDate(event) {
-        this.setState({ birthDate: event.target.value })
-    }
+    handleChangeData = e => {
+        this.setState({ [e.target.name]: e.target.value });
+      };
+    // handleChangeDate(event) {
+    //     this.setState({ birthDate: event.target.value })
+    // }
 
     componentDidUpdate(prevProps) {
         // Популярный пример (не забудьте сравнить пропсы):
@@ -103,12 +106,13 @@ class ProfileManager extends Component {
                 <MDBRow className="mt-4">
                     <MDBCol md="5">
                         <h2 className="text-center">Profile</h2>
-                        <MDBInput type="text" outline icon="user" label={name} />
-                        <MDBInput type="text" outline icon="some" label={surname} />
-                        <MDBInput type="tel" outline icon="phone" label={phone} />
-                        <MDBInput type="email" outline icon="envelope" label={email} />
+                        <MDBInput type="text" outline icon="user" label={name} autocomplete="new-password" />
+                        <MDBInput type="text" outline icon="user" label={surname} autocomplete="new-password"/>
+                        <MDBInput type="tel" outline icon="phone" label={phone}autocomplete="new-password" />
+                        <MDBInput type="email" outline icon="envelope" label={email} autocomplete="new-password"/>
                         <MDBInput type="date" outline icon="birthday-cake" value={birthDate}
-                            onChange={this.handleChangeDate.bind(this)} />
+                            onChange={this.handleChangeData} autocomplete="new-password"
+                            name="birthDate"/>
 
                         <MDBInput label="Password" outline validate id="password" name="password"
                             type={typeInput}
@@ -116,6 +120,7 @@ class ProfileManager extends Component {
                             onIconMouseEnter={this.mouseEnter}
                             onIconMouseLeave={this.mouseLeave}
                             onChange={this.handleChange}
+                            autocomplete="new-password"
                         />
                     </MDBCol>
                     <MDBCol md="7">

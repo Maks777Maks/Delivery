@@ -5,6 +5,8 @@ import hero_2 from '../../../assets/img/hero_2.jpg';
 import dishes_4 from '../../../assets/img/dishes_4.jpg';
 import dishes_2 from '../../../assets/img/dishes_2.jpg';
 import dishes_3 from '../../../assets/img/dishes_3.jpg';
+import { Link } from 'react-router-dom';
+import '../scss/style.scss';
 class HomePage extends Component {
     state = {  }
     render() { 
@@ -13,7 +15,7 @@ class HomePage extends Component {
                  <header role="banner">
       <nav className="navbar navbar-expand-md navbar-dark bg-dark">
         <div className="container">
-          <a className="navbar-brand" href="index.html">Eatery</a>
+          <a className="navbar-brand" href="/">Eatery</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -21,30 +23,31 @@ class HomePage extends Component {
           <div className="collapse navbar-collapse" id="navbarsExample05">
             <ul className="navbar-nav ml-auto pl-lg-5 pl-0">
               <li className="nav-item">
-                <a className="nav-link active" href="index.html">Home</a>
+                <a className="nav-link active" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="recipes.html">Recipes</a>
+                <a className="nav-link" href="/">Recipes</a>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="services.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
+                <a className="nav-link dropdown-toggle" href="/" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
                 <div className="dropdown-menu" aria-labelledby="dropdown04">
-                  <a className="dropdown-item" href="services.html">Catering</a>
-                  <a className="dropdown-item" href="services.html">Birthday Party</a>
-                  <a className="dropdown-item" href="services.html">Wedding Party</a>
+                  <a className="dropdown-item" href="/">Catering</a>
+                  <a className="dropdown-item" href="/">Birthday Party</a>
+                  <a className="dropdown-item" href="/">Wedding Party</a>
                 </div>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="about.html">About</a>
+                <a className="nav-link" href="/">About</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="news.html">News</a>
+                {/* <a className="nav-link" href="/#/login">Вхід</a> */}
+                <Link className="nav-link" to="/login" >Вхід</Link>
               </li>
             </ul>
 
             <ul className="navbar-nav ml-auto">
               <li className="nav-item cta-btn">
-                <a className="nav-link" href="contact.html">Contact Us</a>
+                <a className="nav-link" href="/">Contact Us</a>
               </li>
             </ul>
             
