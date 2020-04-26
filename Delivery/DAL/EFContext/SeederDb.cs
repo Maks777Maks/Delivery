@@ -180,14 +180,17 @@ namespace Delivery.DAL.EFContext
                 var typeOfDishes = new List<TypeOfDish>();
                 typeOfDishes.Add(new TypeOfDish
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfDishName = "First"
                 });
                 typeOfDishes.Add(new TypeOfDish
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfDishName = "Second"
                 });
                 typeOfDishes.Add(new TypeOfDish
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfDishName = "Dessert"
                 });
                 foreach (var typeOfDish in typeOfDishes)
@@ -205,42 +208,52 @@ namespace Delivery.DAL.EFContext
                 var typeOfCuisines = new List<TypeOfCuisine>();
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "Italian"
                 });
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "Chinese"
                 });
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "Ukrainian"
                 });
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "American"
                 });
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "French"
                 });
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "Caucasus"
                 });
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "Japanese"
                 });
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "Spanish"
                 });
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "English"
                 });
                 typeOfCuisines.Add(new TypeOfCuisine
                 {
+                    Image = "https://img1.russianfood.com/dycontent/images_upl/5/sm_4382.jpg",
                     TypeOfCuisineName = "German"
                 });
                 foreach (var typeOfDish in typeOfCuisines)
@@ -326,8 +339,8 @@ namespace Delivery.DAL.EFContext
                     IsVegetarian = false,
                     IsAvailable = true,
                     Price = 100,
-                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "Italian").TypeOfCuisineId,
-                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Second").TypeOfDishId
+                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "Italian").Id,
+                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Second").Id
                 });
                 dishes.Add(new Dish
                 {
@@ -339,8 +352,8 @@ namespace Delivery.DAL.EFContext
                     IsVegetarian = false,
                     IsAvailable = true,
                     Price = 50,
-                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "Spanish").TypeOfCuisineId,
-                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Second").TypeOfDishId
+                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "Spanish").Id,
+                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Second").Id
                 });
                 dishes.Add(new Dish
                 {
@@ -352,8 +365,8 @@ namespace Delivery.DAL.EFContext
                     IsVegetarian = false,
                     IsAvailable = true,
                     Price = 65.5M,
-                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "French").TypeOfCuisineId,
-                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Dessert").TypeOfDishId
+                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "French").Id,
+                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Dessert").Id
                 });
                 dishes.Add(new Dish
                 {
@@ -365,8 +378,8 @@ namespace Delivery.DAL.EFContext
                     IsVegetarian = false,
                     IsAvailable = true,
                     Price = 70M,
-                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "German").TypeOfCuisineId,
-                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "First").TypeOfDishId
+                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "German").Id,
+                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "First").Id
                 });
                 dishes.Add(new Dish
                 {
@@ -378,8 +391,8 @@ namespace Delivery.DAL.EFContext
                     IsVegetarian = false,
                     IsAvailable = true,
                     Price = 80M,
-                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "Japanese").TypeOfCuisineId,
-                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Second").TypeOfDishId
+                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "Japanese").Id,
+                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Second").Id
                 });
                 dishes.Add(new Dish
                 {
@@ -391,8 +404,8 @@ namespace Delivery.DAL.EFContext
                     IsVegetarian = false,
                     IsAvailable = true,
                     Price = 60M,
-                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "Chinese").TypeOfCuisineId,
-                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Second").TypeOfDishId
+                    TypeOfCuisineId = _context.TypesOfCuisines.FirstOrDefault(x => x.TypeOfCuisineName == "Chinese").Id,
+                    TypeOfDishId = _context.TypesOfDishes.FirstOrDefault(x => x.TypeOfDishName == "Second").Id
                 });
                 foreach (var dish in dishes)
                 {
@@ -410,13 +423,13 @@ namespace Delivery.DAL.EFContext
                 var managerRole = scope.ServiceProvider.GetRequiredService<RoleManager<DbRole>>();
                 var context = scope.ServiceProvider.GetRequiredService<EFDbContext>();
 
-                //SeederDb.SeedRoles(managerRole);
-                //SeederDb.SeedUsers(user_manager, context);
-                //SeederDb.SeedTypeOfDish(context);
-                //SeederDb.SeedTypeOfCuisine(context);
-                //SeederDb.SeedOrderStatus(context);
-                //SeederDb.SeedExtra(context);
-                //SeederDb.SeedDish(context);
+                SeederDb.SeedRoles(managerRole);
+                SeederDb.SeedUsers(user_manager, context);
+                SeederDb.SeedTypeOfDish(context);
+                SeederDb.SeedTypeOfCuisine(context);
+                SeederDb.SeedOrderStatus(context);
+                SeederDb.SeedExtra(context);
+                SeederDb.SeedDish(context);
             }
         }
     }

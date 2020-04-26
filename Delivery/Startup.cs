@@ -144,6 +144,8 @@ namespace Delivery
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            SeederDb.SeedData(app.ApplicationServices, env, this.Configuration);
         }
     }
 }

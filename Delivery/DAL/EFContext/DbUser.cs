@@ -11,6 +11,5 @@ namespace Delivery.DAL.EFContext
         public ICollection<DbUserRole> UserRoles { get; set; }
         public virtual UserProfile UserProfile { get; set; }
         public virtual UserAccess UserAccess { get; set; }
-        public virtual AdminProfile AdminProfile { get; set; }
     }
 }
