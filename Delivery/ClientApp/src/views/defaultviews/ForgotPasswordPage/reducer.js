@@ -6,7 +6,7 @@ export const SEND_EMAIL_FAILED = "SEND_EMAIL_AILED";
 
 
 const initialState = {
-    list: {
+    post: {
         data: [],
         loading: false,
         success: false,
@@ -14,10 +14,10 @@ const initialState = {
     }
 }
 
-export const getAllUsersData = (model) => {
+export const ForgotPassword = (model) => {
     return (dispatch) => {
         dispatch(getListActions.started());
-        ForgotPasswordService.SendEmail(model)
+        ForgotPasswordService.sendEmail(model)
             .then((response) => {
                 console.log("response",response);
                 dispatch(getListActions.success(response));               
@@ -48,28 +48,28 @@ export const getListActions = {
     }
   }
 
-export const getAllUsersReducer = (state = initialState, action) => { 
+export const forgotPasswordReducer = (state = initialState, action) => { 
   let newState = state;
 
   switch (action.type) {
 
       case SEND_EMAIL_STARTED: {
-          newState = update.set(state, 'list.loading', true);
-          newState = update.set(newState, 'list.success', false);
-          newState = update.set(newState, 'list.failed', false);
+          newState = update.set(state, 'post.loading', true);
+          newState = update.set(newState, 'post.success', false);
+          newState = update.set(newState, 'post.failed', false);
           break;
       }
       case SEND_EMAIL_SUCCESS: {
-          newState = update.set(state, 'list.loading', false);
-          newState = update.set(newState, 'list.failed', false);
-          newState = update.set(newState, 'list.success', true);
-          newState = update.set(newState, 'list.data', action.payload);         
+          newState = update.set(state, 'post.loading', false);
+          newState = update.set(newState, 'post.failed', false);
+          newState = update.set(newState, 'post.success', true);
+          newState = update.set(newState, 'post.data', action.payload);         
           break;
       }
       case SEND_EMAIL_FAILED: {
-          newState = update.set(state, 'list.loading', false);
-          newState = update.set(newState, 'list.success', false);
-          newState = update.set(newState, 'list.failed', true);
+          newState = update.set(state, 'post.loading', false);
+          newState = update.set(newState, 'post.success', false);
+          newState = update.set(newState, 'post.failed', true);
           break;
       }
       default: {

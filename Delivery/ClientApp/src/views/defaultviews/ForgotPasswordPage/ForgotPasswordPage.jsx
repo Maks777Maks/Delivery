@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import * as loginActions from './reducer';
+import * as getListActions from './reducer';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
+
 
 import {
     MDBContainer,
@@ -24,7 +25,7 @@ import {
   } from "mdbreact";
 
 
-class LoginPage extends Component {
+class ForgotPasswordPage extends Component {
 
   state = {
     email: '',
@@ -64,13 +65,12 @@ class LoginPage extends Component {
   onSubmitForm = (e) => {
     e.preventDefault();
     const { email } = this.state;
-console.log("onSubmitForm", this.state);
-    //const regex_phone = /^(?=\+?([0-9]{2})\(?([0-9]{3})\)?([0-9]{3})-?([0-9]{2})-?([0-9]{2})).{17}$/;
+    console.log("onSubmitForm", this.state);
 
     let errors = {};
 
-    if (email === '') errors.email = "Поле є обов'язковим";
-    //if (!regex_phone.test(phone)) errors.phone = "Не вiрний формат +xx(xxx)xxx-xx-xx телефону";
+    if (email === '') 
+      errors.email = "Поле є обов'язковим";
 
     const isValid = Object.keys(errors).length === 0
     if (isValid) {
@@ -79,7 +79,7 @@ console.log("onSubmitForm", this.state);
         email: email,
         };
 
-      this.props.login(model, this.props.history);     
+      this.props.ForgotPassword(model);     
     }
     else {
       this.setState({ errors });
@@ -110,7 +110,6 @@ console.log("onSubmitForm", this.state);
             id="email"
             name="email"
             onChange={this.handleChange}/>         
-          {/* <MDBInput label="Type your password" icon="lock" group type="password" validate /> */}
         </div>
         <div className="text-center">
           <MDBBtn type="submit" color='primary'>Відправити</MDBBtn>
@@ -126,24 +125,19 @@ console.log("onSubmitForm", this.state);
   }
 }
 
-LoginPage.propTypes =
-  {
-    login: PropTypes.func.isRequired
-  }
-
 function mapStateToProps(state) {
   return {
-    loading: get(state, 'login.post.loading'),
-    failed: get(state, 'login.post.failed'),
-    success: get(state, 'login.post.success'),
-    errors: get(state, 'login.post.errors')
+    loading: get(state, 'forgotPassword.post.loading'),
+    failed: get(state, 'forgotPassword.post.failed'),
+    success: get(state, 'forgotPassword.post.success'),
+    errors: get(state, 'forgotPassword.post.errors')
   }
 }
 
 const mapDispatch = {
-  login: (model, history) => {
-      return loginActions.login(model, history);
+  ForgotPassword: (model) => {
+      return getListActions.ForgotPassword(model);
   }
 }
 
-export default connect(mapStateToProps, mapDispatch)(LoginPage);
+export default connect(mapStateToProps, mapDispatch)(ForgotPasswordPage);

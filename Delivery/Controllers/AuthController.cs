@@ -34,7 +34,7 @@ namespace Delivery.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return "Введіть всі данні";
+                return "Введіть всі дані";
             }
             var user = _context.Users.Include(u=> u.UserProfile).FirstOrDefault(x => x.Email == model.Email);
             if (user == null)
@@ -53,7 +53,7 @@ namespace Delivery.Controllers
             return Ok(new { token = _jwtTokenService.CreateToken(user) });
         }
 
-        [HttpPost("sendemail")]
+        [HttpPost("forgot-password")]
         public ActionResult<string> SendEmailForgotPassword([FromBody] ForgotPasswordModel model)
         {
             if (!ModelState.IsValid)
@@ -64,19 +64,16 @@ namespace Delivery.Controllers
             if (user == null)
                 return "Введена неправильна пошта!";
 
-            string url = $"https://localhost:44362/api/auth/changepassword/{user.Id}";
+            string url = "https://localhost:44362/api/auth/change-password" + "/" + "id=" + user.Id;
             EmailService.SendEmail(model.Email, url);
             return Ok();
         }
 
-        [HttpPost("changepassword/{id}")]
-        public ActionResult<string> ChangePassword([FromBody] ChangePasswordModel model)
-        {
+        [HttpPost("change-password")]
+        public ActionResult<string> ForgotPassword([FromBody] ChangePasswordModel model)
+        {    
             if (!ModelState.IsValid)
                 return "Введіть всі дані";
-
-            if (!model.NewPassword.Equals(model.ConfirmNewPassword))
-                return "Паролі не збігаються";
 
             var user = _context.Users.FirstOrDefault(x => x.Id == model.Id);
             PasswordHasher<DbUser> hasher = new PasswordHasher<DbUser>();

@@ -8,7 +8,7 @@ import { createBrowserHistory as createHistory } from 'history';
 import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
 import {getAllUsersReducer} from '../views/adminViews/UsersStats/reducer';
 import {getProfileReducer} from '../views/ProfileManager/reducer';
-
+import {forgotPasswordReducer} from '../views/defaultViews/ForgotPasswordPage/reducer'
 import {changeImageReducer} from '../components/ChangeImage/reducer';
 
 // Create browser history to use in the Redux store
@@ -20,8 +20,8 @@ export default function configureStore(history, initialState) {
     login: loginReducer,
     userProfile: getProfileReducer,
     usersStats: getAllUsersReducer,
-    changeImage: changeImageReducer
-
+    changeImage: changeImageReducer,
+    forgotPassword: forgotPasswordReducer
   };
 
   const middleware = [

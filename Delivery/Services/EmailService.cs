@@ -9,20 +9,20 @@ namespace Delivery.Services
 {
     public class EmailService
     {
-        public static void SendEmail(string email, string url)
+        public async static void SendEmail(string email, string url)
         {
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("");
             mail.To.Add(email);
             mail.Subject = $"Зміна паролю користувача з поштою {email}";
             mail.IsBodyHtml = true;
-            mail.Body = $"Щоб змінити пароль перейдіть за посиланням: {url}";
+            mail.Body = $"Щоб змінити пароль, перейдіть за посиланням: {url}";
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
                 Credentials = new NetworkCredential("", ""),
                 EnableSsl = true
             };
-            client.Send(mail);
+            await client.SendMailAsync(mail);
         }
     }
 }
