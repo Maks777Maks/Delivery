@@ -19,7 +19,7 @@ namespace Delivery.DAL.Models
         [Required, StringLength(1000)]
         public string Description { get; set; }
         [Required]
-        public double Weight { get; set; }
+        public int Weight { get; set; }
         [Required, StringLength(200)]
         public string Image { get; set; }
         [Required]
@@ -29,8 +29,11 @@ namespace Delivery.DAL.Models
         [Required]
         public bool IsAvailable { get; set; }
 
+        [ForeignKey("TypeOfCuisine")]
         public int TypeOfCuisineId { get; set; }
         public virtual TypeOfCuisine TypeOfCuisine { get; set; }
+
+        [ForeignKey("TypeOfDish")]
         public int TypeOfDishId { get; set; }
         public virtual TypeOfDish TypeOfDish { get; set; }
     }
