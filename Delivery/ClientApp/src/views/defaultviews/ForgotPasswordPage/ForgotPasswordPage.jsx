@@ -1,29 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-// import { Button, Card, CardBody, CardGroup,
-//          Col, Container, Form, Input, InputGroup,
-//          InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import * as getListActions from './reducer';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
 
-
 import {
-    MDBContainer,
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBModalFooter,
-    MDBIcon,
-    MDBCardHeader,
-    MDBBtn,
-    MDBInput
+    MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput
   } from "mdbreact";
-
 
 class ForgotPasswordPage extends Component {
 
@@ -86,15 +69,7 @@ class ForgotPasswordPage extends Component {
     }
   }
   
-  render() {
-    //const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
-
-   
-                      {/* {!!errorsServer.invalid ?
-                          <div className="alert alert-danger">
-                              {errorsServer.invalid}.
-                          </div> : ""} */}
-                     
+  render() {                     
     const form = (
 <MDBContainer >
   <MDBRow style={{height: '100vh' }} className="justify-content-center align-items-center">

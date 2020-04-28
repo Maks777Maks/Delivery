@@ -11,30 +11,30 @@ const ChangePasswordPage = React.lazy(() => import("./views/defaultViews/ChangeP
 const AdminLayout = React.lazy(() => import("./layouts/adminLayout/AdminLayout"));
 const ClientLayout = React.lazy(() => import("./layouts/clientLayout/clientLayout"));
 
-  class App extends Component { 
+class App extends Component {
 
     state = {
-      isLoading: false,
-      isError: false
+        isLoading: false,
+        isError: false
     }
-  
-    render() { 
-      return (
-        <Router>  
-        <Suspense fallback={ <div>Загрузка...</div> }>
-          <Switch>
-            <Route exact path="/" name="Home" render={ props => <HomePage { ...props } /> } />
-            <Route path="/client" name="Client" render={ props => <ClientLayout { ...props } /> } />
-            <Route path="/admin" name="Admin" render={ props => <AdminLayout { ...props } /> } />
-            <Route exact path="/login" name="Login" render={ props => <LoginPage { ...props } /> } />
-            <Route exact path="/profile" name="Profile" render={ props => <ProfileLayout { ...props } /> } />
-            <Route exact path="/forgot-password" name="ForgotPassword" render={ props => <ForgotPasswordPage { ...props } /> } />
-            <Route exact path="/change-password/:id" name="ChangePassword" render={ props => <ChangePasswordPage { ...props } /> } />
-          </Switch>
-        </Suspense>
-        </Router> 
-      );
+
+    render() {
+        return (
+            <Router>
+                <Suspense fallback={<div>Загрузка...</div>}>
+                    <Switch>
+                        <Route exact path="/" name="Home" render={props => <HomePage {...props} />} />
+                        <Route path="/client" name="Client" render={props => <ClientLayout {...props} />} />
+                        <Route path="/admin" name="Admin" render={props => <AdminLayout {...props} />} />
+                        <Route exact path="/login" name="Login" render={props => <LoginPage {...props} />} />
+                        <Route exact path="/forgot-password" name="ForgotPassword" render={props => <ForgotPasswordPage {...props} />} />
+                        <Route exact path="/change-password/:id" name="ChangePassword" render={props => <ChangePasswordPage {...props} />} />
+                        <Redirect to="/" />
+                    </Switch>
+                </Suspense>
+            </Router>
+        );
     }
-  };
-  
-  export default App;
+};
+
+export default App;

@@ -28,7 +28,7 @@ class ClientLayout extends Component {
     render() {
         const { login } = this.props;
         console.log(login);
-        let isAccess = true;
+        let isAccess = false;
         
         if (login.isAuthenticated === undefined) {
             return (
@@ -36,6 +36,8 @@ class ClientLayout extends Component {
             );
         }
         if (login.isAuthenticated) {
+            isAccess = true;
+
             const { roles } = login.user;
             for (let i = 0; i < roles.length; i++) {
                 if (roles[i] === 'User')
@@ -54,8 +56,7 @@ class ClientLayout extends Component {
 
                         <div className="container">
                             <div className="row slider-text align-items-center justify-content-center">
-                                <div className="col-md-8 text-center col-sm-12 ">
-                                    
+                                <div className="col-md-8 text-center col-sm-12 ">        
                                 <Suspense fallback={this.loading()}>
                                             <Switch>
                                                 {clientRoutes.map((route, idx) => {

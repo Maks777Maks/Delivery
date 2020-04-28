@@ -106,7 +106,8 @@ class LoginPage extends Component {
                                     success="right"
                                     id="email"
                                     name="email"
-                                    onChange={this.handleChange} />
+                                    onChange={this.handleChange}
+                                    autoComplete="new-password" />
                                 <MDBInput
                                     label='Пароль'
                                     validate
@@ -117,6 +118,7 @@ class LoginPage extends Component {
                                     onIconMouseEnter={this.mouseEnter}
                                     onIconMouseLeave={this.mouseLeave}
                                     onChange={this.handleChange}
+                                    autoComplete="new-password"
                                 />
                             </div>
                             <div className="text-center">
