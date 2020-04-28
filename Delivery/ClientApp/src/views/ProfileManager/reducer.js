@@ -33,10 +33,10 @@ const initialState = {
     }
 }
 
-export const getUserProfile = () => {
+export const getUserProfile = (model) => {
     return (dispatch) => {
         dispatch(getListActions.started());
-        ProfileManagerService.GetUserProfile()
+        ProfileManagerService.GetUserProfile(model)
             .then((response) => {
                 console.log("ProfileInfo in reducer", response);
                 dispatch(getListActions.success(response));               

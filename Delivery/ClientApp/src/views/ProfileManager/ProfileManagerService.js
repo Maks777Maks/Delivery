@@ -2,13 +2,13 @@ import axios from "axios";
 import {serverUrl} from '../../config';
 
 export default class ProfileManagerService {
-    static GetUserProfile() {
-        return axios.get(`${serverUrl}api/UserProfile/getuserprofile`)
+    static GetUserProfile(model) {
+        return axios.post(`${serverUrl}api/UserProfile/getuserprofile`, model)
     };
     static SetUserProfile(model) {
-        return axios.post(`${serverUrl}api/auth/login`, model)
+        return axios.post(`${serverUrl}api/UserProfile/getuserprofile`, model)
     };
-    static SetUserPhoto(photo) {
-        return axios.post(`${serverUrl}api/auth/login`, photo)
+    static SetUserPhoto(model) {
+        return axios.post(`${serverUrl}api/UserProfile/getuserprofile`, model)
     };
 }

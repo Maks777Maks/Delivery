@@ -6,6 +6,14 @@ import {
 import { connect } from 'react-redux';
 import get from "lodash.get";
 
+import jwt from 'jsonwebtoken';
+
+let user;
+if(localStorage.jwtToken) {
+    let data = {token: localStorage.jwtToken, refToken: localStorage.refreshToken};
+    user = jwt.decode(data.token);
+}
+
 class ProfileManager extends Component {
     state = {
         name: 'client name',
@@ -23,7 +31,13 @@ class ProfileManager extends Component {
         typeInput: 'password'
     }
     componentDidMount = () => {
-        this.props.getUserProfile();
+        console.log("INFO USER", user);
+        if(user)
+        {
+            const model = { id: user.id };
+            console.log("MODEL USER", model);
+            this.props.getUserProfile(model);
+        }
     }
 
     mouseEnter = () => {
@@ -85,9 +99,6 @@ class ProfileManager extends Component {
     handleChangeData = e => {
         this.setState({ [e.target.name]: e.target.value });
       };
-    // handleChangeDate(event) {
-    //     this.setState({ birthDate: event.target.value })
-    // }
 
     componentDidUpdate(prevProps) {
         // Популярный пример (не забудьте сравнить пропсы):
@@ -106,12 +117,12 @@ class ProfileManager extends Component {
                 <MDBRow className="mt-4">
                     <MDBCol md="5">
                         <h2 className="text-center">Profile</h2>
-                        <MDBInput type="text" outline icon="user" label={name} autocomplete="new-password" />
-                        <MDBInput type="text" outline icon="user" label={surname} autocomplete="new-password"/>
-                        <MDBInput type="tel" outline icon="phone" label={phone}autocomplete="new-password" />
-                        <MDBInput type="email" outline icon="envelope" label={email} autocomplete="new-password"/>
+                        <MDBInput type="text" outline icon="user" label={name} autoComplete="new-password" />
+                        <MDBInput type="text" outline icon="user" label={surname} autoComplete="new-password"/>
+                        <MDBInput type="tel" outline icon="phone" label={phone}autoComplete="new-password" />
+                        <MDBInput type="email" outline icon="envelope" label={email} autoComplete="new-password"/>
                         <MDBInput type="date" outline icon="birthday-cake" value={birthDate}
-                            onChange={this.handleChangeData} autocomplete="new-password"
+                            onChange={this.handleChangeData} autoComplete="new-password"
                             name="birthDate"/>
 
                         <MDBInput label="Password" outline validate id="password" name="password"
@@ -120,7 +131,7 @@ class ProfileManager extends Component {
                             onIconMouseEnter={this.mouseEnter}
                             onIconMouseLeave={this.mouseLeave}
                             onChange={this.handleChange}
-                            autocomplete="new-password"
+                            autoComplete="new-password"
                         />
                     </MDBCol>
                     <MDBCol md="7">
@@ -128,7 +139,7 @@ class ProfileManager extends Component {
                             <img
                                 src="https://mdbootstrap.com/img/Others/documentation/img%20(131)-mini.jpg"
                                 className="img-fluid rounded hoverable"
-                                alt="Photo profile"
+                                alt="Profile"
                             />
                             <MDBMask className="flex-center">
                                 <MDBBtn onClick={() => { alert("Hello world") }} className="white-text">Change photo</MDBBtn>
@@ -142,8 +153,6 @@ class ProfileManager extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("mapStateToProps", state);
-
     return {
         userProfile: get(state, "userProfile.list.data")
     };
@@ -151,9 +160,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserProfile: () => {
-            dispatch(getListActions.getUserProfile())
-        }
+        getUserProfile: (model) => { dispatch(getListActions.getUserProfile(model)) }
     }
 }
 

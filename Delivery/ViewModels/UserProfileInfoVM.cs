@@ -14,4 +14,9 @@ namespace Delivery.ViewModels
         public string Email { get; set; }
         public string Phone { get; set; }
     }
+
+    public class IdUserVM
+    {
+        public string Id { get; set; }
+    }
 }

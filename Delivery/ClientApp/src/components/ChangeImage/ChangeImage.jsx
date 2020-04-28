@@ -51,9 +51,7 @@ class ChangeImage extends Component {
                   <CardGroup className="mb-3">
                     <Card>
                       <CardBody>
-                          <img
-                      src={`${serverUrl}${photo}?t=${new Date().getTime()}`}
-                     /> 
+                          <img src={`${serverUrl}${photo}?t=${new Date().getTime()}`} alt=""/> 
                      </CardBody>
                     </Card>
                   </CardGroup>

@@ -1,8 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
-//import { createBrowserHistory as createHistory } from 'history';
- import createHistory from 'history/createHashHistory';
+import {createHashHistory as createHistory} from 'history';
 
 ///reducers
 import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
@@ -21,7 +20,6 @@ export default function configureStore(history, initialState) {
     userProfile: getProfileReducer,
     usersStats: getAllUsersReducer,
     changeImage: changeImageReducer
-
   };
 
   const middleware = [
