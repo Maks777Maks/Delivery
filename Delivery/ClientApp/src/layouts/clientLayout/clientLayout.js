@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import {} from "mdbreact";
+
 //import { Container } from 'reactstrap';
 import { connect } from 'react-redux';
 import { logout } from '../../views/defaultViews/LoginPage/reducer';
@@ -27,7 +27,6 @@ class ClientLayout extends Component {
 
     render() {
         const { login } = this.props;
-        console.log(login);
         let isAccess = false;
         
         if (login.isAuthenticated === undefined) {

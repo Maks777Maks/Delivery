@@ -40,7 +40,7 @@ export default class ClientNavbar extends Component {
                             <div className="collapse navbar-collapse" id="navbarsExample05">
                                 <ul className="navbar-nav ml-auto pl-lg-5 pl-0">
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/">Домашня сторінка</Link>
+                                        <Link className="nav-link active" to="/client/profile">ПРОФАЙЛ</Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/">Всі страви</Link>
