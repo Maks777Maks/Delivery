@@ -4,7 +4,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createHistory from 'history/createHashHistory';
 
 ///reducers
-import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
+import {loginReducer} from '../views/defaultviews/LoginPage/reducer';
 
 
 // Create browser history to use in the Redux store
