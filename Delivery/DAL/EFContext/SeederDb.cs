@@ -423,13 +423,13 @@ namespace Delivery.DAL.EFContext
                 var managerRole = scope.ServiceProvider.GetRequiredService<RoleManager<DbRole>>();
                 var context = scope.ServiceProvider.GetRequiredService<EFDbContext>();
 
-                SeederDb.SeedRoles(managerRole);
-                SeederDb.SeedUsers(user_manager, context);
-                SeederDb.SeedTypeOfDish(context);
-                SeederDb.SeedTypeOfCuisine(context);
-                SeederDb.SeedOrderStatus(context);
-                SeederDb.SeedExtra(context);
-                SeederDb.SeedDish(context);
+                //SeederDb.SeedRoles(managerRole);
+                //SeederDb.SeedUsers(user_manager, context);
+                //SeederDb.SeedTypeOfDish(context);
+                //SeederDb.SeedTypeOfCuisine(context);
+                //SeederDb.SeedOrderStatus(context);
+                //SeederDb.SeedExtra(context);
+                //SeederDb.SeedDish(context);
             }
         }
     }
