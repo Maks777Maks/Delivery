@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as getListActions from "./reducer";
-import { addPhoneToBasket } from "./reducer";
+import { addDishToBasket } from "./reducer";
 
 import {
   Card,
@@ -29,7 +29,6 @@ import * as R from "ramda";
 import TypesOfDishes from "../TypesOfDishes";
 import Cart from "../Cart";
 import { Link } from "react-router-dom";
-//import {AddToCart} from '../Cart/reducer'
 import { getTotalCount } from "./selectors";
 import stylesDishes from "./styles.css"
 import styles from "./../../defaultViews/scss/style.scss"
@@ -41,7 +40,7 @@ class Dishes extends Component {
     searchValue: this.props.searchValue,
     totalCount: this.props.totalCount,
     totalCount: this.props.getTotalCount,
-    //name: "Бумеранг вернулся назад",
+ 
     cart: [],
     totalPrice: 0
   };
@@ -51,10 +50,7 @@ class Dishes extends Component {
     const { totCount } = this.props;
     const activeTypeId = this.props.activeTypeId;
 
-    //1. receive data
 
-    //2. dispatch actions to store
-    // console.log("activeTypeId", activeTypeId)
     this.props.getAllDishesData({ currentPage });
   };
 
@@ -64,8 +60,7 @@ class Dishes extends Component {
     console.log("totalPriceCart was" + totalPriceCart);
     newCart.push(item.name);
     totalPriceCart +=item.price;
-    this.props.addToCart(item.name);
-    this.props.addPhoneToBasket(newCart);
+    this.props.addDishToBasket(newCart);
     this.setState({
       cart: newCart,
       totalPrice: totalPriceCart
@@ -76,39 +71,18 @@ class Dishes extends Component {
   }
 
   render() {
-    //const { totalCount } = this.props
+  
 
     console.log("in render: totalCount" + this.state.cart.length);
-    // console.log("in render + totCount" + this.props.totCount) // ????
-
-    //   console.log('render + tot count' + this.state.cart.length);
-    // console.log('render + tot count props' + this.props.totalCount);
+   
     let counter = 1;
     const { listDishes } = this.props;
     const cartN = this.state.cart;
-    //console.log("all dishes", listDishes)
+ 
 
     return (
       <div>
-        {/* <p> TotalCount: {this.state.cart.length} </p> */}
-        {/* <button
-          onClick={() => {
-            this.props.updateData(this.state.cart);
-          }}
-        >
-          Запустить бумеранг
-        </button> */}
-        {/* <p> State dishes: {this.props.activeTypeId} </p>
-         <p> activeTypeId: {this.state.activeTypeId} </p> */}
-
-        {/* {" "}
-          Cart:{" "} */}
-        {/* {cartN.map((item) => {
-            return <p> {item} </p>;
-          })} */}
-
-        {/* <p> Cart count1: {this.props.totalCount} </p>
-        <p> Cart count: {this.state.cart.length} </p> */}
+       
         <div className="clearfix mb-5 pb-5">
         <div className="container-fluid">
           <div className="row">
@@ -120,20 +94,11 @@ class Dishes extends Component {
         </div>
       </div>
 
-        {/* <Link to="/client/cart"> Cart </Link> */}
-        {/* <div className="animated fadeIn">
-          <Row>
-            <Col> */}
-        {/* <Card>
-                <CardHeader>
-                  <i className="fa fa-user-circle-o"></i> Блюда
-                </CardHeader>
-
-                <CardBody> */}
+       
         <div className="container">
           
           <div className="row">
-            {/* <div className="col-md-3"> */}
+   
             {listDishes.map((item) => {
               if (this.props.searchValue !== "") {
                 let hasName = R.contains(
@@ -219,11 +184,7 @@ class Dishes extends Component {
           </div>
         </div>
 
-        {/* </CardBody>
-              </Card> */}
-        {/* </Col>
-          </Row>
-        </div> */}
+
       </div>
     );
   }
@@ -243,17 +204,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    //  AddToCart: (filter) => {
-    //   dispatch(getListActions.AddToCart(filter))
-    //  },
     getAllDishesData: (filter) => {
       dispatch(getListActions.getAllDishesData(filter));
     },
-    addToCart: (item) => {
-      dispatch(getListActions.addToCart(item));
-    },
-    addPhoneToBasket: (item) => {
-      dispatch(addPhoneToBasket(item));
+    // addToCart: (item) => {
+    //   dispatch(getListActions.addToCart(item));
+    // },
+    addDishToBasket: (item) => {
+      dispatch(addDishToBasket(item));
     },
   };
 };

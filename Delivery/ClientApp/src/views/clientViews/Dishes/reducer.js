@@ -35,28 +35,28 @@ export const getAllDishesData = (model) => {
   };
 };
 
-export const addToCart = () => {
-    return (dispatch) => {
-        dispatch(getCartListActions.success());
+// export const addToCart = () => {
+//     return (dispatch) => {
+//         dispatch(getCartListActions.success());
        
-    }
-}
+//     }
+// }
 
-export const getCartListActions  = {
-  //data - added dish arr
+// export const getCartListActions  = {
+//   //data - added dish arr
  
-  success: (newCart) => {
-      console.log("newCart" + newCart);
-    return {
-      type: ADD_TO_CART,
-      payload: newCart,
-    };
-  },
-};
+//   success: (newCart) => {
+//       console.log("newCart" + newCart);
+//     return {
+//       type: ADD_TO_CART,
+//       payload: newCart,
+//     };
+//   },
+// };
 
 
-export const addPhoneToBasket = name => dispatch => {
-  console.log("newCartPhone" + name);
+export const addDishToBasket = name => dispatch => {
+  console.log("newCartDish" + name);
   dispatch({
     type: ADD_TO_CART,
     payload: name

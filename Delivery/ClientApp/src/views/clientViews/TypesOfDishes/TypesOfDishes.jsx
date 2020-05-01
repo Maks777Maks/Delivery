@@ -46,7 +46,7 @@ class TypesOfDishes extends Component {
   };
 
   FilterDishes(typeId) {
-    //const activeTypeId = this.props.
+
     console.log(typeId);
     this.setState({
       activeTypeId: typeId,

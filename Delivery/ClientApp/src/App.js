@@ -31,6 +31,7 @@ class App extends Component {
                         <Route exact path="/forgot-password" name="ForgotPassword" render={props => <ForgotPasswordPage {...props} />} />
                         <Route exact path="/change-password/:id" name="ChangePassword" render={props => <ChangePasswordPage {...props} />} />
                         <Route exact path="/alldishes" name="Dishes" render={props => <DishesPage {...props} /> } />
+                        
                         <Redirect to="/" />
                     </Switch>
                 </Suspense>
