@@ -31,23 +31,8 @@ import Cart from "../Cart";
 import { Link } from "react-router-dom";
 //import {AddToCart} from '../Cart/reducer'
 import { getTotalCount } from "./selectors";
-import styles from "./styles.css"
-
-const backTextDark = {
-  zIndex: 0,
-  lineHeight: 1,
-  top: ".5em",
-  left: "50%",
-  marginTop: "-50px",
-  paddingBottom: "300px",
-  transform: "translateX(-50%)",
-  fontWeight: 800,
-  fontSize: "200px",
-  position: "absolute",
-  width: "100%",
-  color: "grey",
-  textTransform: "uppercase",
-};
+import stylesDishes from "./styles.css"
+import styles from "./../../defaultViews/scss/style.scss"
 
 class Dishes extends Component {
   state = {
@@ -58,6 +43,7 @@ class Dishes extends Component {
     totalCount: this.props.getTotalCount,
     //name: "Бумеранг вернулся назад",
     cart: [],
+    totalPrice: 0
   };
 
   componentDidMount = () => {
@@ -74,15 +60,19 @@ class Dishes extends Component {
 
   AddToCart(item) {
     let newCart = this.state.cart;
+    let totalPriceCart = this.state.totalPrice;
+    console.log("totalPriceCart was" + totalPriceCart);
     newCart.push(item.name);
+    totalPriceCart +=item.price;
     this.props.addToCart(item.name);
     this.props.addPhoneToBasket(newCart);
     this.setState({
       cart: newCart,
+      totalPrice: totalPriceCart
     });
-    //console.log("this.state.cart.length", this.state.cart.length)
-    this.props.updateData(this.state.cart, this.state.cart.length);
-    return this.state;
+    
+    this.props.updateData(this.state.cart, this.state.cart.length, totalPriceCart);
+
   }
 
   render() {
@@ -100,7 +90,7 @@ class Dishes extends Component {
 
     return (
       <div>
-        <p> TotalCount: {this.state.cart.length} </p>
+        {/* <p> TotalCount: {this.state.cart.length} </p> */}
         {/* <button
           onClick={() => {
             this.props.updateData(this.state.cart);
@@ -117,9 +107,18 @@ class Dishes extends Component {
             return <p> {item} </p>;
           })} */}
 
-        <p> Cart count1: {this.props.totalCount} </p>
-        <p> Cart count: {this.state.cart.length} </p>
-        <h2>Our Menu</h2>
+        {/* <p> Cart count1: {this.props.totalCount} </p>
+        <p> Cart count: {this.state.cart.length} </p> */}
+        <div className="clearfix mb-5 pb-5">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-md-12 text-center heading-wrap">
+              <h2>Our Menu</h2>
+              <span className="back-text-dark">Menu</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
         {/* <Link to="/client/cart"> Cart </Link> */}
         {/* <div className="animated fadeIn">
@@ -132,11 +131,7 @@ class Dishes extends Component {
 
                 <CardBody> */}
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <span style={backTextDark}>Menu</span>
-            </div>
-          </div>
+          
           <div className="row">
             {/* <div className="col-md-3"> */}
             {listDishes.map((item) => {
@@ -157,9 +152,10 @@ class Dishes extends Component {
                       />
                       <CardBody>
                         <CardTitle>{item.name}</CardTitle>
+                        <CardSubtitle style={{color: "red"}}>Price: {item.price} UAH </CardSubtitle>
                         <CardSubtitle>{item.description}</CardSubtitle>
-                        <CardText>{item.ingredients}</CardText>
-                        <Button className={styles.buttonAddToCart}
+                        <CardText><strong>Ingredients: </strong>{item.ingredients}</CardText>
+                                                <Button className="addToCart"
                         onClick={this.AddToCart.bind(this, item)}>
                           Add To Cart
                         </Button>
@@ -180,10 +176,12 @@ class Dishes extends Component {
                         />
                         <CardBody>
                           <CardTitle>{item.name}</CardTitle>
+                          <CardSubtitle style={{color: "red", marginBottom: "10px"}}>Price: {item.price} UAH</CardSubtitle>
                           <CardSubtitle>{item.description}</CardSubtitle>
-                          <CardText>{item.ingredients}</CardText>
+                          <CardText><strong>Ingredients: </strong> {item.ingredients}</CardText>
                           <Button
-                          className={styles.buttonAddToCart}
+                          style={{  backgroundColor: "red"}}
+                          className="addToCart"
                            onClick={this.AddToCart.bind(this, item)}>
                             Add To Cart
                           </Button>
@@ -203,10 +201,11 @@ class Dishes extends Component {
                         />
                         <CardBody>
                           <CardTitle>{item.name}</CardTitle>
+                          <CardSubtitle style={{color: "red"}}>Price: {item.price} UAH</CardSubtitle>
                           <CardSubtitle>{item.description}</CardSubtitle>
-                          <CardText>{item.ingredients}</CardText>
+                          <CardText><strong>Ingredients: </strong> {item.ingredients}</CardText>
                           <Button 
-                          className={styles.buttonAddToCart}
+                           className="addToCart"
                           onClick={this.AddToCart.bind(this, item)}>
                             Add To Cart
                           </Button>

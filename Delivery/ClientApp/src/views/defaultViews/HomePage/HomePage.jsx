@@ -26,7 +26,8 @@ class HomePage extends Component {
                 <a className="nav-link active" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Recipes</a>
+                {/* <a className="nav-link" href="/">Recipes</a> */}
+                <Link className="nav-link" to="/alldishes">All Dishes</Link>
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="/" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>

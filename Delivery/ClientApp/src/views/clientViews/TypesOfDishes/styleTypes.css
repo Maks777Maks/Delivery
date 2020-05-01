@@ -22,3 +22,19 @@ li {
         background-color: gray;
         color: white;
     }
+
+p.cartItem {
+    padding: 2px 8px;
+    border-radius: 10px;
+  background-color: darkgray; 
+  color: black;  
+}   
+
+.inputSearch {
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+}

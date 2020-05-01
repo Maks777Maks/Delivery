@@ -1,21 +1,8 @@
-.back-text, .back-text-dark {
-    z-index: 0;
-    line-height: 1;
-    top: .5em;
-    left: 50%;
-    margin-top: -50px;
-    transform: translateX(-50%);
-    font-weight: 800;
-    font-size: 200px;
-    position: absolute;
-    width: 100%;
-    color: grey;
-    text-transform: uppercase;
-
-}
-
-Button {
+Button.addToCart {
+   
     background-color: grey;
-    color: grey;
- 
+    
+}
+Button.addToCart:hover {
+    color: white;
 }
