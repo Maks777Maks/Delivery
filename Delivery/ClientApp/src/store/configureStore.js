@@ -6,6 +6,9 @@ import createHistory from 'history/createHashHistory';
 ///reducers
 import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
 import {getAllUsersReducer} from '../views/adminViews/UsersStats/reducer';
+import {getAllTypesOfDishesReducer} from '../views/clientViews/TypesOfDishes/reducer';
+import {getAllDishesReducer} from '../views/clientViews/Dishes/reducer';
+import {cartReducer} from '../views/clientViews/Cart/reducer';
 
 
 // Create browser history to use in the Redux store
@@ -15,7 +18,10 @@ export const history = createHistory({ basename: baseUrl });
 export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
-    usersStats: getAllUsersReducer
+    usersStats: getAllUsersReducer,
+    typesOfDishes: getAllTypesOfDishesReducer,
+    dishes: getAllDishesReducer,
+cart: cartReducer
 
   };
 
