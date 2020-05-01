@@ -1,17 +1,14 @@
 import React from 'react';
 
+const UserProfile = React.lazy(() => import("../views/ProfileManager"));
 
-const TypesOfDishes = React.lazy(()=> import('../views/clientViews/TypesOfDishes'));
-const Dishes = React.lazy(()=> import('../views/clientViews/Dishes'));
-const Cart = React.lazy(()=> import('../views/clientViews/Cart'))
+const emptyPage = () => {
+    return(<h1>Ми Вас раді бачити!</h1>);
+};
 
-// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
-const routes = [
-  
-  {path: '/client/gettypesdishes', exact: true, name: 'TypesOfDishes', component: TypesOfDishes },
-  {path: '/client/getdishes', exact: true, name: 'Dishes', component: Dishes },
-  {path: '/client/alldishes', exact: true, name: 'Dishes', component: Dishes },
-  {path: '/client/cart', exact: true, name: 'Cart', component: Cart},
- ];
+const clientRoutes = [
+    { path: '/client', exact: true, name: 'clientEmpty', component: emptyPage },
+    { path: '/client/profile', exact: true, name: 'userProfile', component: UserProfile },
+];
 
-export default routes; 
+export default clientRoutes;  
