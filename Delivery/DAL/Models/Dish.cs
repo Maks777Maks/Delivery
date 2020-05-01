@@ -29,8 +29,11 @@ namespace Delivery.DAL.Models
         [Required]
         public bool IsAvailable { get; set; }
 
+        [ForeignKey("TypeOfCuisine")]
         public int TypeOfCuisineId { get; set; }
         public virtual TypeOfCuisine TypeOfCuisine { get; set; }
+
+        [ForeignKey("TypeOfDish")]
         public int TypeOfDishId { get; set; }
         public virtual TypeOfDish TypeOfDish { get; set; }
     }

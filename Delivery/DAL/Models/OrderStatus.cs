@@ -11,7 +11,7 @@ namespace Delivery.DAL.Models
     public class OrderStatus
     {
         [Key]
-        public int StatusId { get; set; }
+        public int Id { get; set; }
         [Required, StringLength(100)]
         public string StatusName { get; set; }
     }

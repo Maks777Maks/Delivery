@@ -16,7 +16,6 @@ namespace Delivery.DAL.EFContext
         public EFDbContext(DbContextOptions<EFDbContext> options) : base(options) { }
 
         public virtual DbSet<UserProfile> UserProfile { get; set; }
-        public virtual DbSet<AdminProfile> AdminProfile { get; set; }
         public virtual DbSet<UserAccess> UsersAccesses { get; set; }
         public virtual DbSet<Dish> Dishes { get; set; }
         public virtual DbSet<DishInOrder> DishesInOrder { get; set; }

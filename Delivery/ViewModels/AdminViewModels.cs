@@ -26,10 +26,11 @@ namespace Delivery.ViewModels
     public class FiltersUsersViewModel
     {
         public int CurrentPage { get; set; }
-       
     }
 
-
-
+    public class ChangeImage
+    {
+        public string Photo { get; set; }
+    }
 
 }

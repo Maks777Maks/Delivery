@@ -12,6 +12,7 @@ import App from './App';
 import registerServiceWorker, { unregister } from './registerServiceWorker';
 
 import * as loginActions from './views/defaultViews/LoginPage/reducer';
+
 import jwt from 'jsonwebtoken';
 
 // Get the application-wide store instance, prepopulating with state from the server where available.

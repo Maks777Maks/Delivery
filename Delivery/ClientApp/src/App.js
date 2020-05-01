@@ -2,15 +2,16 @@ import React, { Suspense, Component } from 'react';
 import { Route, Switch, HashRouter as Router } from "react-router-dom";
 import './App.scss';
 
-
 // Pages
 const LoginPage = React.lazy(() => import("./views/defaultViews/LoginPage"));
-const DishesPage = React.lazy(()=> import("./views/clientViews/TypesOfDishes"))
-
-
+const HomePage = React.lazy(() => import("./views/defaultViews/HomePage"));
+const ForgotPasswordPage = React.lazy(() => import("./views/defaultViews/ForgotPasswordPage"));
+const ChangePasswordPage = React.lazy(() => import("./views/defaultViews/ChangePasswordPage"));
 // Layouts
 const AdminLayout = React.lazy(() => import("./layouts/adminLayout/AdminLayout"));
-const ClientLayout = React.lazy(()=> import("./layouts/clientLayout/ClientLayout"));
+
+// ProfileTest
+const ProfileLayout = React.lazy(() => import("./views/ProfileManager/"));
 
 
   class App extends Component { 
@@ -25,10 +26,12 @@ const ClientLayout = React.lazy(()=> import("./layouts/clientLayout/ClientLayout
         <Router>  
         <Suspense fallback={ <div>Загрузка...</div> }>
           <Switch>
+            <Route exact path="/" name="Home" render={ props => <HomePage { ...props } /> } />
             <Route path="/admin" name="Admin" render={ props => <AdminLayout { ...props } /> } />
             <Route exact path="/login" name="Login" render={ props => <LoginPage { ...props } /> } />
-            <Route path="/client" name="Client" render={props => <ClientLayout {...props} />} />
-            <Route exact path="/alldishes" name="Dishes" render={props => <DishesPage {...props} /> } />
+            <Route exact path="/profile" name="Profile" render={ props => <ProfileLayout { ...props } /> } />
+            <Route exact path="/forgot-password" name="ForgotPassword" render={ props => <ForgotPasswordPage { ...props } /> } />
+            <Route exact path="/change-password/:id" name="ChangePassword" render={ props => <ChangePasswordPage { ...props } /> } />
           </Switch>
         </Suspense>
         </Router> 

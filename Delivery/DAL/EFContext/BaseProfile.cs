@@ -10,7 +10,7 @@ namespace Delivery.DAL.EFContext
     {
         [Required, StringLength(100)]
         public string FirstName { get; set; }
-        [Required, StringLength(100)]
+        [StringLength(100)]
         public string MiddleName { get; set; }
         [Required, StringLength(100)]
         public string LastName { get; set; }
@@ -18,7 +18,7 @@ namespace Delivery.DAL.EFContext
         /// <summary>
         /// Фото користувача
         /// </summary>
-        [Required, StringLength(150)]
+        [StringLength(150)]
         public string Photo { get; set; }
 
         /// <summary>

@@ -89,12 +89,11 @@ class UsersStats extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("mapStateToProps",state);
+    console.log("mapStateToProps", state);
   return {
       listUsers: get(state, "usersStats.list.data")
 };
 }
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
