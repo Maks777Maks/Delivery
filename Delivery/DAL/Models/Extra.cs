@@ -11,7 +11,7 @@ namespace Delivery.DAL.Models
     public class Extra
     {
         [Key]
-        public int ExtraId { get; set; }
+        public int Id { get; set; }
         [Required, StringLength(100)]
         public string Name { get; set; }
         [StringLength(500)]
@@ -20,5 +20,7 @@ namespace Delivery.DAL.Models
         public string Image { get; set; }
         [StringLength(50)]
         public string Measuring { get; set; }
+        [Required]
+        public decimal Price { get; set; }
     }
 }

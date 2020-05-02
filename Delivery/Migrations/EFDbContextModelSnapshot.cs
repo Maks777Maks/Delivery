@@ -19,35 +19,6 @@ namespace Delivery.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Delivery.DAL.EFContext.AdminProfile", b =>
-                {
-                    b.Property<string>("Id");
-
-                    b.Property<DateTime>("BirthDate");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("MiddleName")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Photo")
-                        .IsRequired()
-                        .HasMaxLength(150);
-
-                    b.Property<DateTime>("RegistrationDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tblAdminProfile");
-                });
-
             modelBuilder.Entity("Delivery.DAL.EFContext.DbRole", b =>
                 {
                     b.Property<string>("Id")
@@ -157,6 +128,9 @@ namespace Delivery.Migrations
                 {
                     b.Property<string>("Id");
 
+                    b.Property<string>("Address")
+                        .HasMaxLength(200);
+
                     b.Property<DateTime>("BirthDate");
 
                     b.Property<string>("FirstName")
@@ -168,11 +142,9 @@ namespace Delivery.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("Photo")
-                        .IsRequired()
                         .HasMaxLength(150);
 
                     b.Property<DateTime>("RegistrationDate");
@@ -214,7 +186,7 @@ namespace Delivery.Migrations
 
                     b.Property<int>("TypeOfDishId");
 
-                    b.Property<double>("Weight");
+                    b.Property<int>("Weight");
 
                     b.HasKey("Id");
 
@@ -227,7 +199,7 @@ namespace Delivery.Migrations
 
             modelBuilder.Entity("Delivery.DAL.Models.DishInOrder", b =>
                 {
-                    b.Property<int>("DishesInOrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -237,7 +209,7 @@ namespace Delivery.Migrations
 
                     b.Property<int>("OrderId");
 
-                    b.HasKey("DishesInOrderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DishId");
 
@@ -248,7 +220,7 @@ namespace Delivery.Migrations
 
             modelBuilder.Entity("Delivery.DAL.Models.Extra", b =>
                 {
-                    b.Property<int>("ExtraId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -265,14 +237,16 @@ namespace Delivery.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.HasKey("ExtraId");
+                    b.Property<decimal>("Price");
+
+                    b.HasKey("Id");
 
                     b.ToTable("tblExtras");
                 });
 
             modelBuilder.Entity("Delivery.DAL.Models.ExtraInOrder", b =>
                 {
-                    b.Property<int>("ExtraInOrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -282,7 +256,7 @@ namespace Delivery.Migrations
 
                     b.Property<int>("OrderId");
 
-                    b.HasKey("ExtraInOrderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ExtraId");
 
@@ -293,7 +267,7 @@ namespace Delivery.Migrations
 
             modelBuilder.Entity("Delivery.DAL.Models.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -312,32 +286,28 @@ namespace Delivery.Migrations
 
                     b.Property<DateTime>("DateReceived");
 
-                    b.Property<string>("DbUserId");
-
                     b.Property<string>("OrderInvoice")
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<string>("OrderStatusId");
-
-                    b.Property<int?>("OrderStatusStatusId");
+                    b.Property<int>("OrderStatusId");
 
                     b.Property<decimal>("TotalPrice");
 
                     b.Property<string>("UserId");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("DbUserId");
+                    b.HasIndex("OrderStatusId");
 
-                    b.HasIndex("OrderStatusStatusId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("tblOrders");
                 });
 
             modelBuilder.Entity("Delivery.DAL.Models.OrderStatus", b =>
                 {
-                    b.Property<int>("StatusId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -345,43 +315,45 @@ namespace Delivery.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.HasKey("StatusId");
+                    b.HasKey("Id");
 
                     b.ToTable("tblOrdersStatuses");
                 });
 
             modelBuilder.Entity("Delivery.DAL.Models.TypeOfCuisine", b =>
                 {
-                    b.Property<int>("TypeOfCuisineId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasMaxLength(200);
 
                     b.Property<string>("TypeOfCuisineName")
                         .IsRequired()
                         .HasMaxLength(200);
 
-                    b.HasKey("TypeOfCuisineId");
+                    b.HasKey("Id");
 
                     b.ToTable("tblTypesOfCuisines");
                 });
 
             modelBuilder.Entity("Delivery.DAL.Models.TypeOfDish", b =>
                 {
-                    b.Property<int>("TypeOfDishId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasMaxLength(200);
 
                     b.Property<string>("TypeOfDishName")
                         .IsRequired()
                         .HasMaxLength(150);
 
-                    b.HasKey("TypeOfDishId");
+                    b.HasKey("Id");
 
                     b.ToTable("tblTypesOfDishes");
                 });
@@ -463,14 +435,6 @@ namespace Delivery.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Delivery.DAL.EFContext.AdminProfile", b =>
-                {
-                    b.HasOne("Delivery.DAL.EFContext.DbUser", "User")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Delivery.DAL.EFContext.DbUserRole", b =>
                 {
                     b.HasOne("Delivery.DAL.EFContext.DbRole", "Role")
@@ -541,13 +505,14 @@ namespace Delivery.Migrations
 
             modelBuilder.Entity("Delivery.DAL.Models.Order", b =>
                 {
-                    b.HasOne("Delivery.DAL.EFContext.DbUser", "DbUser")
-                        .WithMany()
-                        .HasForeignKey("DbUserId");
-
                     b.HasOne("Delivery.DAL.Models.OrderStatus", "OrderStatus")
                         .WithMany()
-                        .HasForeignKey("OrderStatusStatusId");
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Delivery.DAL.EFContext.DbUser", "DbUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -16,7 +16,6 @@ namespace Delivery.DAL.EFContext
         public EFDbContext(DbContextOptions<EFDbContext> options) : base(options) { }
 
         public virtual DbSet<UserProfile> UserProfile { get; set; }
-        public virtual DbSet<AdminProfile> AdminProfile { get; set; }
         public virtual DbSet<UserAccess> UsersAccesses { get; set; }
         public virtual DbSet<Dish> Dishes { get; set; }
         public virtual DbSet<DishInOrder> DishesInOrder { get; set; }
@@ -26,6 +25,8 @@ namespace Delivery.DAL.EFContext
         public virtual DbSet<OrderStatus> OrdersStatuses { get; set; }
         public virtual DbSet<TypeOfCuisine> TypesOfCuisines { get; set; }
         public virtual DbSet<TypeOfDish> TypesOfDishes { get; set; }
+
+        public virtual DbSet<TestCart> TestCarts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

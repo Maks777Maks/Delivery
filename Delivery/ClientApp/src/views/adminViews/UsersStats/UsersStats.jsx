@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import * as getListActions from './reducer';
-import { Card, CardBody, CardHeader, Col, Row, Table, Badge,
-    Modal, ModalBody, ModalFooter, ModalHeader, Label, Input } from 'reactstrap';
-    import { connect } from 'react-redux';
-    import get from "lodash.get";
+import { Card, CardBody, CardHeader, Col, Row, Table, Badge} from 'reactstrap';
+import { connect } from 'react-redux';
+import get from "lodash.get";
+
 class UsersStats extends Component {
     state = { 
         currentPage: 1
