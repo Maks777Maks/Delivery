@@ -36,7 +36,7 @@ namespace Delivery.Controllers
             {
                 return "Введіть всі дані";
             }
-            var user = _context.Users.Include(u=> u.UserProfile).FirstOrDefault(x => x.Email == model.Email);
+            var user = _context.Users.Include(u => u.UserProfile).FirstOrDefault(x => x.Email == model.Email);
             if (user == null)
             {
                 return "Не правильна електронна пошта!";
@@ -64,24 +64,23 @@ namespace Delivery.Controllers
             if (user == null)
                 return "Введена неправильна пошта!";
 
-            string url = "https://localhost:44362/api/auth/change-password" + "/" + "id=" + user.Id;
+            string url = "https://localhost:44362/#/change-password" + "/" + "id=" + user.Id;
             EmailService.SendEmail(model.Email, url);
             return Ok();
         }
 
         [HttpPost("change-password")]
         public ActionResult<string> ForgotPassword([FromBody] ChangePasswordModel model)
-        {    
+        {
             if (!ModelState.IsValid)
                 return "Введіть всі дані";
 
             var user = _context.Users.FirstOrDefault(x => x.Id == model.Id);
-            PasswordHasher<DbUser> hasher = new PasswordHasher<DbUser>();
-            string hashedPassword = hasher.HashPassword(user, model.NewPassword);
-            if (hasher.VerifyHashedPassword(user, hashedPassword, model.NewPassword) == PasswordVerificationResult.Success)
-                user.PasswordHash = hashedPassword;
-            _userManager.UpdateAsync(user);
-
+            //PasswordHasher<DbUser> hasher = new PasswordHasher<DbUser>();
+            //string hashedPassword = hasher.HashPassword(user, model.NewPassword);
+            //if (hasher.VerifyHashedPassword(user, hashedPassword, model.NewPassword) == PasswordVerificationResult.Success)
+            //user.PasswordHash = hashedPassword;
+            //_userManager.UpdateAsync(user);
             return Ok();
         }
 

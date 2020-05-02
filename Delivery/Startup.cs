@@ -145,7 +145,7 @@ namespace Delivery
                 }
             });
 
-            SeederDb.SeedData(app.ApplicationServices, env, this.Configuration);
+            //SeederDb.SeedData(app.ApplicationServices, env, this.Configuration);
         }
     }
 }

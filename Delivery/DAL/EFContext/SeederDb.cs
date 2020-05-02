@@ -142,6 +142,40 @@ namespace Delivery.DAL.EFContext
                 result = _userManager.AddToRoleAsync(user, roleName).Result;
                 #endregion
 
+                #region Create user with existing email
+                mail = "amerscan8@gmail.com";
+                roleName = "User";
+                user = new DbUser
+                {
+                    Email = mail,
+                    UserName = mail,
+                    PhoneNumber = "+380967289363"
+                };
+
+                result = _userManager.CreateAsync(user, "Qwerty-4").Result;
+                date = new DateTime(2003, 10, 21);
+                userProfile = new UserProfile
+                {
+                    Id = user.Id,
+                    FirstName = "Denys",
+                    MiddleName = "Valentynovych",
+                    LastName = "Yaremchuk",
+                    RegistrationDate = DateTime.Now,
+                    BirthDate = date
+                };
+                userAccess = new UserAccess
+                {
+                    Id = user.Id,
+                    Reason = "Bad attitude to other customers",
+                    DateBlock = DateTime.Now,
+                    IsUnblock = true
+                };
+
+                _context.UserProfile.Add(userProfile);
+                _context.UsersAccesses.Add(userAccess);
+                result = _userManager.AddToRoleAsync(user, roleName).Result;
+                #endregion
+
                 #region Create admin
                 string mailAdmin = "batman@ukr.net";
                 var roleNameAdmin = "Admin";

@@ -33,7 +33,7 @@ class ForgotPasswordPage extends Component {
     errors: {},
     done: false,
     isLoading: false,
-    errorsServer: {},
+    errorsServer: {}
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -87,15 +87,10 @@ class ForgotPasswordPage extends Component {
   }
   
   render() {
-    //const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
-
-   
-                      {/* {!!errorsServer.invalid ?
-                          <div className="alert alert-danger">
-                              {errorsServer.invalid}.
-                          </div> : ""} */}
-                     
+    const { errors } = this.state;
+                       
     const form = (
+      
 <MDBContainer >
   <MDBRow style={{height: '100vh' }} className="justify-content-center align-items-center">
     <MDBCol md="5">
@@ -109,7 +104,11 @@ class ForgotPasswordPage extends Component {
             success="right" 
             id="email"
             name="email"
-            onChange={this.handleChange}/>         
+            onChange={this.handleChange}/>      
+               {!!errors.email ?
+     <div className="alert alert-danger">
+      {errors.email}.
+    </div> : ""}   
         </div>
         <div className="text-center">
           <MDBBtn type="submit" color='primary'>Відправити</MDBBtn>
