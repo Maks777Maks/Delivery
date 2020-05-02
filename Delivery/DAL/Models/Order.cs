@@ -12,13 +12,13 @@ namespace Delivery.DAL.Models
     public class Order
     {
         [Key]
-        public int OrderId { get; set; }
+        public int Id { get; set; }
 
         // номер накладної чи рахунку
         [Required, StringLength(100)]
         public string OrderInvoice { get; set; }
 
-        [ForeignKey("UserId")]
+        [ForeignKey("DbUser")]
         public string UserId { get; set; }
         public virtual DbUser DbUser { get; set; }
 
@@ -30,8 +30,8 @@ namespace Delivery.DAL.Models
         [Required]
         public DateTime DateOfDelivery { get; set; }
 
-        [ForeignKey("OrderStatusId")]
-        public string OrderStatusId { get; set; }
+        [ForeignKey("OrderStatus")]
+        public int OrderStatusId { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
 
         public decimal TotalPrice { get; set; }

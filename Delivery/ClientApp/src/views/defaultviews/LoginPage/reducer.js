@@ -94,23 +94,22 @@ function getUrlToRedirect() {
   var user = jwt.decode(localStorage.jwtToken);
   //let roles =[];
   let roles = user.roles;
-  console.log("USER",user);
+  console.log("USER IN LOGIN_reducer", user);
   let path = "";
   if (Array.isArray(roles)) {
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i] == "Admin") {
+      if (roles[i] === "Admin") {
         path = "/admin";
         break;
       } else if (roles[i] === "User") {
-        path = "/client/profile";
-        break;  
+        path = "/client";
       }
     }
   } else {
      if (roles === "User") {
-      path = "/client/profile";
+      path = "/client";
     } else if (roles === "Admin") {
-      path = "/admin";
+      path = "/admin/clients";
     }
   }
   
