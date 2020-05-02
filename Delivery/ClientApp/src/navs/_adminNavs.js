@@ -1,7 +1,7 @@
 export default {
     items: [
       // {
-      //   name: 'Список Клієнтів',
+      //   name: 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅлієпїЅпїЅпїЅ',
       //   url: '/admin',
       //   icon: 'icon-speedometer',
       //   badge: {
@@ -11,7 +11,7 @@ export default {
       // },
       {
         title: true,
-        name: 'Адмін панель',
+        name: 'РђРґРјС–Рµ РџР°РЅРµР»СЊ',
         wrapper: {            // optional wrapper object
           element: '',        // required valid HTML5 element tag
           attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
@@ -19,77 +19,77 @@ export default {
         class: ''   // optional class names space delimited list for title item ex: "text-center"       
       },
       {
-        name: 'Клієнти',
+        name: 'РљР»С–С”РЅС‚Рё',
         url: '/admin/client',
         icon: 'icon-people',
         children:[
       {
-        name: 'Список клієнтів',
+        name: 'РЎРїРёСЃРѕРє РєР»С–С”РЅС‚С–РІ',
         url: '/admin',
         icon: 'icon-user',
         
       },
       {
-        name: 'Постійні користувачі',
+        name: 'РџРѕСЃС‚С–Р№РЅС– РєРѕСЂРёСЃС‚СѓРІР°С‡С–',
         url: '/admin/comments',
         icon: 'icon-user-follow',
       },
         ],
       },
       {
-        name: 'Товари',
+        name: 'РўРѕРІР°СЂРё',
         url: '/admin/client',
         icon: 'icon-globe',
         children:[
       {
-        name: 'Додати страву',
+        name: 'Р”РѕРґР°С‚Рё СЃС‚СЂР°РІСѓ',
         url: '/admin',
         icon: 'icon-pencil',
         
       },
       {
-        name: 'Хіт продаж',
+        name: 'РҐС–С‚ РїСЂРѕРґР°Р¶',
         url: '/admin/comments',
         icon: 'icon-list',
       },
         ],
       },
       {
-        name: 'Адміністрація',
+        name: 'РђРґРјС–РЅС–СЃС‚СЂР°С†С–СЏ',
         url: '/admin/client',
         icon: 'icon-equalizer',
         children:[
       {
-        name: 'Видалити користувача',
+        name: 'Р’РёРґР°Р»РёС‚Рё РєРѕСЂРёСЃС‚СѓРІР°С‡Р°',
         url: '/admin',
         icon: 'icon-user-unfollow',
         
       },
       {
-        name: 'Видалити страву',
+        name: 'Р’РёРґР°Р»РёС‚Рё СЃС‚СЂР°РІСѓ',
         url: '/admin/comments',
         icon: 'icon-pencil',
       },
         ],
       },
       {
-        name: 'Статистика',
+        name: 'РЎС‚Р°С‚РёСЃС‚РёРєР°',
         url: '/admin/client',
         icon: 'icon-graph',
         children:[
       {
-        name: 'Користувачі',
+        name: 'РљРѕСЂРёСЃС‚СѓРІР°С‡С–',
         url: '/admin',
         icon: 'icon-people',
         
       },
       {
-        name: 'Продаж страв',
+        name: 'РџСЂРѕРґР°Р¶ СЃС‚СЂР°РІ',
         url: '/admin/comments',
         icon: 'icon-layers',
       },
       {
-        name: 'Прибуток',
+        name: 'РџСЂРёР±СѓС‚РѕРє',
         url: '/admin/comments',
         icon: 'icon-note',
       },
