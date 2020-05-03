@@ -1,0 +1,8 @@
+Button.addToCart {
+   
+    background-color: grey;
+    
+}
+Button.addToCart:hover {
+    color: white;
+}
