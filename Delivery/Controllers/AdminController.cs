@@ -12,10 +12,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Delivery.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-   
+
     public class AdminController : ControllerBase
     {
         private readonly UserManager<DbUser> _userManager;
@@ -29,7 +29,7 @@ namespace Delivery.Controllers
 
         [HttpPost("getusers")]
         public IActionResult GetAllUsers([FromBody] FiltersUsersViewModel model)
-       
+
         {
             if (!ModelState.IsValid)
             {
@@ -84,6 +84,31 @@ namespace Delivery.Controllers
             //    Status = true,
             //    Description = "LA LA LA "
             //}).ToList();
+            return Ok(result);
+        }
+
+
+        [HttpGet("getprocentdishes")]
+        public IActionResult GetAllOrderDishes([FromBody] GetAllSoldDishesViewModel model)
+
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("");
+            }
+
+            var query = _context.DishesInOrder.Include(u => u.Dish).AsQueryable();
+
+            GetAllSoldDishesViewModel result = new GetAllSoldDishesViewModel();
+
+            result.SoldDishes = query.Select(u => new GetSoldDishViewModel
+            {
+                Id = u.Id,
+                Name = u.Dish.Name,
+                TypeOfCuisine = u.Dish.TypeOfCuisine,
+                TypeOfDish = u.Dish.TypeOfDish
+            }).ToList();
+
             return Ok(result);
         }
 
