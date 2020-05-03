@@ -17,6 +17,7 @@ componentDidMount = ()=> {
 render() { 
     let counter = 1;
     const { listDishes } =this.props;
+    console.log("ListDishes:",listDishes);
     return (
       <div className="animated fadeIn">
         <Row>
@@ -41,10 +42,10 @@ render() {
                       return (
                         <tr key={item.id}>
                           <th scope="row">{counter++}</th>
-                          <td>{item.Name}</td>
-                          <td>{item.Description}</td>
-                          <td>{item.Price}</td>
-                          <td>{item.Weight}</td>
+                          <td>{item.name}</td>
+                          <td>{item.description}</td>
+                          <td>{item.price}</td>
+                          <td>{item.weight}</td>
                         </tr>
                       );
                     })}
@@ -62,7 +63,7 @@ render() {
 const mapStateToProps = state => {
 console.log("mapStateToProps", state);
 return {
-    listDishes: get(state, "dishes.list.data")
+    listDishes: get(state, "bestseller.list.data")
 };
 }
 
