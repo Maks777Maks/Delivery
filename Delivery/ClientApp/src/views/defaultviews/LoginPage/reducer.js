@@ -16,7 +16,7 @@ const initialState = {
     loading: false,
     success: false,
     failed: false,
-    errors: {}
+    errors: ''
   },
   isAuthenticated: false,
   user: {
@@ -84,6 +84,7 @@ export const login = model => {
         }
       )
       .catch(err => {
+        console.log("ERRRRRRRRRRRRR",err.response);
         dispatch(loginActions.failed(err.response));
         redirectStatusCode(err.response);
       });
@@ -132,7 +133,7 @@ export const loginActions = {
   failed: response => {
     return {
       type: LOGIN_POST_FAILED,
-      //errors: response.data
+      errors: response.data
     };
   },
 
