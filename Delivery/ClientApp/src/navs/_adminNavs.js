@@ -49,7 +49,7 @@ export default {
       },
       {
         name: 'Хіт продаж',
-        url: '/admin/comments',
+        url: '/admin/bestseller',
         icon: 'icon-list',
       },
         ],
