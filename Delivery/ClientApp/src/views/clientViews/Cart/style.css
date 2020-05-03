@@ -1,0 +1,127 @@
+.cart-box-main{
+    padding: 70px 0px;
+}
+
+.table-main table thead{
+    background: #bd2d5d;
+    color: #ffffff;
+}
+.table-main .table thead th{
+    font-size: 18px;
+}
+.table-main table td.thumbnail-img{
+    width: 120px;
+}
+.table-main table td{
+    vertical-align: middle;
+    font-size: 16px;
+}
+.table-responsive .table td, .table-responsive .table th {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.name-pr a{
+    font-weight: 700;
+    font-size: 18px;
+    color: #000000;
+}
+.quantity-box input{
+    width: 60px;
+    border: 2px solid #000000;
+    text-align: center;
+}
+
+.coupon-box .input-group .form-control {
+    min-height: 50px;
+    border-radius: 0px;
+    font-weight: 400;
+    border: 1px solid #e8e8e8;
+    box-shadow: none !important;
+}
+
+.coupon-box .input-group .form-control::-moz-placeholder{
+    color: #000000;
+}
+.coupon-box .input-group .input-group-append .btn-theme {
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 0px;
+    font-size: 16px;
+    padding: 0px 20px;
+}
+.coupon-box .input-group .input-group-append .btn-theme:hover {
+    background: #bd2d5d;
+}
+
+.order-box h3{
+    font-size: 16px;
+    color: #222222;
+    font-weight: 700;
+}
+.order-box h4 {
+    font-size: 16px;
+    padding: 0px;
+    line-height: 35px !important;
+}
+.order-box .font-weight-bold{
+    font-size: 18px;
+}
+
+.shopping-box a{
+    font-size: 18px;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+}
+
+.hvr-hover{
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    background: #bd2d5d;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    border-radius: 0;
+    box-shadow: none;
+}
+.hvr-hover::after {
+   content: "";
+   position: absolute;
+   z-index: -1;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: #000000;
+   border-radius: 100%;
+   -webkit-transform: scale(0);
+   transform: scale(0);
+   -webkit-transition-property: transform;
+   transition-property: transform;
+   -webkit-transition-duration: 0.3s;
+   transition-duration: 0.3s;
+   -webkit-transition-timing-function: ease-out;
+   transition-timing-function: ease-out;
+}
+.hvr-hover:hover::after{
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    color: #ffffff;
+}
+.hvr-hover{
+    overflow: hidden;
+}
+ul.cart-list > li.total > .btn:hover{
+    color: #ffffff;
+}
+.cart-box{
+    margin-top: 40px;
+    background: #ffffff;
+}

@@ -58,6 +58,8 @@ class Dishes extends Component {
     let newCart = this.state.cart;
     let totalPriceCart = this.state.totalPrice;
     console.log("totalPriceCart was" + totalPriceCart);
+    console.log("Cart" + this.state.cart)
+    
     newCart.push(item.name);
     totalPriceCart +=item.price;
     this.props.addDishToBasket(newCart);
@@ -67,6 +69,8 @@ class Dishes extends Component {
     });
     
     this.props.updateData(this.state.cart, this.state.cart.length, totalPriceCart);
+    // console.log("NewCArt State: " + this.state.cart);
+    // console.log("newCart From props:" + this.props.newResultCart)
 
   }
 
@@ -198,6 +202,8 @@ const mapStateToProps = (state) => {
     listDishes: get(state, "dishes.list.data"),
     totalCount: getTotalCount(state),
     totCount: state.totCount,
+    newResultCart: state.dishes.list.cart,
+    //newResultCart: get(state, "dishes.list.cart"),
     //activeTypeId: state.getAllDishesReducer.activeTypeId
   };
 };
