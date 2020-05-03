@@ -9,7 +9,7 @@ const initialState = {
     post: {
         loading: false,
         success: false,
-        failed: false,
+        failed: false
     }
 }
 
