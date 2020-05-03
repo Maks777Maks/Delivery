@@ -11,5 +11,14 @@ namespace Delivery.ViewModels
         public string Password { get; set; }
     }
 
+    public class ForgotPasswordModel
+    {
+        public string Email { get; set; }
+    }
 
+    public class ChangePasswordModel
+    {
+        public string Id { get; set; }
+        public string NewPassword { get; set; }
+    }
 }

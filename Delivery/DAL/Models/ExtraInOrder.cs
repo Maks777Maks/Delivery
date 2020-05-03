@@ -11,13 +11,13 @@ namespace Delivery.DAL.Models
     public class ExtraInOrder
     {
         [Key]
-        public int ExtraInOrderId { get; set; }
+        public int Id { get; set; }
 
-        [ForeignKey("OrderId")]
+        [ForeignKey("Order")]
         public int OrderId { get; set; }
         public virtual Order Order { get; set; }
 
-        [ForeignKey("ExtraId")]
+        [ForeignKey("Extra")]
         public int ExtraId { get; set; }
         public virtual Extra Extra { get; set; }
 

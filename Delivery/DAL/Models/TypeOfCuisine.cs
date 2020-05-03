@@ -11,10 +11,10 @@ namespace Delivery.DAL.Models
     public class TypeOfCuisine
     {
         [Key]
-        public int TypeOfCuisineId { get; set; }
+        public int Id { get; set; }
         [Required, StringLength(200)]
         public string TypeOfCuisineName { get; set; }
-        [StringLength(200)]
+        [Required, StringLength(200)]
         public string Image { get; set; }
     }
 }

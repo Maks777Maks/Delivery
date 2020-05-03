@@ -1,8 +1,8 @@
 export default {
     items: [
       {
-        name: 'Список Студентів',
-        url: '/admin/students',
+        name: 'Список Клієнтів',
+        url: '/admin',
         icon: 'icon-speedometer',
         badge: {
           variant: 'info',
@@ -37,13 +37,13 @@ export default {
         },
       },
       {
-        name: 'Base',
-        url: '/base',
+        name: 'Profile',
+        url: '/admin/profile',
         icon: 'icon-puzzle',
         children: [
           {
-            name: 'Breadcrumbs',
-            url: '/base/breadcrumbs',
+            name: 'Profile',
+            url: '/admin/profile',
             icon: 'icon-puzzle',
           },
           {

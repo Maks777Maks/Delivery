@@ -76,7 +76,7 @@ export const login = model => {
           dispatch(loginActions.success());
           loginByJWT(response.data, dispatch);
           const pushUrl = getUrlToRedirect();   
-          console.log("QQQQQQQQQQQQQQQQQQ",pushUrl);     
+          console.log("PUSH URL",pushUrl);     
           dispatch(push(pushUrl));
         },
         err => {
@@ -94,12 +94,12 @@ function getUrlToRedirect() {
   var user = jwt.decode(localStorage.jwtToken);
   //let roles =[];
   let roles = user.roles;
-  console.log("QQQQQQQQQQQQQQQQQQ",user);
+  console.log("USER",user);
   let path = "";
   if (Array.isArray(roles)) {
     for (let i = 0; i < roles.length; i++) {
       if (roles[i] == "Admin") {
-        path = "/admin";
+        path = "/admin/clients";
         break;
       } else if (roles[i] === "User") {
         path = "/client/profile";
@@ -110,7 +110,7 @@ function getUrlToRedirect() {
      if (roles === "User") {
       path = "/client/profile";
     } else if (roles === "Admin") {
-      path = "/admin";
+      path = "/admin/clients";
     }
   }
   
