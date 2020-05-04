@@ -4,10 +4,23 @@ import { connect } from "react-redux";
 import * as loginActions from './reducer';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
+import {
+    FormHelperText
+  } from '@material-ui/core';
 
 import {
     MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput
 } from "mdbreact";
+
+
+function LoadErrors(err){
+    if(typeof err!='object'){
+      return(
+      <FormHelperText error>{err}</FormHelperText>
+      )
+    }
+  }
+
 
 class LoginPage extends Component {
     state = {
@@ -17,9 +30,9 @@ class LoginPage extends Component {
         errors: {},
         done: false,
         isLoading: false,
-        errorsServer: {},
+        errorsServer: '',
         iconInput: 'eye-slash',
-        typeInput: 'password'
+        typeInput: 'password',
     }
 
     mouseEnter = () => {
@@ -67,9 +80,10 @@ class LoginPage extends Component {
         const { email, password } = this.state;
         console.log("onSubmitForm", this.state);
         //const regex_phone = /^(?=\+?([0-9]{2})\(?([0-9]{3})\)?([0-9]{3})-?([0-9]{2})-?([0-9]{2})).{17}$/;
+        const regex_password = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,24}$/;
 
         let errors = {};
-
+        if (!regex_password.test(password)) errors.password = "Пароль повинен мати мінімум 6 символів на латиниці, нижній і верхній регістр, та цифри!";
         if (email === '') errors.email = "Поле є обов'язковим";
         //if (!regex_phone.test(phone)) errors.phone = "Не вiрний формат +xx(xxx)xxx-xx-xx телефону";
 
@@ -90,14 +104,23 @@ class LoginPage extends Component {
         }
     }
 
+    static getDerivedStateFromProps(nextProps) {
+  console.log("Static",nextProps);
+        return { isLoading: nextProps.loading, errorsServer: nextProps.errorsServer};
+    }
+
+    
+
     render() {
-        const { iconInput, typeInput } = this.state;
+        const { iconInput, typeInput, errorsServer, errors } = this.state;
+        console.log("RENDER", errors);
         const form = (
             <MDBContainer>
                 <MDBRow style={{ height: '100vh' }} className="justify-content-center align-items-center">
                     <MDBCol md="5">
                         <form onSubmit={this.onSubmitForm}>
                             <p className="h5 text-center mb-4">Увійти</p>
+                            {LoadErrors(errorsServer)}
                             <div className="grey-text">
                                 <MDBInput label="Електронна пошта"
                                     icon="envelope"
@@ -120,6 +143,7 @@ class LoginPage extends Component {
                                     onChange={this.handleChange}
                                     autoComplete="new-password"
                                 />
+                                {!!errors.password ? <div>{errors.password}</div> : ""}
                             </div>
                             <div className="text-center">
                                 <MDBBtn type="submit" color='primary'>Вхід</MDBBtn>
@@ -144,7 +168,7 @@ function mapStateToProps(state) {
         loading: get(state, 'login.post.loading'),
         failed: get(state, 'login.post.failed'),
         success: get(state, 'login.post.success'),
-        errors: get(state, 'login.post.errors')
+        errorsServer: get(state, 'login.post.errors')
     }
 }
 
