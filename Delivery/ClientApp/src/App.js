@@ -1,7 +1,6 @@
 import React, { Suspense, Component } from 'react';
 import { Redirect, Route, Switch, HashRouter as Router } from "react-router-dom";
 import './App.scss';
-import Cart from "./views/clientViews/Cart"
 
 // Pages
 const LoginPage = React.lazy(() => import("./views/defaultViews/LoginPage"));
@@ -33,7 +32,7 @@ class App extends Component {
                         <Route exact path="/forgot-password" name="ForgotPassword" render={props => <ForgotPasswordPage {...props} />} />
                         <Route exact path="/change-password/:id" name="ChangePassword" render={props => <ChangePasswordPage {...props} />} />
                         <Route exact path="/alldishes" name="Dishes" render={props => <DishesPage {...props} /> } />
-                        <Route path="/cart" name="Cart" component={Cart} rener={props=> <CartPage {...props} /> } />
+                        <Route path="/cart" name="Cart" render={props=> <CartPage {...props} /> } />
                         <Redirect to="/" />
                     </Switch>
                 </Suspense>
