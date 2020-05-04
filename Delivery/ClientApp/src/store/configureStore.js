@@ -13,6 +13,7 @@ import { getAllTypesOfDishesReducer } from "../views/clientViews/TypesOfDishes/r
 import { getAllDishesReducer } from "../views/clientViews/Dishes/reducer";
 import { cartReducer } from "../views/clientViews/Cart/reducer";
 
+
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
 export const history = createHistory({ basename: baseUrl });
