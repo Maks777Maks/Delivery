@@ -128,7 +128,11 @@ class TypesOfDishes extends Component {
                 <div>
                   <p> TotalCount: {this.state.count}</p>
                   <p> Total Price: {this.state.totalPrice}</p>
+                  <Link className="nav-link" to="/cart" >Go to cart</Link>
+
+           
                   <p>
+
                     {" "}
                     Cart:{" "}
                     {cartN.map((item) => {
@@ -156,6 +160,7 @@ const mapStateToProps = (state) => {
   console.log("mapStateToPropsDishes", state);
   return {
     listTypesOfDishes: get(state, "typesOfDishes.list.data"),
+
   };
 };
 

@@ -34,18 +34,18 @@ namespace Delivery.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return "Введіть всі дані";
+                return BadRequest("Введіть всі дані");
             }
             var user = _context.Users.Include(u=> u.UserProfile).FirstOrDefault(x => x.Email == model.Email);
             if (user == null)
             {
-                return "Не правильна електронна пошта!";
+                return BadRequest("Не правильна електронна пошта!");
             }
             var res = _signInManager
                 .PasswordSignInAsync(user, model.Password, false, false).Result;
             if (!res.Succeeded)
             {
-                return "Не правильний пароль!";
+                return BadRequest("Не правильний пароль!");
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);
