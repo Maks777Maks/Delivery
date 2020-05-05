@@ -88,7 +88,7 @@ header {
 	
 	padding: 0px 0;
 	@include media-breakpoint-up(md) {
-		padding: 30px 0;	
+		padding: 10px 0;	
 	}
 	.navbar-brand {
 		text-transform: uppercase;
@@ -703,7 +703,7 @@ header {
 }
 .form-wrap {
 	background: $white;
-	padding: 50px;
+	padding: 25px;
 	box-shadow: 0 20px 50px -10px rgba(0,0,0,.5);
 	h2 {
 		font-size: 18px;
@@ -777,7 +777,7 @@ header {
 
 .load-more {
 	display: block;
-	padding: 40px;
+	padding: 25px;
 	text-align: center;
 	background: gray('200');
 	color: $black;
@@ -807,7 +807,7 @@ header {
 	color: $black;
 	&.border-bottom {
 		position: relative;
-		padding-bottom: 30px;
+		padding-bottom: 20px;
 		&:before {
 			bottom: 0;
 			position: absolute;
@@ -833,7 +833,7 @@ header {
 }
 
 .media-feature {
-	padding:30px;
+	padding:20px;
 	transition: .2s all ease-out;
 	background: $white;
 	z-index: 1;
@@ -888,7 +888,7 @@ header {
 		}
 	}
 	.media-body {
-		padding: 30px;
+		padding: 20px;
 		h3 {
 			font-size: 20px;
 		}

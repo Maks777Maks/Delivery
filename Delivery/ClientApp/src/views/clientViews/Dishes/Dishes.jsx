@@ -5,40 +5,23 @@ import { addDishToBasket } from "./reducer";
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
   CardImg,
   CardText,
   CardTitle,
   CardSubtitle,
-  Button,
-  Table,
-  Badge,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Label,
-  Input,
+  Button
 } from "reactstrap";
 import {} from "reactstrap";
 import { connect } from "react-redux";
 import get from "lodash.get";
 import * as R from "ramda";
-import TypesOfDishes from "../TypesOfDishes";
-import Cart from "../Cart";
-import { Link } from "react-router-dom";
 import { getTotalCount } from "./selectors";
-import stylesDishes from "./styles.css"
-import styles from "./../../defaultViews/scss/style.scss"
 
 class Dishes extends Component {
   state = {
     currentPage: 1,
     activeTypeId: this.props.activeTypeId,
     searchValue: this.props.searchValue,
-    totalCount: this.props.totalCount,
     totalCount: this.props.getTotalCount,
  
     cart: [],
@@ -47,10 +30,6 @@ class Dishes extends Component {
 
   componentDidMount = () => {
     const { currentPage } = this.state;
-    const { totCount } = this.props;
-    const activeTypeId = this.props.activeTypeId;
-
-
     this.props.getAllDishesData({ currentPage });
   };
 
@@ -75,15 +54,9 @@ class Dishes extends Component {
   }
 
   render() {
-  
-
     console.log("in render: totalCount" + this.state.cart.length);
-   
-    let counter = 1;
     const { listDishes } = this.props;
-    const cartN = this.state.cart;
  
-
     return (
       <div>
        

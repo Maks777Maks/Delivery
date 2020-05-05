@@ -15,7 +15,6 @@ namespace Delivery.Controllers
     [Authorize(Roles ="Admin")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-   
     public class AdminController : ControllerBase
     {
         private readonly UserManager<DbUser> _userManager;

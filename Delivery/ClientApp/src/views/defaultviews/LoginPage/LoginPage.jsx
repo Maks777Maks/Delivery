@@ -49,10 +49,6 @@ class LoginPage extends Component {
         });
     };
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
-    }
-
     setStateByErrors = (name, value) => {
         if (!!this.state.errors[name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -105,11 +101,9 @@ class LoginPage extends Component {
     }
 
     static getDerivedStateFromProps(nextProps) {
-  console.log("Static",nextProps);
+        console.log("Static",nextProps);
         return { isLoading: nextProps.loading, errorsServer: nextProps.errorsServer};
     }
-
-    
 
     render() {
         const { iconInput, typeInput, errorsServer, errors } = this.state;
