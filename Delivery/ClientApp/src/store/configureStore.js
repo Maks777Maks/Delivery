@@ -14,6 +14,7 @@ import { getAllDishesReducer } from "../views/clientViews/Dishes/reducer";
 import { cartReducer } from "../views/clientViews/Cart/reducer";
 import { bestsellerReducer } from "../views/adminViews/Bestseller/reducer";
 
+
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
 export const history = createHistory({ basename: baseUrl });
