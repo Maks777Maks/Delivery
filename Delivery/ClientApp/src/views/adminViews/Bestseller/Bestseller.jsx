@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as getListActions from './reducer';
-import { Card, CardBody, CardHeader, Col, Row, Table, Badge} from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Row, Table} from 'reactstrap';
 import { connect } from 'react-redux';
 import get from "lodash.get";
 

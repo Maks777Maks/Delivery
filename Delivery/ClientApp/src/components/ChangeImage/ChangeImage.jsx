@@ -16,7 +16,6 @@ import {
 import no_avatar from '../../assets/images/no-avatar.png';
 
 import jwt from 'jsonwebtoken';
-import { Link } from 'react-router-dom';
 
 let user = {};
 if (localStorage.jwtToken) {
@@ -93,11 +92,10 @@ class ChangeImage extends Component {
                                 onClick={this.triggerChildInput}>
                                 Загрузити фото
                             </Button>
-                            <Link to="/client">
-                                <Button color="light" className="px-4">
+                            
+                            <Button color="light" onClick={() => {this.props.history.goBack()}} className="px-4">
                                     Повернутися
-                                </Button>
-                            </Link>
+                            </Button>
 
                         </CardBody>
                         <CropperPage ref="cropperPage" getCroppedImage={this.getCroppedImage} isHidden={true} isForAvatar={true} />

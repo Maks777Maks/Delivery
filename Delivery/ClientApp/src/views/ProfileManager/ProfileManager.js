@@ -106,7 +106,8 @@ class ProfileManager extends Component {
         typeInput: 'password',
         isChange: false,
         isShowChangePassword: false,
-        isShowChangeImage: false
+        isShowChangeImage: false,
+        isLoadData: false
     }
 
     componentDidMount = () => {
@@ -138,8 +139,8 @@ class ProfileManager extends Component {
 
         return yy + '-' + mm + '-' + dd;
     }
-    componentDidUpdate(prevProps) {
-        if (this.props.userProfile.email !== prevProps.userProfile.email) {
+    componentDidUpdate() {
+        if (!this.state.isLoadData) {
             const { name, middleName, surname, email, phone, birthDate, address, photo } = this.props.userProfile;
             
             if (photo)
@@ -175,7 +176,8 @@ class ProfileManager extends Component {
                 address: {
                     address,
                     isInvalid: false
-                }
+                },
+                isLoadData: true
             });
         }
     }
@@ -449,8 +451,18 @@ class ProfileManager extends Component {
                             <Collapse isOpen={isChange}>
                                 <ModalButton buttonLabel={'Зберегти зміни'} submitConfirm={this.submitConfirm} ></ModalButton>
                             </Collapse>
-                            <Input type="button" style={{ marginTop: '20px', color: 'blue' }} value="Змінити пароль"
-                                onClick={() => { this.setState({ isShowChangePassword: !isShowChangePassword }) }} ></Input>
+
+                            <InputGroup style={{ marginTop: '20px' , color: 'blue' }}>
+                                <InputGroupAddon addonType="prepend">
+                                    <InputGroupText><i className="fa fa-key" aria-hidden="true"></i></InputGroupText>
+                                </InputGroupAddon>
+                                <Input 
+                                    style={{ color: 'blue' }}
+                                    type="button" 
+                                    value="Змінити пароль"
+                                    onClick={() => { this.setState({ isShowChangePassword: !isShowChangePassword }) }} ></Input>
+                            </InputGroup>
+                            
                             <Modal isOpen={isShowChangePassword} toggle={() => { this.setState({ isShowChangePassword: !isShowChangePassword }) }}>
                                 <ModalHeader toggle={() => { this.setState({ isShowChangePassword: !isShowChangePassword }) }}>Зміна пароля</ModalHeader>
                                 <ModalBody>
@@ -525,7 +537,7 @@ class ProfileManager extends Component {
                 </Row>
                 <Row className="justify-content-center align-items-center">
                     <Link to="/client">
-                        <Button color="green" style={{ marginTop: '20px' }} > Повернутися </Button>
+                        <Button outline color="primary" style={{ marginTop: '20px' }} > Повернутися </Button>
                     </Link>
                 </Row>
             </React.Fragment>
