@@ -12,6 +12,7 @@ import { changeImageReducer } from "../components/ChangeImage/reducer";
 import { getAllTypesOfDishesReducer } from "../views/clientViews/TypesOfDishes/reducer";
 import { getAllDishesReducer } from "../views/clientViews/Dishes/reducer";
 import { cartReducer } from "../views/clientViews/Cart/reducer";
+import { bestsellerReducer } from "../views/adminViews/Bestseller/reducer";
 
 
 // Create browser history to use in the Redux store
@@ -28,6 +29,7 @@ export default function configureStore(history, initialState) {
     typesOfDishes: getAllTypesOfDishesReducer,
     dishes: getAllDishesReducer,
     cart: cartReducer,
+    bestseller: bestsellerReducer,
   };
 
   const middleware = [thunk, routerMiddleware(history)];
