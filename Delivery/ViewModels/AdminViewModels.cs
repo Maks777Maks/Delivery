@@ -70,6 +70,7 @@ namespace Delivery.ViewModels
 
     public class ChangeImage
     {
+        public string Id { get; set; }
         public string Photo { get; set; }
     }
 

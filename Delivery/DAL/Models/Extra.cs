@@ -20,7 +20,7 @@ namespace Delivery.DAL.Models
         public string Image { get; set; }
         [StringLength(50)]
         public string Measuring { get; set; }
-        [Required]
+
         public decimal Price { get; set; }
     }
 }

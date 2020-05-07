@@ -84,7 +84,7 @@ namespace Delivery.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     TypeOfCuisineName = table.Column<string>(maxLength: 200, nullable: false),
-                    Image = table.Column<string>(maxLength: 200, nullable: false)
+                    Image = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,11 +98,24 @@ namespace Delivery.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     TypeOfDishName = table.Column<string>(maxLength: 150, nullable: false),
-                    Image = table.Column<string>(maxLength: 200, nullable: false)
+                    Image = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tblTypesOfDishes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TestCart",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestCart", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -262,15 +275,15 @@ namespace Delivery.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     OrderInvoice = table.Column<string>(maxLength: 100, nullable: false),
-                    UserId = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
                     DateOfCreate = table.Column<DateTime>(nullable: false),
                     DateOfDelivery = table.Column<DateTime>(nullable: false),
                     OrderStatusId = table.Column<int>(nullable: false),
                     TotalPrice = table.Column<decimal>(nullable: false),
                     Address = table.Column<string>(maxLength: 200, nullable: false),
                     CustomerWishes = table.Column<string>(maxLength: 500, nullable: true),
-                    DateReceived = table.Column<DateTime>(nullable: false),
-                    DateCancel = table.Column<DateTime>(nullable: false)
+                    DateReceived = table.Column<DateTime>(nullable: true),
+                    DateCancel = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -286,7 +299,7 @@ namespace Delivery.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -485,6 +498,9 @@ namespace Delivery.Migrations
 
             migrationBuilder.DropTable(
                 name: "tblUsersAccesses");
+
+            migrationBuilder.DropTable(
+                name: "TestCart");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
