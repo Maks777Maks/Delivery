@@ -13,6 +13,8 @@ import { getAllDishesReducer } from "../views/clientViews/Dishes/reducer";
 import { cartReducer } from "../views/clientViews/Cart/reducer";
 import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
 import {changePasswordReducer} from '../views/defaultViews/ChangePasswordPage/reducer'
+import { bestsellerReducer } from "../views/adminViews/Bestseller/reducer";
+
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
@@ -29,6 +31,7 @@ export default function configureStore(history, initialState) {
     dishes: getAllDishesReducer,
     cart: cartReducer,
     changePassword: changePasswordReducer
+    bestseller: bestsellerReducer,
   };
 
   const middleware = [thunk, routerMiddleware(history)];

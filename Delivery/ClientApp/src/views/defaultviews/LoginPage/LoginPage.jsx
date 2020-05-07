@@ -5,6 +5,9 @@ import * as loginActions from './reducer';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
+import {
+    FormHelperText
+  } from '@material-ui/core';
 import { Button, Card, CardBody, CardGroup,
     Col, Container, Form, Input, InputGroup,
     InputGroupAddon, InputGroupText, Row } from 'reactstrap';
@@ -16,6 +19,15 @@ import styles from '../../../assets/css/authStyle.css'
 import house from '../../../assets/images/houseIcon.png'
 
 
+function LoadErrors(err){
+    if(typeof err!='object'){
+      return(
+      <FormHelperText error>{err}</FormHelperText>
+      )
+    }
+  }
+
+
 class LoginPage extends Component {
     state = {
         email: '',
@@ -24,9 +36,9 @@ class LoginPage extends Component {
         errors: {},
         done: false,
         isLoading: false,
-        errorsServer: {},
+        errorsServer: '',
         iconInput: 'eye-slash',
-        typeInput: 'password'
+        typeInput: 'password',
     }
 
     mouseEnter = () => {
@@ -74,9 +86,10 @@ class LoginPage extends Component {
         const { email, password } = this.state;
         console.log("onSubmitForm", this.state);
         //const regex_phone = /^(?=\+?([0-9]{2})\(?([0-9]{3})\)?([0-9]{3})-?([0-9]{2})-?([0-9]{2})).{17}$/;
+        const regex_password = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,24}$/;
 
         let errors = {};
-
+        if (!regex_password.test(password)) errors.password = "Пароль повинен мати мінімум 6 символів на латиниці, нижній і верхній регістр, та цифри!";
         if (email === '') errors.email = "Поле є обов'язковим";
         //if (!regex_phone.test(phone)) errors.phone = "Не вiрний формат +xx(xxx)xxx-xx-xx телефону";
 
@@ -97,8 +110,16 @@ class LoginPage extends Component {
         }
     }
 
+    static getDerivedStateFromProps(nextProps) {
+  console.log("Static",nextProps);
+        return { isLoading: nextProps.loading, errorsServer: nextProps.errorsServer};
+    }
+
+    
+
     render() {
-        const { iconInput, typeInput, errors } = this.state;
+        const { iconInput, typeInput, errorsServer, errors } = this.state;
+        console.log("RENDER", errors);
         const form = (
             <Container>
                 <Row style={{ height: '100vh' }} className="justify-content-center align-items-center">
@@ -108,6 +129,7 @@ class LoginPage extends Component {
                                 <img src={house} style={{width: "70px"}}></img>
                             </div>
                             <p className="h5 text-center mb-4">Увійти</p>
+                            {LoadErrors(errorsServer)}
                             <div className="grey-text">
                                 <MDBInput label="Електронна пошта"
                                     icon="envelope"
@@ -134,10 +156,7 @@ class LoginPage extends Component {
                                     onChange={this.handleChange}
                                     autoComplete="new-password"
                                 />
-                                 {!!errors.email ?
-                                    <div className="errorMessage" style={styles}>
-                                        {errors.password}.
-                                        </div> : ""}   
+                                {!!errors.password ? <div>{errors.password}</div> : ""}
                             </div>
                             <div className="text-center">
                                 <Button type="submit" color='primary'>
@@ -168,7 +187,7 @@ function mapStateToProps(state) {
         loading: get(state, 'login.post.loading'),
         failed: get(state, 'login.post.failed'),
         success: get(state, 'login.post.success'),
-        errors: get(state, 'login.post.errors')
+        errorsServer: get(state, 'login.post.errors')
     }
 }
 
