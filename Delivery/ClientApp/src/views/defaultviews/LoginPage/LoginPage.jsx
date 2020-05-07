@@ -5,9 +5,6 @@ import * as loginActions from './reducer';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
-import {
-    FormHelperText
-  } from '@material-ui/core';
 import { Button, Card, CardBody, CardGroup,
     Col, Container, Form, Input, InputGroup,
     InputGroupAddon, InputGroupText, Row } from 'reactstrap';
@@ -17,16 +14,6 @@ import {
 } from "mdbreact";
 import styles from '../../../assets/css/authStyle.css'
 import house from '../../../assets/images/houseIcon.png'
-
-
-function LoadErrors(err){
-    if(typeof err!='object'){
-      return(
-      <FormHelperText error>{err}</FormHelperText>
-      )
-    }
-  }
-
 
 class LoginPage extends Component {
     state = {
@@ -119,7 +106,7 @@ class LoginPage extends Component {
 
     render() {
         const { iconInput, typeInput, errorsServer, errors } = this.state;
-        console.log("RENDER", errors);
+
         const form = (
             <Container>
                 <Row style={{ height: '100vh' }} className="justify-content-center align-items-center">
@@ -129,7 +116,10 @@ class LoginPage extends Component {
                                 <img src={house} style={{width: "70px"}}></img>
                             </div>
                             <p className="h5 text-center mb-4">Увійти</p>
-                            {LoadErrors(errorsServer)}
+                            {!!errorsServer ?
+                                        <div className="errorMessage" style={styles}>
+                                        {errorsServer}.
+                                        </div> : ""}                               
                             <div className="grey-text">
                                 <MDBInput label="Електронна пошта"
                                     icon="envelope"
@@ -156,7 +146,10 @@ class LoginPage extends Component {
                                     onChange={this.handleChange}
                                     autoComplete="new-password"
                                 />
-                                {!!errors.password ? <div>{errors.password}</div> : ""}
+                                {!!errors.password ? 
+                                <div className="errorMessage" style={styles}>
+                                    {errors.password}
+                                    </div> : ""}
                             </div>
                             <div className="text-center">
                                 <Button type="submit" color='primary'>
