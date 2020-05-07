@@ -34,7 +34,7 @@ export const loginReducer = (state = initialState, action) => {
     case LOGIN_POST_STARTED: {
       newState = update.set(state, "post.loading", true);
       newState = update.set(newState, "post.success", false);
-      newState = update.set(newState, "post.errors", {});
+      newState = update.set(newState, "post.errors", '');
       newState = update.set(newState, "post.failed", false);
       break;
     }
@@ -48,7 +48,7 @@ export const loginReducer = (state = initialState, action) => {
     case LOGIN_POST_SUCCESS: {
       newState = update.set(state, "post.loading", false);
       newState = update.set(newState, "post.failed", false);
-      newState = update.set(newState, "post.errors", {});
+      newState = update.set(newState, "post.errors", '');
       newState = update.set(newState, "post.success", true);
       break;
     }

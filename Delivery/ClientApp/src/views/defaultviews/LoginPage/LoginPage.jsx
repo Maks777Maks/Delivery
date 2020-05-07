@@ -85,7 +85,6 @@ class LoginPage extends Component {
                 email: email,
                 password: password
             };
-
             this.props.login(model, this.props.history);
         }
         else {
@@ -100,7 +99,7 @@ class LoginPage extends Component {
 
     render() {
         const { iconInput, typeInput, errorsServer, errors } = this.state;
-
+console.log(errorsServer)
         const form = (
             <Container>
                 <Row style={{ height: '100vh' }} className="justify-content-center align-items-center">
@@ -112,7 +111,7 @@ class LoginPage extends Component {
                             <p className="h5 text-center mb-4">Увійти</p>
                             {!!errorsServer ?
                                         <div className="errorMessage" style={styles}>
-                                        - {errorsServer}.
+                                        - {errorsServer}
                                         </div> : ""}                               
                             <div className="grey-text">
                                 <MDBInput label="Електронна пошта"
@@ -148,7 +147,7 @@ class LoginPage extends Component {
                             <div className="text-center">
                                 <Button type="submit" color='primary'>
                                     Вхід
-                                    <i class="fas fa-sign-in-alt" style={{marginLeft: "5px"}}></i>
+                                    <i className="fas fa-sign-in-alt" style={{marginLeft: "5px"}}></i>
                                 </Button>
                             </div>
                             <div>
