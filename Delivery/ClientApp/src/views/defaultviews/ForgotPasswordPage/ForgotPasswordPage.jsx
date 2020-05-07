@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-// import { Button, Card, CardBody, CardGroup,
-//          Col, Container, Form, Input, InputGroup,
-//          InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Button, Card, CardBody, CardGroup,
+         Col, Container, Form, Input, InputGroup,
+         InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import * as getListActions from './reducer';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
+import styles from '../../../assets/css/authStyle.css'
+import {Modal} from 'react-bootstrap'
 
 
 import {
@@ -33,12 +35,11 @@ class ForgotPasswordPage extends Component {
     errors: {},
     done: false,
     isLoading: false,
-    errorsServer: {}
+    errorsServer: ''
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-  
-    return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
+  static getDerivedStateFromProps(nextProps) {
+    return { isLoading: nextProps.loading, errorsServer: nextProps.errorsServer, done: nextProps.success };
 }
 
   setStateByErrors = (name, value) => {
@@ -85,17 +86,31 @@ class ForgotPasswordPage extends Component {
       this.setState({ errors });
     }
   }
-  
+
   render() {
-    const { errors } = this.state;
-                       
-    const form = (
-      
-<MDBContainer >
-  <MDBRow style={{height: '100vh' }} className="justify-content-center align-items-center">
-    <MDBCol md="5">
-      <form onSubmit={this.onSubmitForm}>
-        <p className="h5 text-center mb-4">Відправити лист для відновлення паролю</p>
+    const { errors, errorsServer, done } = this.state;
+    const modalForm = (<Container>
+      <Row style={{height: '100vh'}} className="justify-content-center align-items-center">
+        <Col md="5">
+          <Form onSubmit={this.onSubmitForm} className="form" style={styles}>
+          <p>Для зміни паролю перейдіть за посиланням у листі, який ми вам відправили на вказану електронну адресу</p>
+          <Button color='secondary'>          
+            <Link to="/login" style={{color: "white", textDecoration: "none"}}>Повернутись до входу</Link>
+          </Button>
+          </Form>
+    </Col>
+  </Row>
+</Container>)
+    const form = (done ? modalForm:
+<Container>
+  <Row style={{height: '100vh'}} className="justify-content-center align-items-center">
+    <Col md="5">
+      <Form onSubmit={this.onSubmitForm} className="form" style={styles}>
+        <p className="h4 text-center mb-4">Відправити лист для відновлення паролю</p>
+        {!!errorsServer ?
+     <div className="errorMessage" style={styles}>
+      {errorsServer}.
+    </div> : ""} 
         <div className="grey-text">
           <MDBInput label="Електронна пошта" 
           icon="envelope" 
@@ -106,17 +121,20 @@ class ForgotPasswordPage extends Component {
             name="email"
             onChange={this.handleChange}/>      
                {!!errors.email ?
-     <div className="alert alert-danger">
-      {errors.email}.
+     <div className="errorMessage" style={styles}>
+      - {errors.email}.
     </div> : ""}   
         </div>
         <div className="text-center">
-          <MDBBtn type="submit" color='primary'>Відправити</MDBBtn>
+          <Button color='secondary'>          
+            <Link to="/login" style={{color: "white", textDecoration: "none"}}>Повернутись до входу</Link>
+          </Button>
+          <Button type="submit" color='primary'>Відправити</Button>
         </div>
-      </form>
-    </MDBCol>
-  </MDBRow>
-</MDBContainer>
+      </Form>
+    </Col>
+  </Row>
+</Container>
     );
     return (
        form
@@ -129,7 +147,7 @@ function mapStateToProps(state) {
     loading: get(state, 'forgotPassword.post.loading'),
     failed: get(state, 'forgotPassword.post.failed'),
     success: get(state, 'forgotPassword.post.success'),
-    errors: get(state, 'forgotPassword.post.errors')
+    errorsServer: get(state, 'forgotPassword.post.errors')
   }
 }
 

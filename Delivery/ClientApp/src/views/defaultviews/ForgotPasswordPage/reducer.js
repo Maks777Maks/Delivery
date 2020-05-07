@@ -9,7 +9,8 @@ const initialState = {
     post: {
         loading: false,
         success: false,
-        failed: false
+        failed: false,
+        errors: ''
     }
 }
 
@@ -22,7 +23,8 @@ export const ForgotPassword = (model) => {
                 dispatch(getListActions.success());               
             }, err=> { throw err; })
             .catch(err=> {
-              dispatch(getListActions.failed(err));
+              console.log("Errrrrrr", err.response);
+              dispatch(getListActions.failed(err.response));
             });
     }
 }
@@ -41,7 +43,7 @@ export const getListActions = {
     failed: (error) => {
         return {           
             type: SEND_EMAIL_FAILED,
-            errors: error
+            errors: error.data
         }
     }
   }
@@ -67,6 +69,7 @@ export const forgotPasswordReducer = (state = initialState, action) => {
           newState = update.set(state, 'post.loading', false);
           newState = update.set(newState, 'post.success', false);
           newState = update.set(newState, 'post.failed', true);
+          newState = update.set(newState, "post.errors", action.errors);
           break;
       }
       default: {

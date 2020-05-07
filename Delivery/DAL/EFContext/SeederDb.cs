@@ -143,37 +143,37 @@ namespace Delivery.DAL.EFContext
                 #endregion
 
                 #region Create user with existing email
-                mail = "amerscan8@gmail.com";
-                roleName = "User";
-                user = new DbUser
-                {
-                    Email = mail,
-                    UserName = mail,
-                    PhoneNumber = "+380967289363"
-                };
+                //var mail = "amerscan8@gmail.com";
+                //var roleName = "User";
+                //var user = new DbUser
+                //{
+                //    Email = mail,
+                //    UserName = mail,
+                //    PhoneNumber = "+380967289363"
+                //};
 
-                result = _userManager.CreateAsync(user, "Qwerty-4").Result;
-                date = new DateTime(2003, 10, 21);
-                userProfile = new UserProfile
-                {
-                    Id = user.Id,
-                    FirstName = "Denys",
-                    MiddleName = "Valentynovych",
-                    LastName = "Yaremchuk",
-                    RegistrationDate = DateTime.Now,
-                    BirthDate = date
-                };
-                userAccess = new UserAccess
-                {
-                    Id = user.Id,
-                    Reason = "Bad attitude to other customers",
-                    DateBlock = DateTime.Now,
-                    IsUnblock = true
-                };
+                //var result = _userManager.CreateAsync(user, "Qwerty-4").Result;
+                //var date = new DateTime(2003, 10, 21);
+                //var userProfile = new UserProfile
+                //{
+                //    Id = user.Id,
+                //    FirstName = "Denys",
+                //    MiddleName = "Valentynovych",
+                //    LastName = "Yaremchuk",
+                //    RegistrationDate = DateTime.Now,
+                //    BirthDate = date
+                //};
+                //var userAccess = new UserAccess
+                //{
+                //    Id = user.Id,
+                //    Reason = "Bad attitude to other customers",
+                //    DateBlock = DateTime.Now,
+                //    IsUnblock = true
+                //};
 
-                _context.UserProfile.Add(userProfile);
-                _context.UsersAccesses.Add(userAccess);
-                result = _userManager.AddToRoleAsync(user, roleName).Result;
+                //_context.UserProfile.Add(userProfile);
+                //_context.UsersAccesses.Add(userAccess);
+                //result = _userManager.AddToRoleAsync(user, roleName).Result;
                 #endregion
 
                 #region Create admin
@@ -457,13 +457,13 @@ namespace Delivery.DAL.EFContext
                 var managerRole = scope.ServiceProvider.GetRequiredService<RoleManager<DbRole>>();
                 var context = scope.ServiceProvider.GetRequiredService<EFDbContext>();
 
-                SeederDb.SeedRoles(managerRole);
-                SeederDb.SeedUsers(user_manager, context);
-                SeederDb.SeedTypeOfDish(context);
-                SeederDb.SeedTypeOfCuisine(context);
-                SeederDb.SeedOrderStatus(context);
-                SeederDb.SeedExtra(context);
-                SeederDb.SeedDish(context);
+                //SeederDb.SeedRoles(managerRole);
+                //SeederDb.SeedUsers(user_manager, context);
+                //SeederDb.SeedTypeOfDish(context);
+                //SeederDb.SeedTypeOfCuisine(context);
+                //SeederDb.SeedOrderStatus(context);
+                //SeederDb.SeedExtra(context);
+                //SeederDb.SeedDish(context);
             }
         }
     }

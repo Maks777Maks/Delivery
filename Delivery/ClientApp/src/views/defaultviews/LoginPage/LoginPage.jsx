@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import * as loginActions from './reducer';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
+import { Button, Card, CardBody, CardGroup,
+    Col, Container, Form, Input, InputGroup,
+    InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
 import {
     MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput
 } from "mdbreact";
+import styles from '../../../assets/css/authStyle.css'
+import house from '../../../assets/images/houseIcon.png'
+
 
 class LoginPage extends Component {
     state = {
@@ -91,12 +98,15 @@ class LoginPage extends Component {
     }
 
     render() {
-        const { iconInput, typeInput } = this.state;
+        const { iconInput, typeInput, errors } = this.state;
         const form = (
-            <MDBContainer>
-                <MDBRow style={{ height: '100vh' }} className="justify-content-center align-items-center">
-                    <MDBCol md="5">
-                        <form onSubmit={this.onSubmitForm}>
+            <Container>
+                <Row style={{ height: '100vh' }} className="justify-content-center align-items-center">
+                    <Col md="5">
+                        <Form onSubmit={this.onSubmitForm}  className="form" style={styles}>
+                            <div style={{textAlign: "center"}}>
+                                <img src={house} style={{width: "70px"}}></img>
+                            </div>
                             <p className="h5 text-center mb-4">Увійти</p>
                             <div className="grey-text">
                                 <MDBInput label="Електронна пошта"
@@ -108,6 +118,10 @@ class LoginPage extends Component {
                                     name="email"
                                     onChange={this.handleChange}
                                     autoComplete="new-password" />
+                                     {!!errors.email ?
+                                        <div className="errorMessage" style={styles}>
+                                        {errors.email}.
+                                        </div> : ""}   
                                 <MDBInput
                                     label='Пароль'
                                     validate
@@ -120,14 +134,24 @@ class LoginPage extends Component {
                                     onChange={this.handleChange}
                                     autoComplete="new-password"
                                 />
+                                 {!!errors.email ?
+                                    <div className="errorMessage" style={styles}>
+                                        {errors.password}.
+                                        </div> : ""}   
                             </div>
                             <div className="text-center">
-                                <MDBBtn type="submit" color='primary'>Вхід</MDBBtn>
+                                <Button type="submit" color='primary'>
+                                    Вхід
+                                    <i class="fas fa-sign-in-alt" style={{marginLeft: "5px"}}></i>
+                                </Button>
                             </div>
-                        </form>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>);
+                            <div>
+                                <Link to="/forgot-password" style={{textDecoration: "none", fontSize: "15px"}}>Забув пароль?</Link>
+                            </div>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>);
         return (
             form
         );

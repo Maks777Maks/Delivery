@@ -128,6 +128,17 @@ namespace Delivery
                 RequestPath = new PathString('/' + Configuration.GetValue<string>("UserUrlImages"))
             });
             #endregion
+
+            #region InitSaticFiles ProductImages
+            string pathProducts = InitStaticFiles
+                    .CreateFolderServer(env, this.Configuration,
+                    new string[] { "ImagesPath", "ImagesProductsPath" });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathProducts),
+                RequestPath = new PathString('/' + Configuration.GetValue<string>("ProductUrlImages"))
+            });
+            #endregion
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-// import { Button, Card, CardBody, CardGroup,
-//          Col, Container, Form, Input, InputGroup,
-//          InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardGroup,
+         Col, Container, Form, Input, InputGroup,
+         InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import * as getListActions from './reducer';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
+import styles from '../../../assets/css/authStyle.css'
 
 import {
     MDBContainer,
@@ -31,7 +32,7 @@ class ChangePasswordPage extends Component {
         iconInput: 'eye-slash',
         typeInput: 'password',
         errors: {},
-        // done: false,
+        done: false,
         isLoading: false,
         // errorsServer: {}
     }
@@ -50,9 +51,9 @@ class ChangePasswordPage extends Component {
         });
       };
     
-    //   static getDerivedStateFromProps(nextProps, prevState) {
-    //     return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
-    // }
+      static getDerivedStateFromProps(nextProps) {
+        return { isLoading: nextProps.loading,  done: nextProps.success};
+    }
     
       setStateByErrors = (name, value) => {
         if (!!this.state.errors[name]) {
@@ -81,8 +82,12 @@ class ChangePasswordPage extends Component {
         const { password, confirmPassword, id } = this.state;
         console.log("onSubmitForm", this.state);    
         let errors = {};
+        const regex_password = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,24}$/;
     
         if (password === '') errors.password = "Поле є обов'язковим";
+
+        if(!regex_password.test(password)) errors.passNotMatchedRegex = "Пароль повинен містити мінімум 6 символів," +  
+        "1 цифру, 1 велику букву, 1 малу букву і 1 спец. символ";
     
         if (confirmPassword === '') errors.confirmPassword = "Поле є обов'язковим";
 
@@ -110,17 +115,33 @@ class ChangePasswordPage extends Component {
     }
 
     render() {
-        const {errors, typeInput, iconInput} = this.state;
+        const {errors, typeInput, iconInput, done} = this.state;
+        const modalForm = (<Container>
+          <Row style={{height: '100vh'}} className="justify-content-center align-items-center">
+            <Col md="5">
+              <Form onSubmit={this.onSubmitForm} className="form" style={styles}>
+                <p>Вітаємо! Ви успішно змінили пароль.</p>
+                <Button color='secondary'>          
+                    <Link to="/login" style={{color: "white", textDecoration: "none"}}>Повернутись до входу</Link>
+                </Button>
+              </Form>
+        </Col>
+      </Row>
+    </Container>)
 
-    const form = (
-        <MDBContainer >
-  <MDBRow style={{height: '100vh' }} className="justify-content-center align-items-center">
-    <MDBCol md="5">
-      <form onSubmit={this.onSubmitForm}>
+    const form = (done ? modalForm :
+        <Container >
+  <Row style={{height: '100vh' }} className="justify-content-center align-items-center">
+    <Col md="5">
+      <Form onSubmit={this.onSubmitForm} className="form" style={styles}>
       {!!errors.passwordsNotMatched ?
-     <div className="alert alert-danger">
+     <div className="errorMessage" style={styles}>
       {errors.passwordsNotMatched}.
     </div> : ""} 
+    {!!errors.passNotMatchedRegex ?
+     <div className="errorMessage" style={styles}>
+      {errors.passNotMatchedRegex}.
+    </div> : ""}
         <p className="h5 text-center mb-4">Змінити пароль</p>
         <div className="grey-text">
           <MDBInput label="Пароль" 
@@ -133,7 +154,7 @@ class ChangePasswordPage extends Component {
                 onIconMouseLeave={this.mouseLeave}
                 onChange={this.handleChange}/>
                 {!!errors.password ?
-     <div className="alert alert-danger">
+     <div className="errorMessage" style={styles}>
       {errors.password}.
     </div> : ""}    
               <MDBInput
@@ -148,18 +169,17 @@ class ChangePasswordPage extends Component {
                 onChange={this.handleChange}
               />
                  {!!errors.confirmPassword ?
-     <div className="alert alert-danger">
+     <div className="errorMessage" style={styles}>
       {errors.confirmPassword}.
     </div> : ""}
         </div>
         <div className="text-center">
-            {/* <Redirect to=""></Redirect> */}
-          <MDBBtn type="submit" color='primary'>Перейти до входу</MDBBtn>
+          <Button type="submit" color='primary'>Змінити</Button>
         </div>
-      </form>
-    </MDBCol>
-  </MDBRow>
-</MDBContainer>
+      </Form>
+    </Col>
+  </Row>
+</Container>
     )
     return(
         form
