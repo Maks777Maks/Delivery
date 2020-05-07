@@ -4,7 +4,6 @@ import { connectRouter, routerMiddleware } from "connected-react-router";
 import { createHashHistory as createHistory } from "history";
 
 ///reducers
-import { loginReducer } from "../views/defaultViews/LoginPage/reducer";
 import { getAllUsersReducer } from "../views/adminViews/UsersStats/reducer";
 import { getProfileReducer } from "../views/ProfileManager/reducer";
 import { forgotPasswordReducer } from "../views/defaultViews/ForgotPasswordPage/reducer";
@@ -12,6 +11,8 @@ import { changeImageReducer } from "../components/ChangeImage/reducer";
 import { getAllTypesOfDishesReducer } from "../views/clientViews/TypesOfDishes/reducer";
 import { getAllDishesReducer } from "../views/clientViews/Dishes/reducer";
 import { cartReducer } from "../views/clientViews/Cart/reducer";
+import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
+import {changePasswordReducer} from '../views/defaultViews/ChangePasswordPage/reducer'
 import { bestsellerReducer } from "../views/adminViews/Bestseller/reducer";
 
 
@@ -29,7 +30,8 @@ export default function configureStore(history, initialState) {
     typesOfDishes: getAllTypesOfDishesReducer,
     dishes: getAllDishesReducer,
     cart: cartReducer,
-    bestseller: bestsellerReducer,
+    changePassword: changePasswordReducer,
+    bestseller: bestsellerReducer
   };
 
   const middleware = [thunk, routerMiddleware(history)];
