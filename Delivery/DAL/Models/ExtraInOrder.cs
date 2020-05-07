@@ -21,7 +21,6 @@ namespace Delivery.DAL.Models
         public int ExtraId { get; set; }
         public virtual Extra Extra { get; set; }
 
-        [Required]
         public int Amount { get; set; }
     }
 }
