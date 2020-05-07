@@ -1,4 +1,3 @@
-import * as R from 'ramda'
 //export const getTotalCount = state => R.length(this.state.cart)
 export const getTotalCount = state => {
         

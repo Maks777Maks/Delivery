@@ -1,29 +1,10 @@
 import React, { Component } from "react";
 import * as getListActions from "./reducer";
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  Badge,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Label,
-  Input,
-} from "reactstrap";
 import hero_2 from "../../../assets/img/hero_2.jpg";
 import { connect } from "react-redux";
 import get from "lodash.get";
 import Dishes from "../Dishes";
-import * as R from "ramda";
-import Cart from "../Cart";
 import { Link } from "react-router-dom";
-import stylesTypes from "./styleTypes.css";
-import styles from "./../../defaultViews/scss/style.scss";
 
 class TypesOfDishes extends Component {
   state = {
@@ -77,7 +58,6 @@ class TypesOfDishes extends Component {
   };
 
   render() {
-    let counter = 1;
     const { listTypesOfDishes } = this.props;
 
     const cartN = this.state.cart;

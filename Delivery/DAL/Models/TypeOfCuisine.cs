@@ -14,7 +14,7 @@ namespace Delivery.DAL.Models
         public int Id { get; set; }
         [Required, StringLength(200)]
         public string TypeOfCuisineName { get; set; }
-        [Required, StringLength(200)]
+        [StringLength(200)]
         public string Image { get; set; }
     }
 }
