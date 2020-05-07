@@ -134,15 +134,15 @@ class ChangePasswordPage extends Component {
   <Row style={{height: '100vh' }} className="justify-content-center align-items-center">
     <Col md="5">
       <Form onSubmit={this.onSubmitForm} className="form" style={styles}>
-      {!!errors.passwordsNotMatched ?
-     <div className="errorMessage" style={styles}>
-      {errors.passwordsNotMatched}.
-    </div> : ""} 
-    {!!errors.passNotMatchedRegex ?
-     <div className="errorMessage" style={styles}>
-      {errors.passNotMatchedRegex}.
-    </div> : ""}
         <p className="h5 text-center mb-4">Змінити пароль</p>
+        {!!errors.passNotMatchedRegex ?
+     <div className="errorMessage" style={styles}>
+      - {errors.passNotMatchedRegex}.
+    </div> : ""}
+    {!!errors.passwordsNotMatched ?
+     <div className="errorMessage" style={styles}>
+      - {errors.passwordsNotMatched}.
+    </div> : ""} 
         <div className="grey-text">
           <MDBInput label="Пароль" 
           validate
@@ -155,7 +155,7 @@ class ChangePasswordPage extends Component {
                 onChange={this.handleChange}/>
                 {!!errors.password ?
      <div className="errorMessage" style={styles}>
-      {errors.password}.
+      - {errors.password}.
     </div> : ""}    
               <MDBInput
                 label='Підтвердіть пароль'
@@ -170,7 +170,7 @@ class ChangePasswordPage extends Component {
               />
                  {!!errors.confirmPassword ?
      <div className="errorMessage" style={styles}>
-      {errors.confirmPassword}.
+      - {errors.confirmPassword}.
     </div> : ""}
         </div>
         <div className="text-center">

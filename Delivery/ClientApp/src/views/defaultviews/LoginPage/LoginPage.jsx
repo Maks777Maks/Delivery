@@ -118,7 +118,7 @@ class LoginPage extends Component {
                             <p className="h5 text-center mb-4">Увійти</p>
                             {!!errorsServer ?
                                         <div className="errorMessage" style={styles}>
-                                        {errorsServer}.
+                                        - {errorsServer}.
                                         </div> : ""}                               
                             <div className="grey-text">
                                 <MDBInput label="Електронна пошта"
@@ -132,7 +132,7 @@ class LoginPage extends Component {
                                     autoComplete="new-password" />
                                      {!!errors.email ?
                                         <div className="errorMessage" style={styles}>
-                                        {errors.email}.
+                                        - {errors.email}.
                                         </div> : ""}   
                                 <MDBInput
                                     label='Пароль'
@@ -148,7 +148,7 @@ class LoginPage extends Component {
                                 />
                                 {!!errors.password ? 
                                 <div className="errorMessage" style={styles}>
-                                    {errors.password}
+                                    - {errors.password}
                                     </div> : ""}
                             </div>
                             <div className="text-center">

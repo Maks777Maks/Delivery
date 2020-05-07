@@ -30,8 +30,8 @@ export default function configureStore(history, initialState) {
     typesOfDishes: getAllTypesOfDishesReducer,
     dishes: getAllDishesReducer,
     cart: cartReducer,
-    changePassword: changePasswordReducer
-    bestseller: bestsellerReducer,
+    changePassword: changePasswordReducer,
+    bestseller: bestsellerReducer
   };
 
   const middleware = [thunk, routerMiddleware(history)];
