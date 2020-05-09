@@ -89,28 +89,39 @@ namespace Delivery.Controllers
 
 
         [HttpGet("getprocentdishes")]
-        public IActionResult GetAllOrderDishes([FromBody] GetAllSoldDishesViewModel model)
+        public IActionResult GetAllOrderDishes()
 
         {
-            if (!ModelState.IsValid)
+            //var typeOfCuisine = _context.TypesOfCuisines.ToList();
+            //var query = _context.DishesInOrder.Include(x => x.Order).AsQueryable();
+            //GetPieDataViewModel result = new GetPieDataViewModel();
+            //var temp = query.Where(x => x.Order.OrderStatusId == 3 && x.Dish.TypeOfCuisineId == 2).Count();
+            //foreach (var item in typeOfCuisine)
+            //{
+            //    result.TypeOfCuisines.Add(new GetTypeOfCuisineViewModel
+            //    {
+            //        Id = item.Id,
+            //        Name = item.TypeOfCuisineName,
+            //        Count = query.Where(x => x.Order.OrderStatusId == 3 && x.Dish.TypeOfCuisineId == item.Id).Count()
+            //    });
+            //}
+            //return Ok(result);
+            var typeOfCuisine = _context.TypesOfCuisines.ToList();
+            var query = _context.DishesInOrder./*Include(x => x.Order).*/Where(x => x.Order.OrderStatusId == 3).AsQueryable();
+           
+            GetPieDataViewModel result = new GetPieDataViewModel();
+            result.TypeOfCuisines = new List<GetTypeOfCuisineViewModel>();
+            foreach (var item in typeOfCuisine)
             {
-                return BadRequest("");
+                int temp = query.Where(x => x.Dish.TypeOfCuisine.Id == item.Id).Count();
+                result.TypeOfCuisines.Add(new GetTypeOfCuisineViewModel
+                {
+                    Id = item.Id,
+                    Name = item.TypeOfCuisineName,
+                    Count = temp
+                });
             }
-
-            var query = _context.DishesInOrder.Include(u => u.Dish).AsQueryable();
-
-            GetAllSoldDishesViewModel result = new GetAllSoldDishesViewModel();
-
-            result.SoldDishes = query.Select(u => new GetSoldDishViewModel
-            {
-                Id = u.Id,
-                Name = u.Dish.Name,
-                TypeOfCuisine = u.Dish.TypeOfCuisine,
-                TypeOfDish = u.Dish.TypeOfDish
-            }).ToList();
-
             return Ok(result);
         }
-
     }
 }

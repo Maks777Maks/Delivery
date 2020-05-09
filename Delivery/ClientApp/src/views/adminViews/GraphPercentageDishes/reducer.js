@@ -14,11 +14,13 @@ const initialState = {
     },   
 }
 
-export const getAllSoldDishesData = (model) => {
+export const getAllSoldDishesData = () => {
     return (dispatch) => {
         dispatch(getListActions.started());
-        GraphPercentageDishesService.getAllSoldDishes(model)
+console.log("Dispatch");
+        GraphPercentageDishesService.getAllSoldDishes()
             .then((response) => {
+                console.log("response", response)
                 dispatch(getListActions.success(response));               
             }, err=> { throw err; })
             .catch(err=> {
@@ -27,6 +29,7 @@ export const getAllSoldDishesData = (model) => {
     }
 }
 
+
 export const getListActions = {
     started: () => {
         return {
@@ -34,9 +37,10 @@ export const getListActions = {
         }
     },  
     success: (data) => {
+        console.log("Data", data.data)
         return {
             type: ALL_DISHES_SUCCESS,
-            payload: data
+            payload: data.data.typeOfCuisines
         }
     },  
     failed: (error) => {

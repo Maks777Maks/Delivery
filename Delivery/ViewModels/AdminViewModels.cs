@@ -18,24 +18,22 @@ namespace Delivery.ViewModels
         public string Description { get; set; }
     }
 
-    public class GetSoldDishViewModel
+    public class GetTypeOfCuisineViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public TypeOfCuisine TypeOfCuisine { get; set; }
-        public TypeOfDish TypeOfDish { get; set; }
+        public int Count { get; set; }
+    }
+
+    public class GetPieDataViewModel
+    { 
+        public List<GetTypeOfCuisineViewModel> TypeOfCuisines{ get; set; }
     }
 
     public class GetAllUsersViewModel
     {
         public ICollection<GetUserViewModel> Users { get; set; }
     }
-
-    public class GetAllSoldDishesViewModel
-    {
-        public ICollection<GetSoldDishViewModel> SoldDishes { get; set; }
-    }
-
     public class FiltersUsersViewModel
     {
         public int CurrentPage { get; set; }

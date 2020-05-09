@@ -12,6 +12,8 @@ import { changeImageReducer } from "../components/ChangeImage/reducer";
 import { getAllTypesOfDishesReducer } from "../views/clientViews/TypesOfDishes/reducer";
 import { getAllDishesReducer } from "../views/clientViews/Dishes/reducer";
 import { cartReducer } from "../views/clientViews/Cart/reducer";
+import { getAllSoldDishesReducer } from "../views/adminViews/GraphPercentageDishes/reducer";
+
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
@@ -27,6 +29,7 @@ export default function configureStore(history, initialState) {
     typesOfDishes: getAllTypesOfDishesReducer,
     dishes: getAllDishesReducer,
     cart: cartReducer,
+    cuisineGraph: getAllSoldDishesReducer
   };
 
   const middleware = [thunk, routerMiddleware(history)];

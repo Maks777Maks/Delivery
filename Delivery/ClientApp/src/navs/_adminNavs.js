@@ -20,7 +20,7 @@ export default {
       },
       {
         name: 'Colors',
-        url: '/admin/clients',
+        url: '/admin/graphcuisine',
         icon: 'icon-drop',
       },
       {
