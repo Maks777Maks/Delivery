@@ -86,6 +86,25 @@ namespace Delivery.Controllers
             //}).ToList();
             return Ok(result);
         }
+        [HttpPost("getdishes")]
+        public IActionResult GetDishes([FromBody] FiltersDishesAdminViewModel model)
+        {
+            var query = _context.Dishes.AsQueryable();
+            GetAllDishesAdminViewModel result = new GetAllDishesAdminViewModel();
+            result.Dishes = query.Select(d => new GetDishesAdminViewModel
+            {
+                Id = d.Id,
+                Name = d.Name,
+                Description = d.Description,
+                Price = d.Price,
+                Ingredients = d.Ingredients,
+                Weight = d.Weight,
+                Image = d.Image,
+                TypeOfDishId = d.TypeOfDishId
+
+            }).ToList();
+            return Ok(result);
+        }
 
 
         [HttpGet("getprocentdishes")]

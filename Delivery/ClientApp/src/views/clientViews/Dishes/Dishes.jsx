@@ -5,40 +5,23 @@ import { addDishToBasket } from "./reducer";
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
   CardImg,
   CardText,
   CardTitle,
   CardSubtitle,
-  Button,
-  Table,
-  Badge,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Label,
-  Input,
+  Button
 } from "reactstrap";
 import {} from "reactstrap";
 import { connect } from "react-redux";
 import get from "lodash.get";
 import * as R from "ramda";
-import TypesOfDishes from "../TypesOfDishes";
-import Cart from "../Cart";
-import { Link } from "react-router-dom";
 import { getTotalCount } from "./selectors";
-import stylesDishes from "./styles.css"
-import styles from "./../../defaultViews/scss/style.scss"
 
 class Dishes extends Component {
   state = {
     currentPage: 1,
     activeTypeId: this.props.activeTypeId,
     searchValue: this.props.searchValue,
-    totalCount: this.props.totalCount,
     totalCount: this.props.getTotalCount,
  
     cart: [],
@@ -47,10 +30,6 @@ class Dishes extends Component {
 
   componentDidMount = () => {
     const { currentPage } = this.state;
-    const { totCount } = this.props;
-    const activeTypeId = this.props.activeTypeId;
-
-
     this.props.getAllDishesData({ currentPage });
   };
 
@@ -58,6 +37,8 @@ class Dishes extends Component {
     let newCart = this.state.cart;
     let totalPriceCart = this.state.totalPrice;
     console.log("totalPriceCart was" + totalPriceCart);
+    console.log("Cart" + this.state.cart)
+    
     newCart.push(item.name);
     totalPriceCart +=item.price;
     this.props.addDishToBasket(newCart);
@@ -67,19 +48,15 @@ class Dishes extends Component {
     });
     
     this.props.updateData(this.state.cart, this.state.cart.length, totalPriceCart);
+    // console.log("NewCArt State: " + this.state.cart);
+    // console.log("newCart From props:" + this.props.newResultCart)
 
   }
 
   render() {
-  
-
     console.log("in render: totalCount" + this.state.cart.length);
-   
-    let counter = 1;
     const { listDishes } = this.props;
-    const cartN = this.state.cart;
  
-
     return (
       <div>
        
@@ -198,6 +175,8 @@ const mapStateToProps = (state) => {
     listDishes: get(state, "dishes.list.data"),
     totalCount: getTotalCount(state),
     totCount: state.totCount,
+    newResultCart: state.dishes.list.cart,
+    //newResultCart: get(state, "dishes.list.cart"),
     //activeTypeId: state.getAllDishesReducer.activeTypeId
   };
 };

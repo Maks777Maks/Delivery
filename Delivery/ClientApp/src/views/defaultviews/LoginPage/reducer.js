@@ -16,7 +16,7 @@ const initialState = {
     loading: false,
     success: false,
     failed: false,
-    errors: {}
+    errors: ''
   },
   isAuthenticated: false,
   user: {
@@ -34,7 +34,7 @@ export const loginReducer = (state = initialState, action) => {
     case LOGIN_POST_STARTED: {
       newState = update.set(state, "post.loading", true);
       newState = update.set(newState, "post.success", false);
-      newState = update.set(newState, "post.errors", {});
+      newState = update.set(newState, "post.errors", '');
       newState = update.set(newState, "post.failed", false);
       break;
     }
@@ -48,7 +48,7 @@ export const loginReducer = (state = initialState, action) => {
     case LOGIN_POST_SUCCESS: {
       newState = update.set(state, "post.loading", false);
       newState = update.set(newState, "post.failed", false);
-      newState = update.set(newState, "post.errors", {});
+      newState = update.set(newState, "post.errors", '');
       newState = update.set(newState, "post.success", true);
       break;
     }
@@ -84,6 +84,7 @@ export const login = model => {
         }
       )
       .catch(err => {
+        console.log("ERRRRRRRRRRRRR",err.response);
         dispatch(loginActions.failed(err.response));
         redirectStatusCode(err.response);
       });
@@ -132,7 +133,7 @@ export const loginActions = {
   failed: response => {
     return {
       type: LOGIN_POST_FAILED,
-      //errors: response.data
+      errors: response.data
     };
   },
 
