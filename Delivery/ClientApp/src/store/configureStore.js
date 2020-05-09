@@ -33,7 +33,7 @@ export default function configureStore(history, initialState) {
     dishes: getAllDishesReducer,
     cart: cartReducer,
     changePassword: changePasswordReducer,
-    bestseller: bestsellerReducer
+    bestseller: bestsellerReducer,
     cuisineGraph: getAllSoldDishesReducer
   };
 
