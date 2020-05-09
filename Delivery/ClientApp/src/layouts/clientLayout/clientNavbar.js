@@ -43,7 +43,7 @@ export default class ClientNavbar extends Component {
                                         <Link className="nav-link active" to="/client/profile">ПРОФАЙЛ</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/">Всі страви</Link>
+                                        <Link className="nav-link" to="/alldishes">Всі страви</Link>
                                     </li>
                                     <li className="nav-item">
                                         <div  className="nav-link">

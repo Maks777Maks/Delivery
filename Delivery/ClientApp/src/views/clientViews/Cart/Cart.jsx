@@ -25,12 +25,12 @@ class Cart extends Component {
   };
 
   componentDidMount = () => {
-    const { cart } = this.state;
+    //const { cart } = this.state;
   };
 
   render() {
     let listCart = this.props.newResultCart;
-
+    
     return (
       <div>
         <div>
