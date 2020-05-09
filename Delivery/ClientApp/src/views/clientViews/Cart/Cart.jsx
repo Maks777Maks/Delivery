@@ -1,23 +1,7 @@
 import React, { Component } from "react";
-
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  Badge,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Label,
-  Input,
-} from "reactstrap";
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import get from "lodash.get";
-import styles from "./style.css";
+// import get from "lodash.get";
 
 class Cart extends Component {
   state = {
@@ -25,12 +9,11 @@ class Cart extends Component {
   };
 
   componentDidMount = () => {
-    //const { cart } = this.state;
   };
 
   render() {
     let listCart = this.props.newResultCart;
-    
+
     return (
       <div>
         <div>
@@ -64,16 +47,16 @@ class Cart extends Component {
                         return (
                           <tr>
                             <td className="thumbnail-img">
-                              <a href="#">
+                              <Link to="/">
                                 <img
                                   className="img-fluid"
                                   src="images/img-pro-01.jpg"
                                   alt=""
                                 />
-                              </a>
+                              </Link>
                             </td>
                             <td className="name-pr">
-                              <a href="#">{item}</a>
+                              <Link to="/">{item}</Link>
                             </td>
                             <td className="price-pr">
                               <p>$ 80.0</p>
@@ -92,9 +75,9 @@ class Cart extends Component {
                               <p>$ 80.0</p>
                             </td>
                             <td className="remove-pr">
-                              <a href="#">
+                              <Link to="/">
                                 <i className="fas fa-times"></i>
-                              </a>
+                              </Link>
                             </td>
                           </tr>
                         );
@@ -165,9 +148,9 @@ class Cart extends Component {
                 </div>
               </div>
               <div className="col-12 d-flex shopping-box">
-                <a href="checkout.html" className="ml-auto btn hvr-hover">
+                <Link to="/" className="ml-auto btn hvr-hover">
                   Checkout
-                </a>{" "}
+                </Link>
               </div>
             </div>
           </div>

@@ -14,10 +14,10 @@ const initialState = {
     },   
 }
 
-export const getImage = () => {
+export const getImage = (model) => {
     return (dispatch) => {
         dispatch(getListActions.started());
-        ChangeImageService.getImage()
+        ChangeImageService.getImage(model)
             .then((response) => {
                 dispatch(getListActions.success(response));               
             }, err=> { throw err; })
