@@ -12,9 +12,9 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e6f4', endColorstr='#f3f3f7', GradientType=1 );    
     padding: 20px;
     border-radius: 10px;
-    -webkit-box-shadow: -4px -4px 85px -20px rgba(30,30,230,0.6);
-    -moz-box-shadow: -4px -4px 85px -20px rgba(30,30,230,0.6);
-    box-shadow: -4px -4px 85px -20px rgba(30,30,230,0.6);
+    -webkit-box-shadow: -4px -4px 85px -20px rgba(30,30,230,0.9);
+    -moz-box-shadow: -4px -4px 85px -20px rgba(30,30,230,0.9);
+    box-shadow: -4px -4px 85px -20px rgba(30,30,230,0.9);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .form:hover{
@@ -30,7 +30,7 @@
     color: white;
     border: solid 2px whitesmoke;
     border-radius: 5px;
-    margin-top: -25px;
+    margin-top: -15px;
     margin-bottom: 10px;
     -webkit-box-shadow: -2px -2px 30px -10px rgba(30,30,230,0.72);
     -moz-box-shadow: -2px -2px 30px -10px rgba(30,30,230,0.72);
