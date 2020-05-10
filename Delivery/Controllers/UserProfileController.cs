@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Delivery.DAL.EFContext;
 using Delivery.Services;
 using Delivery.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Delivery.Controllers
 {
+    // [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class UserProfileController : ControllerBase
@@ -106,6 +108,9 @@ namespace Delivery.Controllers
             {
                 return BadRequest("");
             }
+
+            // var userId = User.Claims.FirstOrDefault().Value;
+
             var user = _context.Users.FirstOrDefault(x => x.Id == model.Id);
 
             if(user == null || string.IsNullOrWhiteSpace(model.Password))
