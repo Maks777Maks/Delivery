@@ -11,7 +11,7 @@ export default {
       // },
       {
         title: true,
-        name: 'Адміе Панель',
+        name: 'Адмін Панель',
         wrapper: {            // optional wrapper object
           element: '',        // required valid HTML5 element tag
           attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
@@ -80,6 +80,12 @@ export default {
       {
         name: 'Користувачі',
         url: '/admin',
+        icon: 'icon-people',
+        
+      },
+      {
+        name: 'Продаж по кухням',
+        url: '/admin/graphcuisine',
         icon: 'icon-people',
         
       },
