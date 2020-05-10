@@ -15,7 +15,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace Delivery.Controllers
 {
-    // [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class SettingsController : ControllerBase
@@ -47,9 +46,6 @@ namespace Delivery.Controllers
                 return BadRequest("");
             }
             
-            //var userId = User.Claims.ToList()[0].Value;
-            //var user = _context.UserProfile.FirstOrDefault(u => u.Id == userId);
-            
             var query = _context.UserProfile.AsQueryable();
             var user = query.FirstOrDefault(c => c.Id == model.Id);
 
@@ -65,9 +61,7 @@ namespace Delivery.Controllers
         public IActionResult ChangeImage([FromBody] ChangeImage model)
         {
             string image = null;
-            //var userId = User.Claims.ToList()[0].Value;
-            //var user = _context.UserProfile.FirstOrDefault(u => u.Id == userId);
-
+           
             var query = _context.UserProfile.AsQueryable();
             var user = query.FirstOrDefault(c => c.Id == model.Id);
 
