@@ -12,8 +12,7 @@ namespace Delivery.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [ApiController]
-    public class ClientController : ControllerBase
+      public class ClientController : ControllerBase
     {
         private readonly EFDbContext _context;
         public ClientController(EFDbContext context)
