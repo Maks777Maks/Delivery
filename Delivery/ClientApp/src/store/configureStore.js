@@ -14,7 +14,8 @@ import { cartReducer } from "../views/clientViews/Cart/reducer";
 import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
 import {changePasswordReducer} from '../views/defaultViews/ChangePasswordPage/reducer'
 import { bestsellerReducer } from "../views/adminViews/Bestseller/reducer";
-import {getAllTypesOfCuisinesReducer} from "../components/TypesOfCuisines/reducer";
+
+import { getAllSoldDishesReducer } from "../views/adminViews/GraphPercentageDishes/reducer";
 
 
 // Create browser history to use in the Redux store
@@ -33,7 +34,7 @@ export default function configureStore(history, initialState) {
     cart: cartReducer,
     changePassword: changePasswordReducer,
     bestseller: bestsellerReducer,
-    typesOfCuisines: getAllTypesOfCuisinesReducer,
+    cuisineGraph: getAllSoldDishesReducer
   };
 
   const middleware = [thunk, routerMiddleware(history)];

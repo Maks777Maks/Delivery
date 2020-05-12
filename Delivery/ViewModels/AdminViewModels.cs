@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Delivery.DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Delivery.ViewModels
 {
-
     public class GetUserViewModel
     {
         public string Id { get; set; }
@@ -16,6 +16,18 @@ namespace Delivery.ViewModels
         public string Email { get; set; }
         public bool Status { get; set; }
         public string Description { get; set; }
+    }
+
+    public class GetTypeOfCuisineViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Count { get; set; }
+    }
+
+    public class GetPieDataViewModel
+    { 
+        public List<GetTypeOfCuisineViewModel> TypeOfCuisines{ get; set; }
     }
 
     public class GetAllUsersViewModel
@@ -73,5 +85,7 @@ namespace Delivery.ViewModels
         public string Id { get; set; }
         public string Photo { get; set; }
     }
+
+   
 
 }
