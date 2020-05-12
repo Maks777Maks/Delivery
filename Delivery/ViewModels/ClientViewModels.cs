@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Delivery.ViewModels
 {
-    public class GetTypeOfCuisineViewModel
+    public class GetTypeOfCuisineViewModelClient
     {
         public int Id { get; set; }
         public string TypeOfCuisineName { get; set; }
@@ -15,7 +15,7 @@ namespace Delivery.ViewModels
 
     public class GetAllTypesOfCuisinesViewModel
     {
-        public ICollection<GetTypeOfCuisineViewModel> TypesOfCuisines { get; set; }
+        public ICollection<GetTypeOfCuisineViewModelClient> TypesOfCuisines { get; set; }
     }
 
     public class FiltersTypesOfDishesViewModel

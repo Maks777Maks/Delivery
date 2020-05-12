@@ -44,7 +44,7 @@ namespace Delivery.Controllers
             var queryCuisines = _context.TypesOfCuisines.AsQueryable();
             GetAllTypesOfCuisinesViewModel cuisines = new GetAllTypesOfCuisinesViewModel();
 
-            cuisines.TypesOfCuisines = queryCuisines.Select(c => new GetTypeOfCuisineViewModel
+            cuisines.TypesOfCuisines = queryCuisines.Select(c => new GetTypeOfCuisineViewModelClient
             {
                 Id = c.Id,
                 TypeOfCuisineName = c.TypeOfCuisineName
@@ -81,7 +81,7 @@ namespace Delivery.Controllers
             var queryCuisines = _context.TypesOfCuisines.AsQueryable();
             GetAllTypesOfCuisinesViewModel result = new GetAllTypesOfCuisinesViewModel();
 
-            result.TypesOfCuisines = queryCuisines.Select(c => new GetTypeOfCuisineViewModel
+            result.TypesOfCuisines = queryCuisines.Select(c => new GetTypeOfCuisineViewModelClient
             {
                 Id = c.Id,
                 Image = c.Image,
