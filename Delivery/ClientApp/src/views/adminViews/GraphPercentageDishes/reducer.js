@@ -1,88 +1,78 @@
-import ChangeImageService from './ChangeImageService';
-import update from '../../helpers/update';
-export const IMAGE_STARTED = "IMAGE_STARTED";
-export const IMAGE_SUCCESS = "IMAGE_SUCCESS";
-export const IMAGE_FAILED = "IMAGE_FAILED";
+import GraphPercentageDishesService from './GraphPercentageDishesService';
+import update from '../../../helpers/update';
+export const ALL_DISHES_STARTED = "ALL_DISHES_STARTED";
+export const ALL_DISHES_SUCCESS = "ALL_DISHES_SUCCESS";
+export const ALL_DISHES_FAILED = "ALL_DISHES_FAILED";
 
 
 const initialState = {
     list: {
-        photo: '',
+        data: [],
         loading: false,
         success: false,
         failed: false,
     },   
 }
 
-export const getImage = (model) => {
+export const getAllSoldDishesData = () => {
     return (dispatch) => {
         dispatch(getListActions.started());
-        ChangeImageService.getImage(model)
+console.log("Dispatch");
+        GraphPercentageDishesService.getAllSoldDishes()
             .then((response) => {
+                console.log("response", response)
                 dispatch(getListActions.success(response));               
             }, err=> { throw err; })
             .catch(err=> {
-              dispatch(getListActions.failed(err.response));
+              dispatch(getListActions.failed(err));
             });
     }
 }
 
-export const changeImage = (model) => {
-    return (dispatch) => {
-        dispatch(getListActions.started());
-        ChangeImageService.changeImage(model)
-            .then((response) => {
-                dispatch(getListActions.success(response));               
-            }, err=> { throw err; })
-            .catch(err=> {
-              dispatch(getListActions.failed(err.response));
-            });
-    }
-}
 
 export const getListActions = {
     started: () => {
         return {
-            type: IMAGE_STARTED
+            type: ALL_DISHES_STARTED
         }
     },  
     success: (data) => {
+        console.log("Data", data.data)
         return {
-            type: IMAGE_SUCCESS,
-            payload: data.data
+            type: ALL_DISHES_SUCCESS,
+            payload: data.data.typeOfCuisines
         }
     },  
     failed: (error) => {
         return {           
-            type: IMAGE_FAILED,
-            errors: error.data
+            type: ALL_DISHES_FAILED,
+            errors: error
         }
     }
   }
 
-export const changeImageReducer = (state = initialState, action) => { 
+export const getAllSoldDishesReducer = (state = initialState, action) => { 
   let newState = state;
 
   switch (action.type) {
 
-      case IMAGE_STARTED: {
+      case ALL_DISHES_STARTED: {
           newState = update.set(state, 'list.loading', true);
           newState = update.set(newState, 'list.success', false);
           newState = update.set(newState, 'list.failed', false);
           break;
       }
-      case IMAGE_SUCCESS: {
+      case ALL_DISHES_SUCCESS: {
           newState = update.set(state, 'list.loading', false);
           newState = update.set(newState, 'list.failed', false);
           newState = update.set(newState, 'list.success', true);
-          newState = update.set(newState, 'list.photo', action.payload);         
+          newState = update.set(newState, 'list.data', action.payload);         
           break;
       }
-      case IMAGE_FAILED: {
+      case ALL_DISHES_FAILED: {
           newState = update.set(state, 'list.loading', false);
           newState = update.set(newState, 'list.success', false);
           newState = update.set(newState, 'list.failed', true);
-          newState = update.set(newState, "list.errors", action.errors);
           break;
       }
       default: {

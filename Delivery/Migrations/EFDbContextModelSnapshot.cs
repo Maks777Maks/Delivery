@@ -278,13 +278,13 @@ namespace Delivery.Migrations
                     b.Property<string>("CustomerWishes")
                         .HasMaxLength(500);
 
-                    b.Property<DateTime>("DateCancel");
+                    b.Property<DateTime?>("DateCancel");
 
                     b.Property<DateTime>("DateOfCreate");
 
                     b.Property<DateTime>("DateOfDelivery");
 
-                    b.Property<DateTime>("DateReceived");
+                    b.Property<DateTime?>("DateReceived");
 
                     b.Property<string>("OrderInvoice")
                         .IsRequired()
@@ -294,7 +294,8 @@ namespace Delivery.Migrations
 
                     b.Property<decimal>("TotalPrice");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -320,6 +321,21 @@ namespace Delivery.Migrations
                     b.ToTable("tblOrdersStatuses");
                 });
 
+            modelBuilder.Entity("Delivery.DAL.Models.TestCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TestCart");
+                });
+
             modelBuilder.Entity("Delivery.DAL.Models.TypeOfCuisine", b =>
                 {
                     b.Property<int>("Id")
@@ -327,7 +343,6 @@ namespace Delivery.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasMaxLength(200);
 
                     b.Property<string>("TypeOfCuisineName")
@@ -346,7 +361,6 @@ namespace Delivery.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasMaxLength(200);
 
                     b.Property<string>("TypeOfDishName")
@@ -512,7 +526,8 @@ namespace Delivery.Migrations
 
                     b.HasOne("Delivery.DAL.EFContext.DbUser", "DbUser")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

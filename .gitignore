@@ -233,3 +233,7 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/Delivery/ClientApp/node_modules/.bin
+/Delivery/ClientApp/node_modules/.cache/babel-loader/0053ca91a55f48d5c6b30e3f8e5a1771.json
+/Delivery/ClientApp/node_modules/.cache
+/Delivery/ClientApp/node_modules

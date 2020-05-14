@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Delivery.Controllers
 {
-    [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class SettingsController : ControllerBase
@@ -38,12 +38,16 @@ namespace Delivery.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet("get-image")]
-        public IActionResult GetImage()
+        [HttpPost("get-image")]
+        public IActionResult GetImage([FromBody] IdUserVM model)
         {
-            var userId = User.Claims.ToList()[0].Value;
-           
-            var user = _context.UserProfile.FirstOrDefault(u => u.Id == userId);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("");
+            }
+            
+            var query = _context.UserProfile.AsQueryable();
+            var user = query.FirstOrDefault(c => c.Id == model.Id);
 
             string path = $"{_configuration.GetValue<string>("UserUrlImages")}/250_";
             string imagePath = user.Photo != null ? path + user.Photo :
@@ -57,10 +61,9 @@ namespace Delivery.Controllers
         public IActionResult ChangeImage([FromBody] ChangeImage model)
         {
             string image = null;
-
-            var userId = User.Claims.ToList()[0].Value;
-
-            var user = _context.UserProfile.FirstOrDefault(u => u.Id == userId);
+           
+            var query = _context.UserProfile.AsQueryable();
+            var user = query.FirstOrDefault(c => c.Id == model.Id);
 
             if (user != null)
             {

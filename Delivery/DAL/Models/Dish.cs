@@ -18,15 +18,15 @@ namespace Delivery.DAL.Models
         public string Ingredients { get; set; }
         [Required, StringLength(1000)]
         public string Description { get; set; }
-        [Required]
+
         public int Weight { get; set; }
         [Required, StringLength(200)]
         public string Image { get; set; }
-        [Required]
+
         public bool IsVegetarian { get; set; }
-        [Required]
+
         public decimal Price { get; set; }
-        [Required]
+
         public bool IsAvailable { get; set; }
 
         [ForeignKey("TypeOfCuisine")]
