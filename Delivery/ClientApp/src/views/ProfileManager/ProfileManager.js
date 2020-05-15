@@ -112,11 +112,12 @@ class ProfileManager extends Component {
 
     componentDidMount = () => {
         if (user) {
-            const model = { id: user.id };
-            this.props.getUserProfile(model);
+            this.props.getUserProfile();
         }
-        else
+        else {
             console.log("user is not logged in", user);
+            this.props.history.push("/login");
+        }
     }
 
     setFormatDate = (date = new Date()) => {
@@ -141,11 +142,16 @@ class ProfileManager extends Component {
     }
     componentDidUpdate() {
         if (!this.state.isLoadData) {
+            
             const { name, middleName, surname, email, phone, birthDate, address, photo } = this.props.userProfile;
-            
-            if (photo)
-                this.setState({ photo:  serverUrl + photo});
-            
+            let image = '';
+            if (photo) {
+                image = serverUrl + photo;
+            }
+            else {
+                image = no_avatar;
+            }
+
             this.setState({
                 name: {
                     name,
@@ -154,7 +160,7 @@ class ProfileManager extends Component {
 
                 middleName: {
                     middleName,
-                    isInValid: false
+                    isInvalid: false
                 },
 
                 surname: {
@@ -177,6 +183,7 @@ class ProfileManager extends Component {
                     address,
                     isInvalid: false
                 },
+                photo : image,
                 isLoadData: true
             });
         }
@@ -205,7 +212,6 @@ class ProfileManager extends Component {
     submitConfirm = e => {
         const { name, middleName, surname, email, phone, birthDate, address } = this.state;
         const model = {
-            id: user.id,
             name: name.name,
             middleName: middleName.middleName,
             surname: surname.surname,
@@ -295,12 +301,15 @@ class ProfileManager extends Component {
         }
 
         const model = {
-            id: user.id,
             password: password.password,
         };
 
         this.props.setNewPasswordProfile(model);
-        this.setState({ isShowChangePassword: false });
+        this.setState({ 
+            isShowChangePassword: false,
+            password: {password: '', isInvalid : false},
+            confirmPassword : {confirmPassword : '', isInvalid : false }
+         });
     }
 
     checkValidPasswords = (e) => {
@@ -329,7 +338,8 @@ class ProfileManager extends Component {
     }
 
     changePhoto = () => {
-        this.props.history.push("/changeimage")
+        this.setState({photo : no_avatar});
+        this.props.history.push("/changeimage");
     }
 
     render() {
@@ -529,7 +539,7 @@ class ProfileManager extends Component {
                     <Col md={6}>
 
                         <CardImg style={style} onMouseOver={() => { this.setState( {isShowChangeImage: !isShowChangeImage} ) }} 
-                        src={photo} alt="ProfileCard" />
+                        src={`${photo}?t=${new Date().getTime()}`} alt="ProfileCard" />
                         <Collapse isOpen={isShowChangeImage}>
                             <ModalButton buttonLabel={'Поміняти фотографію'} submitConfirm={this.changePhoto}></ModalButton>
                         </Collapse>
@@ -547,13 +557,13 @@ class ProfileManager extends Component {
 
 const mapStateToProps = state => {
     return {
-        userProfile: get(state, "userProfile.list.data")
+        userProfile: get(state, "userProfile.list.data"),
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserProfile: (model) => { dispatch(getListActions.getUserProfile(model)) },
+        getUserProfile: () => { dispatch(getListActions.getUserProfile()) },
         setUserBaseInfoProfile: (model) => { dispatch(getListActions.setUserBaseInfoProfile(model)) },
         setNewPasswordProfile: (model) => { dispatch(getListActions.setNewPasswordProfile(model)) }
     }

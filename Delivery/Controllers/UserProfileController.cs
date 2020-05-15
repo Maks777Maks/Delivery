@@ -32,18 +32,29 @@ namespace Delivery.Controllers
             _jwtTokenService = jwtTokenService;
             _configuration = configuration;
         }
-        [HttpPost("getuserprofile")]
-        public IActionResult GetUserProfile([FromBody] IdUserVM model)
+        [HttpGet("getuserprofile")]
+        public IActionResult GetUserProfile()
         {
-            if (!ModelState.IsValid)
+            string userId = "";
+            try
             {
-                return BadRequest("");
+                userId = User.Claims.FirstOrDefault().Value;
             }
-            var query = _context.Users.Include(x => x.UserProfile).AsQueryable();
-            var u = query.FirstOrDefault(c => c.Id == model.Id);
-            var result =  new UserProfileInfoVM
+            catch (Exception)
             {
-                Id = u.Id,
+                return BadRequest("Потрібно спочатку залогінитися!");
+            }
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest("Потрібно спочатку залогінитися!");
+
+            }
+
+            var query = _context.Users.Include(x => x.UserProfile).AsQueryable();
+            var u = query.FirstOrDefault(c => c.Id == userId);
+            var result = new UserProfileInfoVM
+            {
                 Name = u.UserProfile != null ? u.UserProfile.FirstName : null,
                 MiddleName = u.UserProfile != null ? u.UserProfile.MiddleName : null,
                 Surname = u.UserProfile != null ? u.UserProfile.LastName : null,
@@ -55,8 +66,10 @@ namespace Delivery.Controllers
             };
 
             string path = $"{_configuration.GetValue<string>("UserUrlImages")}/250_";
-            result.Photo = result.Photo != null ? path + result.Photo :
+            string imagePath = u.UserProfile.Photo != null ? path + u.UserProfile.Photo :
                     path + _configuration.GetValue<string>("DefaultImage");
+
+            result.Photo = imagePath;
 
             return Ok(result);
         }
@@ -66,11 +79,19 @@ namespace Delivery.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("");
+                return BadRequest("Передані некоректні дані");
+            }
+
+            var userId = User.Claims.FirstOrDefault().Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest("Потрібно спочатку залогінитися!");
             }
 
             var query = _context.Users.Include(x => x.UserProfile).AsQueryable();
-            var u = query.FirstOrDefault(c => c.Id == model.Id);
+            var u = query.FirstOrDefault(c => c.Id == userId);
+
             if (u == null)
             {
                 return BadRequest("");
@@ -88,7 +109,6 @@ namespace Delivery.Controllers
 
             var result = new UserProfileInfoVM
             {
-                Id = u.Id,
                 Name = u.UserProfile != null ? u.UserProfile.FirstName : null,
                 MiddleName = u.UserProfile != null ? u.UserProfile.MiddleName : null,
                 Surname = u.UserProfile != null ? u.UserProfile.LastName : null,
@@ -104,18 +124,32 @@ namespace Delivery.Controllers
         [HttpPost("changepassword")]
         public async Task<IActionResult> ChangePassword([FromBody] UserNewPasswordVM model)
         {
+            // var userId = User.Claims.ToList()[0].Value;
+
             if (!ModelState.IsValid)
             {
-                return BadRequest("");
+                return BadRequest("Передані некоректні дані");
             }
 
-            // var userId = User.Claims.FirstOrDefault().Value;
+            var userId = User.Claims.FirstOrDefault().Value;
 
-            var user = _context.Users.FirstOrDefault(x => x.Id == model.Id);
-
-            if(user == null || string.IsNullOrWhiteSpace(model.Password))
+            if (string.IsNullOrEmpty(userId))
             {
-                return BadRequest("");
+                return BadRequest("Потрібно спочатку залогінитися!");
+            }
+
+            var user = _context.Users.FirstOrDefault(x => x.Id == userId);
+
+            if (user == null || string.IsNullOrWhiteSpace(model.Password))
+            {
+                return BadRequest("Передані некоректні дані");
+            }
+
+            var isValid = await _userManager.CheckPasswordAsync(user, model.Password);
+
+            if (isValid)
+            {
+                return BadRequest("Введено старий пароль! Спробуйте щераз!");
             }
 
             var hash_password = _userManager.PasswordHasher.HashPassword(user, model.Password);

@@ -2,8 +2,8 @@ import axios from "axios";
 import {serverUrl} from '../../config';
 
 export default class ProfileManagerService {
-    static getUserProfile(model) {
-        return axios.post(`${serverUrl}api/UserProfile/getuserprofile`, model);
+    static getUserProfile() {
+        return axios.get(`${serverUrl}api/UserProfile/getuserprofile`);
     };
     static setUserBaseInfoProfile(model) {
         return axios.post(`${serverUrl}api/UserProfile/setuserprofile`, model);
