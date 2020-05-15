@@ -17,6 +17,7 @@ const initialState = {
 export const ForgotPassword = (model) => {
     return (dispatch) => {
         dispatch(getListActions.started());
+        console.log("Received", model);
         ForgotPasswordService.sendEmail(model)
             .then((response) => {
                 console.log("response",response);
