@@ -35,6 +35,7 @@ render() {
                       <th>Опис</th>
                       <th>Ціна</th>
                       <th>Вага</th>
+                      <th>Продажі</th>
                     </tr>
                   </thead>
                   <tbody className="align-items-center">
@@ -46,6 +47,7 @@ render() {
                           <td>{item.description}</td>
                           <td>{item.price}</td>
                           <td>{item.weight}</td>
+                          <td>{item.count}</td>
                         </tr>
                       );
                     })}
