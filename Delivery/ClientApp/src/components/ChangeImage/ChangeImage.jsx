@@ -32,7 +32,6 @@ class ChangeImage extends Component {
     componentDidMount = () => {
         if (user) {
             const model = { id: user.id };
-            console.log("GET USER PHOTO", model);
             this.props.getImage(model);
         }
         else
@@ -59,8 +58,8 @@ class ChangeImage extends Component {
                 id: user.id,
                 photo: this.state.croppedImage
             };
-            console.log("CHANGE USER PHOTO", model);
             this.props.changeImage(model);
+            this.props.history.goBack();
         }
         else {
             console.log("user is not logged in", user);

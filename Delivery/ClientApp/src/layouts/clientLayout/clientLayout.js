@@ -21,8 +21,9 @@ class ClientLayout extends Component {
     loading = () => <div>Loading...</div>
 
     signOut(e) {
-        e.preventDefault()
-        this.props.history.push('/login')
+        e.preventDefault();
+        this.props.logout();
+        this.props.history.push('/login');
     }
 
     render() {
@@ -47,7 +48,7 @@ class ClientLayout extends Component {
         const content = (
             <div>
                 <Suspense fallback={this.loading()}>
-                    <ClientNavbar />
+                    <ClientNavbar onLogout={e => this.signOut(e)} />
                 </Suspense>
                 <div>
                 <section className="home-slider owl-carousel">
