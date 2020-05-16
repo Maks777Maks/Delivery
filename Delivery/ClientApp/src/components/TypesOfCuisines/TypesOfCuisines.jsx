@@ -48,7 +48,7 @@ class TypesOfCuisines extends Component {
             </div>
           );
         })}
-        <li onClick={this.FilterCuisines.bind(this, 0)}>All Types</li>
+        <li onClick={this.FilterCuisines.bind(this, 0)}>Всі кухні</li>
       </div>
     );
   

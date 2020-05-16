@@ -82,23 +82,23 @@ class Dishes extends Component {
         <Card>
           <CardImg top width="100%" src={item.image} alt="Card image cap" />
           <CardBody>
-            <CardTitle>{item.name}</CardTitle>
+            <CardTitle><strong>{item.name}</strong></CardTitle>
             <CardSubtitle style={{ color: "red" }}>
-              Price: {item.price} UAH
+              Ціна: {item.price} ГРН
             </CardSubtitle>
             <CardSubtitle>{item.description}</CardSubtitle>
             <CardText>
-              <strong>Ingredients: </strong> {item.ingredients}
+              <strong>Інгредієнти: </strong> {item.ingredients}
             </CardText>
             <Button color="warning" onClick={this.AddToCart.bind(this, item)}>
-              Add To Cart
+              У кошик
             </Button>
             <i
               className="fas fa-shopping-cart"
               onClick={this.AddToCart.bind(this, item)}
             ></i>
             <Button color="info" onClick={this.handleModal.bind(this, item)}>
-              Show info
+              Детальніше
             </Button>
 
             <Modal
@@ -115,13 +115,13 @@ class Dishes extends Component {
                   style={{ maxHeight: "300px" }}
                 />
                 <br />
-                Price: {this.state.showPriceItem} UAH <br />
-                Ingredients: {this.state.showIngredientsItem} <br />
-                Weight: {this.state.showWeightItem} g <br />
-                Vegeterian: {this.state.showVegeterianItem ? "yes" : "no"}{" "}
+                <strong>Ціна: </strong>{this.state.showPriceItem} ГРН <br />
+                <strong>Інгредієнти: </strong>{this.state.showIngredientsItem} <br />
+                <strong>Вага:</strong> {this.state.showWeightItem} g <br />
+                <strong> Вегетеріанське блюдо:</strong> {this.state.showVegeterianItem ? "так" : "ні"}{" "}
                 <br />
-                Available: {this.state.showAvailableItem ? "yes" : "no"} <br />
-                Type of Cuisine: {this.state.showTypeCuisineName}
+                <strong>Доступне до замовлення: </strong>{this.state.showAvailableItem ? "так" : "ні"} <br />
+                <strong> Тип кухні: </strong>{this.state.showTypeCuisineName}
               </ModalBody>
               <ModalFooter>
                 <Button
@@ -132,7 +132,7 @@ class Dishes extends Component {
                     });
                   }}
                 >
-                  Close
+                  Назад до покупок
                 </Button>
                 <Button
                   color="warning"
@@ -141,7 +141,7 @@ class Dishes extends Component {
                     price: this.state.showPriceItem,
                   })}
                 >
-                  Add To Cart
+                  Додати у кошик
                 </Button>
               </ModalFooter>
             </Modal>

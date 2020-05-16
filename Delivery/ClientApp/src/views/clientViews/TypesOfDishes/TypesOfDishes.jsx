@@ -100,7 +100,7 @@ class TypesOfDishes extends Component {
                   );
                 })}
                 <ul>
-                  <li onClick={this.FilterDishes.bind(this, 0)}>All Types</li>
+                  <li onClick={this.FilterDishes.bind(this, 0)}>Всі блюда</li>
                 </ul>
                 <div className="input-group">
                   <form onSubmit={this.handleSubmit}>
@@ -108,15 +108,15 @@ class TypesOfDishes extends Component {
                       className="inputSearch"
                       type="text"
                       onChange={this.handleChange.bind(this)}
-                      placeholder="Search"
+                      placeholder="Пошук"
                     />
                   </form>
                 </div>
                 <div>
-                  <p>Hello {user ? user.name : "Guest"}</p>
+                  <p>Привіт, {user ? user.name : "Гість"}</p>
                   <div>
                     {" "}
-                    Dishes:{" "}
+                    Блюда у кошику:{" "}
                     {cartN.map((item) => {
                       return (
                         <div className="cartItem" key={item.id}>
@@ -125,9 +125,9 @@ class TypesOfDishes extends Component {
                         </div>
                       );
                     })}
-                  <p> Total Price: {this.state.totalPrice} UAH</p>
+                  <p> Сума: {this.state.totalPrice} ГРН</p>
                     <Link className="nav-link" to="/cart">
-                      Go to cart
+                      У кошик
                     </Link>
                   </div>
                 </div>

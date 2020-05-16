@@ -7,6 +7,7 @@ using Delivery.DAL.Models;
 using Delivery.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Delivery.Controllers
 {
@@ -15,9 +16,11 @@ namespace Delivery.Controllers
       public class ClientController : ControllerBase
     {
         private readonly EFDbContext _context;
-        public ClientController(EFDbContext context)
+        private readonly IConfiguration _configuration;
+        public ClientController(EFDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         [HttpPost("gettypesdishes")]
@@ -58,7 +61,7 @@ namespace Delivery.Controllers
                 Price = d.Price,
                 Ingredients = d.Ingredients,
                 Weight = d.Weight,
-                Image = d.Image,
+               Image = $"{_configuration.GetValue<string>("ProductUrlImages")}/250_" + d.Image,
                 TypeOfDishId = d.TypeOfDishId,
                 IsAvailable = d.IsAvailable,
                 IsVegetarian = d.IsVegetarian,
