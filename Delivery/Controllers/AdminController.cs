@@ -81,6 +81,7 @@ namespace Delivery.Controllers
                     });
                 }
             }
+            result.Dishes = result.Dishes.OrderBy(o => o.Count).Reverse().ToList();
             return Ok(result);
         }
 
