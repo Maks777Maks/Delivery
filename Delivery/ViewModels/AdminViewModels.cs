@@ -62,11 +62,12 @@ namespace Delivery.ViewModels
         public string Image { get; set; }
         public decimal Price { get; set; }
         public int TypeOfDishId { get; set; }
+        public int Count { get; set; }
     }
 
     public class GetAllDishesAdminViewModel
     {
-        public ICollection<GetDishesAdminViewModel> Dishes { get; set; }
+        public List<GetDishesAdminViewModel> Dishes { get; set; }
     }
 
     public class FiltersDishesAdminViewModel
