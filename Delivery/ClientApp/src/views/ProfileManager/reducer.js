@@ -76,10 +76,10 @@ export const getListActions = {
     }
 }
 
-export const getUserProfile = (model) => {
+export const getUserProfile = () => {
     return (dispatch) => {
         dispatch(getListActions.started());
-        ProfileManagerService.getUserProfile(model)
+        ProfileManagerService.getUserProfile()
             .then((response) => {
                 dispatch(getListActions.success(response));
             }, err => { throw err; })

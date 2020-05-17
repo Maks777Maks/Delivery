@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
+import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem, Button } from 'reactstrap';
 
 const MyDropdown = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -43,7 +43,7 @@ export default class ClientNavbar extends Component {
                                         <Link className="nav-link active" to="/client/profile">ПРОФАЙЛ</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/">Всі страви</Link>
+                                        <Link className="nav-link" to="/alldishes">Всі страви</Link>
                                     </li>
                                     <li className="nav-item">
                                         <div  className="nav-link">
@@ -55,6 +55,9 @@ export default class ClientNavbar extends Component {
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/login" >Вхід</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a onClick={e => this.props.onLogout(e)} className="nav-link" >Вихід</a>
                                     </li>
                                 </ul>
 
