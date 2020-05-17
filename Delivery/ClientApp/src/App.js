@@ -4,6 +4,7 @@ import './App.scss';
 
 // Pages
 const LoginPage = React.lazy(() => import("./views/defaultViews/LoginPage"));
+const RegisterPage = React.lazy(() => import("./views/defaultViews/RegisterPage"));
 const HomePage = React.lazy(() => import("./views/defaultViews/HomePage"));
 const ForgotPasswordPage = React.lazy(() => import("./views/defaultViews/ForgotPasswordPage"));
 const ChangePasswordPage = React.lazy(() => import("./views/defaultViews/ChangePasswordPage"));
@@ -28,6 +29,7 @@ class App extends Component {
                         <Route path="/client" name="Client" render={props => <ClientLayout {...props} />} />
                         <Route path="/admin" name="Admin" render={props => <AdminLayout {...props} />} />
                         <Route exact path="/login" name="Login" render={props => <LoginPage {...props} />} />
+                        <Route exact path="/register" name="Register" render={props => <RegisterPage {...props} />} />
                         <Route exact path="/forgot-password" name="ForgotPassword" render={props => <ForgotPasswordPage {...props} />} />
                         <Route exact path="/change-password/:id" name="ChangePassword" render={props => <ChangePasswordPage {...props} />} />
                         <Route exact path="/alldishes" name="Dishes" render={props => <DishesPage {...props} /> } />

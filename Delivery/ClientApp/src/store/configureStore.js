@@ -5,6 +5,7 @@ import { createHashHistory as createHistory } from "history";
 
 ///reducers
 import { loginReducer } from "../views/defaultViews/LoginPage/reducer";
+import { registerReducer } from "../views/defaultViews/RegisterPage/reducer";
 import { getAllUsersReducer } from "../views/adminViews/UsersStats/reducer";
 import { getProfileReducer } from "../views/ProfileManager/reducer";
 import { forgotPasswordReducer } from "../views/defaultViews/ForgotPasswordPage/reducer";
@@ -20,6 +21,7 @@ export const history = createHistory({ basename: baseUrl });
 export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
+    register: registerReducer,
     userProfile: getProfileReducer,
     usersStats: getAllUsersReducer,
     changeImage: changeImageReducer,

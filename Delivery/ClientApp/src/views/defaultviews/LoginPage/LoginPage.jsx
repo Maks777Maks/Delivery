@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as loginActions from './reducer';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
-
+import { Link, Redirect } from 'react-router-dom';
 import {
     MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput
 } from "mdbreact";
@@ -121,7 +121,12 @@ class LoginPage extends Component {
                                     autoComplete="new-password"
                                 />
                             </div>
-                            <div className="text-center">
+                            <div className="text-left">         
+                                <MDBBtn color="primary" >
+                                    <Link to="/register" style={{color: "white", textDecoration: "none"}}>Реєстрація</Link>
+                                </MDBBtn>  
+                            </div>
+                            <div className="text-right">
                                 <MDBBtn type="submit" color='primary'>Вхід</MDBBtn>
                             </div>
                         </form>

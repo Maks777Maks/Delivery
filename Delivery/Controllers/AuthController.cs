@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Delivery.DAL.EFContext;
 using Delivery.Services;
@@ -52,6 +53,46 @@ namespace Delivery.Controllers
 
             return Ok(new { token = _jwtTokenService.CreateToken(user) });
         }
+
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] RegisterModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Введіть всі дані");
+            }
+
+            var roleName = "User";
+            var user = new DbUser
+            {
+                Email = model.Email,
+                UserName = model.Name,
+                PhoneNumber = model.Phone
+            };
+            var result = _userManager.CreateAsync(user, model.Password).Result;
+            var userProfile = new UserProfile
+            {
+                Id = user.Id,
+                FirstName = model.Name != null ? model.Name : null,
+                MiddleName = "",
+                LastName = model.Surname != null ? model.Surname : null,
+                RegistrationDate = DateTime.Now,
+                BirthDate = Convert.ToDateTime(model.BirthDate),
+                Address = model.Address
+            };
+            var userAccess = new UserAccess
+            {
+                Id = user.Id,
+                Reason = "",
+                DateBlock = DateTime.Now,
+                IsUnblock = false
+            };
+            _context.UserProfile.Add(userProfile);
+            _context.UsersAccesses.Add(userAccess);
+            result = _userManager.AddToRoleAsync(user, roleName).Result;
+            return Ok();
+        }
+
 
         [HttpPost("forgot-password")]
         public ActionResult<string> SendEmailForgotPassword([FromBody] ForgotPasswordModel model)
