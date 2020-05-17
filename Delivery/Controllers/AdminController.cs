@@ -85,7 +85,6 @@ namespace Delivery.Controllers
 
         [HttpGet("getprocentdishes")]
         public IActionResult GetAllOrderDishes()
-
         {
             var typeOfCuisine = _context.TypesOfCuisines.ToList();
             var query = _context.DishesInOrder.Where(x => x.Order.OrderStatusId == 3).AsQueryable();
@@ -99,6 +98,27 @@ namespace Delivery.Controllers
                 {
                     Id = item.Id,
                     Name = item.TypeOfCuisineName,
+                    Count = temp
+                });
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("getprocenttypedishes")]
+        public IActionResult GetAllOrderTypeDishes()
+        {
+            var typeOfCuisine = _context.TypesOfDishes.ToList();
+            var query = _context.DishesInOrder.Where(x => x.Order.OrderStatusId == 3).AsQueryable();
+
+            GetPieDataViewModel result = new GetPieDataViewModel();
+            result.TypeOfCuisines = new List<GetTypeOfCuisineViewModel>();
+            foreach (var item in typeOfCuisine)
+            {
+                int temp = query.Where(x => x.Dish.TypeOfDish.Id == item.Id).Count();
+                result.TypeOfCuisines.Add(new GetTypeOfCuisineViewModel
+                {
+                    Id = item.Id,
+                    Name = item.TypeOfDishName,
                     Count = temp
                 });
             }
