@@ -57,6 +57,9 @@ export default class ClientNavbar extends Component {
                                         <Link className="nav-link" to="/login" >Вхід</Link>
                                     </li>
                                     <li className="nav-item">
+                                        <Link className="nav-link" to="/register" >Реєстрація</Link>
+                                    </li>
+                                    <li className="nav-item">
                                         <a onClick={e => this.props.onLogout(e)} className="nav-link" >Вихід</a>
                                     </li>
                                 </ul>

@@ -27,7 +27,7 @@ namespace Delivery.DAL.EFContext
         public DateTime RegistrationDate { get; set; }
 
         /// <summary>
-        /// Дата реєстрації
+        /// Дата народження
         /// </summary>
         public DateTime BirthDate { get; set; }
     }
