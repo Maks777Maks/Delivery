@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ClientNavbar from "../../../layouts/clientLayout/clientNavbar";
 import dishes_1 from '../../../assets/img/dishes_1.jpg';
 import hero_1 from '../../../assets/img/hero_1.jpg';
 import hero_2 from '../../../assets/img/hero_2.jpg';
@@ -24,49 +25,7 @@ class HomePage extends Component {
     render() { 
         const content = (
             <React.Fragment>
-                 <header role="banner">
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-        <div className="container">
-          <a className="navbar-brand" href="/">Доставка їжі</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="collapse navbar-collapse" id="navbarsExample05">
-            <ul className="navbar-nav ml-auto pl-lg-5 pl-0">
-              <li className="nav-item">
-                <a className="nav-link active" href="/">Домашня сторінка</a>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/alldishes">Меню</Link>
-              </li>
-              <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to="/" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сервіси</Link>
-                   <div className="dropdown-menu" aria-labelledby="dropdown04">
-                      <Link className="dropdown-item" to="/">Повсякдення їжа</Link>
-                      <Link className="dropdown-item" to="/">День нарождення</Link>
-                      <Link className="dropdown-item" to="/">Весілля</Link>
-                  </div>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">Про нас</a>
-              </li>
-              <li className="nav-item">
-                {/* <a className="nav-link" href="/#/login">Вхід</a> */}
-                <Link className="nav-link" to="/login" >Вхід</Link>
-              </li>
-            </ul>
-
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item cta-btn">
-                <a className="nav-link" href="/">Зв'яжіться з нами</a>
-              </li>
-            </ul>
-            
-          </div>
-        </div>
-      </nav>
-    </header>
+                 <ClientNavbar/>
     <section className="home-slider owl-carousel">
       <div className="slider-item" style={{backgroundImage: "url(" + hero_1 + ")"}}>
         
