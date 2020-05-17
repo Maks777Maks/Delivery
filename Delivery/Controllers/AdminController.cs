@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Delivery.DAL.EFContext;
 using Delivery.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -57,20 +55,30 @@ namespace Delivery.Controllers
         [HttpPost("getdishes")]
         public IActionResult GetDishes([FromBody] FiltersDishesAdminViewModel model)
         {
-            var query = _context.Dishes.AsQueryable();
+            var Dishes = _context.Dishes.ToList();
+            var query = _context.DishesInOrder.Where(x => x.Order.OrderStatusId == 3).AsQueryable();
             GetAllDishesAdminViewModel result = new GetAllDishesAdminViewModel();
-            result.Dishes = query.Select(d => new GetDishesAdminViewModel
+            result.Dishes = new List<GetDishesAdminViewModel>();
+            foreach(var item in Dishes)
             {
-                Id = d.Id,
-                Name = d.Name,
-                Description = d.Description,
-                Price = d.Price,
-                Ingredients = d.Ingredients,
-                Weight = d.Weight,
-                Image = d.Image,
-                TypeOfDishId = d.TypeOfDishId
-
-            }).ToList();
+                int temp = query.Where(x => x.Dish.Id == item.Id).Count();
+                if (temp > 0)
+                {
+                    result.Dishes.Add(new GetDishesAdminViewModel
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        Description = item.Description,
+                        Price = item.Price,
+                        Ingredients = item.Ingredients,
+                        Weight = item.Weight,
+                        Image = item.Image,
+                        TypeOfDishId = item.TypeOfDishId,
+                        Count = temp
+                    });
+                }
+            }
+            result.Dishes = result.Dishes.OrderBy(o => o.Count).Reverse().ToList();
             return Ok(result);
         }
 

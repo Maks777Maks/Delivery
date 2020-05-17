@@ -14,6 +14,7 @@ import { cartReducer } from "../views/clientViews/Cart/reducer";
 import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
 import {changePasswordReducer} from '../views/defaultViews/ChangePasswordPage/reducer'
 import { bestsellerReducer } from "../views/adminViews/Bestseller/reducer";
+import {getAllTypesOfCuisinesReducer} from "../components/TypesOfCuisines/reducer";
 import { getAllTypeDishesReducer } from "../views/adminViews/TypeDishesGraph/reducer";
 import { getAllSoldDishesReducer } from "../views/adminViews/GraphPercentageDishes/reducer";
 
@@ -34,8 +35,10 @@ export default function configureStore(history, initialState) {
     cart: cartReducer,
     changePassword: changePasswordReducer,
     bestseller: bestsellerReducer,
+   
+    typeDishesGraph: getAllTypeDishesReducer,
     cuisineGraph: getAllSoldDishesReducer,
-    typeDishesGraph: getAllTypeDishesReducer
+    typesOfCuisines: getAllTypesOfCuisinesReducer,
   };
 
   const middleware = [thunk, routerMiddleware(history)];

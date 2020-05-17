@@ -99,18 +99,18 @@ class LoginPage extends Component {
 
     render() {
         const { iconInput, typeInput, errorsServer, errors } = this.state;
-console.log(errorsServer)
+
         const form = (
-            <Container>
+            <Container style={styles}>
                 <Row style={{ height: '100vh' }} className="justify-content-center align-items-center">
                     <Col md="5">
-                        <Form onSubmit={this.onSubmitForm}  className="form" style={styles}>
+                        <Form onSubmit={this.onSubmitForm}  className="form">
                             <div style={{textAlign: "center"}}>
                                 <img src={house} style={{width: "70px"}}></img>
                             </div>
                             <p className="h5 text-center mb-4">Увійти</p>
                             {!!errorsServer ?
-                                        <div className="errorMessage" style={styles}>
+                                        <div className="errorMessage">
                                         - {errorsServer}
                                         </div> : ""}                               
                             <div className="grey-text">
@@ -124,7 +124,7 @@ console.log(errorsServer)
                                     onChange={this.handleChange}
                                     autoComplete="new-password" />
                                      {!!errors.email ?
-                                        <div className="errorMessage" style={styles}>
+                                        <div className="errorMessage">
                                         - {errors.email}.
                                         </div> : ""}   
                                 <MDBInput
@@ -140,7 +140,7 @@ console.log(errorsServer)
                                     autoComplete="new-password"
                                 />
                                 {!!errors.password ? 
-                                <div className="errorMessage" style={styles}>
+                                <div className="errorMessage">
                                     - {errors.password}
                                     </div> : ""}
                             </div>
