@@ -91,7 +91,7 @@ export default {
       },
       {
         name: 'Продаж страв',
-        url: '/admin/comments',
+        url: '/admin/graphtypedishes',
         icon: 'icon-layers',
       },
       {

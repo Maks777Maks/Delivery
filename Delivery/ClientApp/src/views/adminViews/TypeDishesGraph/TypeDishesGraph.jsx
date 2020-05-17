@@ -22,11 +22,11 @@ import {
 } from "@material-ui/core";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { red } from '@material-ui/core/colors';
-class GraphPercentageDishes extends Component {
+class TypeDishesGraph extends Component {
   state = {}
   componentDidMount = () => {
     console.log("componentDidMount");
-    this.props.getAllSoldDishesData();
+    this.props.getAllTypeDishesData();
   }
   render() {
     const { data } = this.props;
@@ -47,8 +47,8 @@ class GraphPercentageDishes extends Component {
       datasets: [
         {
           data: countData,
-          backgroundColor: ["#FF6384", "#FFCE56", "#FF0000", "#FF1493", "#FFD700", "#9400D3", "#00FF00", "#20B2AA", "#00008B","#2F4F4F"],
-          hoverBackgroundColor: ["#FF6384", "#FFCE56", "#FF0000","#FF1493", "#FFD700", "#9400D3", "#00FF00", "#20B2AA", "#00008B","#2F4F4F"],
+          backgroundColor: ["#FF6384", "#FFCE56", "#FF0000"],
+          hoverBackgroundColor: ["#FF6384", "#FFCE56", "#FF0000"],
         },
       ],
     };
@@ -62,14 +62,14 @@ class GraphPercentageDishes extends Component {
     };
     console.log(data);
     return (
-      <Grid className="mt-6" container>
+      <Grid className="mt-4" container>
         <Grid item lg={6} md={6} xl={6} xs={12}>
 
-          <Card className="mt-5 mb-5 mr-5">
+          <Card className="mt-3 mb-3 mr-3">
             <form>
               <CardHeader
                 avatar={<FaceIcon></FaceIcon>}
-                title="Відсоткове відношення кухонь"
+                title="Відсоток типів страв"
               />
 
               <CardContent>
@@ -85,8 +85,8 @@ class GraphPercentageDishes extends Component {
                       <Skeleton
                         animation="wave"
                         variant="circle"
-                        width={300}
-                        height={300}
+                        width={200}
+                        height={200}
                       />
                     </div>
                   </div>
@@ -120,16 +120,16 @@ class GraphPercentageDishes extends Component {
 const mapStateToProps = (state) => {
   console.log("mapStateToProps",state)
   return {
-    data: get(state, "cuisineGraph.list.data"),
+    data: get(state, "typeDishesGraph.list.data"),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAllSoldDishesData: () => {
-      dispatch(getListActions.getAllSoldDishesData());
+    getAllTypeDishesData: () => {
+      dispatch(getListActions.getAllTypeDishesData());
     }
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (GraphPercentageDishes);
+export default connect(mapStateToProps, mapDispatchToProps) (TypeDishesGraph);
