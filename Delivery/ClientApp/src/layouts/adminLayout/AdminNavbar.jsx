@@ -29,15 +29,6 @@ class AdminNavbar extends Component {
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
         <Nav className="d-md-down-none" navbar>
-          {/* <NavItem className="px-3">
-            <NavLink to="/dashboard" className="nav-link" >Dashboard</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <Link to="/users" className="nav-link">Users</Link>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink to="#" className="nav-link">Settings</NavLink>
-          </NavItem> */}
         </Nav>
         <Nav className="ml-auto" navbar>
           <UncontrolledDropdown nav direction="down">
