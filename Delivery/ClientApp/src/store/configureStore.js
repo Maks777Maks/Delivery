@@ -13,7 +13,6 @@ import { changeImageReducer } from "../components/ChangeImage/reducer";
 import { getAllTypesOfDishesReducer } from "../views/clientViews/TypesOfDishes/reducer";
 import { getAllDishesReducer } from "../views/clientViews/Dishes/reducer";
 import { cartReducer } from "../views/clientViews/Cart/reducer";
-import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
 import {changePasswordReducer} from '../views/defaultViews/ChangePasswordPage/reducer'
 import { bestsellerReducer } from "../views/adminViews/Bestseller/reducer";
 import {getAllTypesOfCuisinesReducer} from "../components/TypesOfCuisines/reducer";
