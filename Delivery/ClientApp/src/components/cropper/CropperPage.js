@@ -12,7 +12,9 @@ class CropperPage extends Component {
   }; 
 
   onChange = e => {
-    e.preventDefault();
+    // e.preventDefault();
+    e.persist();
+
     let files;
     if (e.dataTransfer) {
       files = e.dataTransfer.files;
@@ -133,7 +135,7 @@ class CropperPage extends Component {
                   <div className="row">
                     <div className="col">
                       <button className="btn btn-success" onClick={this.cropImage}>
-                        Обрізати фото
+                        Обрати фото
                       </button>
                       <button className="btn btn-danger" onClick={this.toggle}>
                         Скасувати

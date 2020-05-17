@@ -13,21 +13,19 @@ namespace Delivery.DAL.Models
     {
         [Key]
         public int Id { get; set; }
-
         // номер накладної чи рахунку
         [Required, StringLength(100)]
         public string OrderInvoice { get; set; }
 
-        [ForeignKey("DbUser")]
+        [Required, ForeignKey("DbUser")]
         public string UserId { get; set; }
         public virtual DbUser DbUser { get; set; }
 
         public ICollection<DishInOrder> Dishes { get; set; }
         public ICollection<ExtraInOrder> Extras { get; set; }
 
-        [Required]
         public DateTime DateOfCreate { get; set; }
-        [Required]
+
         public DateTime DateOfDelivery { get; set; }
 
         [ForeignKey("OrderStatus")]
@@ -42,7 +40,7 @@ namespace Delivery.DAL.Models
         [StringLength(500)]
         public string CustomerWishes { get; set; }
 
-        public DateTime DateReceived { get; set; }
-        public DateTime DateCancel { get; set; }
+        public DateTime? DateReceived { get; set; }
+        public DateTime? DateCancel { get; set; }
     }
 }

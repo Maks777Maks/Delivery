@@ -2,28 +2,30 @@ import ForgotPasswordService from './ForgotPasswordService';
 import update from '../../../helpers/update';
 export const SEND_EMAIL_STARTED = "SEND_EMAIL_STARTED";
 export const SEND_EMAIL_SUCCESS = "SEND_EMAIL_SUCCESS";
-export const SEND_EMAIL_FAILED = "SEND_EMAIL_AILED";
+export const SEND_EMAIL_FAILED = "SEND_EMAIL_FAILED";
 
 
 const initialState = {
     post: {
-        data: [],
         loading: false,
         success: false,
         failed: false,
+        errors: ''
     }
 }
 
 export const ForgotPassword = (model) => {
     return (dispatch) => {
         dispatch(getListActions.started());
+        console.log("Received", model);
         ForgotPasswordService.sendEmail(model)
             .then((response) => {
                 console.log("response",response);
-                dispatch(getListActions.success(response));               
+                dispatch(getListActions.success());               
             }, err=> { throw err; })
             .catch(err=> {
-              dispatch(getListActions.failed(err));
+              console.log("Errrrrrr", err.response);
+              dispatch(getListActions.failed(err.response));
             });
     }
 }
@@ -34,16 +36,15 @@ export const getListActions = {
             type: SEND_EMAIL_STARTED
         }
     },  
-    success: (data) => {
+    success: () => {
         return {
             type: SEND_EMAIL_SUCCESS,
-            payload: data.data.email
         }
     },  
     failed: (error) => {
         return {           
             type: SEND_EMAIL_FAILED,
-            errors: error
+            errors: error.data
         }
     }
   }
@@ -62,14 +63,14 @@ export const forgotPasswordReducer = (state = initialState, action) => {
       case SEND_EMAIL_SUCCESS: {
           newState = update.set(state, 'post.loading', false);
           newState = update.set(newState, 'post.failed', false);
-          newState = update.set(newState, 'post.success', true);
-          newState = update.set(newState, 'post.data', action.payload);         
+          newState = update.set(newState, 'post.success', true);   
           break;
       }
       case SEND_EMAIL_FAILED: {
           newState = update.set(state, 'post.loading', false);
           newState = update.set(newState, 'post.success', false);
           newState = update.set(newState, 'post.failed', true);
+          newState = update.set(newState, "post.errors", action.errors);
           break;
       }
       default: {

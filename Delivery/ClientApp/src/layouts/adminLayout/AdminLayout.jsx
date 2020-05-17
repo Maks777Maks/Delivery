@@ -29,17 +29,17 @@ class AdminLayout extends Component {
     loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
     signOut(e) {
-        e.preventDefault()
-        this.props.history.push('/login')
+        e.preventDefault();
+        this.props.logout();
+        this.props.history.push('/login');
     }
 
     render() {
         const { login } = this.props;
-        //console.log(login);
         let isAccess = false;
         if (login.isAuthenticated === undefined) {
             return (
-                <Redirect to="/login" />
+                <Redirect to = "/login" />
             );
         }
         if (login.isAuthenticated) {

@@ -1,29 +1,27 @@
 import React, { Component } from "react";
 import * as getListActions from "./reducer";
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  Badge,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Label,
-  Input,
-} from "reactstrap";
 import hero_2 from "../../../assets/img/hero_2.jpg";
 import { connect } from "react-redux";
 import get from "lodash.get";
 import Dishes from "../Dishes";
-import * as R from "ramda";
-import Cart from "../Cart";
+import TypesOfCuisines from "../../../components/TypesOfCuisines";
 import { Link } from "react-router-dom";
 import stylesTypes from "./styleTypes.css";
 import styles from "./../../defaultViews/scss/style.scss";
+import ClientNavbar from "../../../layouts/clientLayout/clientNavbar";
+import ClientFooter from "../../../layouts/clientLayout/clientFooter";
+import jwt from "jsonwebtoken";
+
+let user;
+if (localStorage.jwtToken) {
+  let data = {
+    token: localStorage.jwtToken,
+    refToken: localStorage.refreshToken,
+  };
+  user = jwt.decode(data.token);
+  console.log(user);
+  console.log(user.name);
+}
 
 class TypesOfDishes extends Component {
   state = {
@@ -32,8 +30,7 @@ class TypesOfDishes extends Component {
     searchValue: "",
     cart: [],
     count: 0,
-    totalPrice: 0
-    // name: "Бумеранг не запущен",
+    totalPrice: 0,
   };
 
   componentDidMount = () => {
@@ -46,16 +43,10 @@ class TypesOfDishes extends Component {
   };
 
   FilterDishes(typeId) {
-
-    console.log(typeId);
     this.setState({
       activeTypeId: typeId,
     });
     return typeId;
-  }
-
-  SearchDishes(name) {
-    console.log();
   }
 
   handleChange(event) {
@@ -72,7 +63,7 @@ class TypesOfDishes extends Component {
     this.setState({
       cart: value,
       count: number,
-      totalPrice: totalPrice
+      totalPrice: totalPrice,
     });
   };
 
@@ -83,6 +74,7 @@ class TypesOfDishes extends Component {
     const cartN = this.state.cart;
     return (
       <div>
+        <ClientNavbar />
         <div
           className="slider-item"
           style={{
@@ -92,12 +84,9 @@ class TypesOfDishes extends Component {
         ></div>
 
         <div>
-          {/* <p>State: {this.state.name}</p> */}
-
           <div className="container">
             <div className="row">
               <div className="col-md-3">
-                {/* <p> Types:</p> */}
                 {listTypesOfDishes.map((item) => {
                   return (
                     <div key={item.id}>
@@ -111,30 +100,40 @@ class TypesOfDishes extends Component {
                   );
                 })}
                 <ul>
-                  <li onClick={this.FilterDishes.bind(this, 0)}>All Types</li>
+                  <li onClick={this.FilterDishes.bind(this, 0)}>Всі блюда</li>
                 </ul>
-                {/* <p> State types: {this.state.activeTypeId} </p> */}
                 <div className="input-group">
                   <form onSubmit={this.handleSubmit}>
                     <input
-                    className="inputSearch"
+                      className="inputSearch"
                       type="text"
                       onChange={this.handleChange.bind(this)}
-                      placeholder="Search"
+                      placeholder="Пошук"
                     />
-                   
                   </form>
                 </div>
                 <div>
-                  <p> TotalCount: {this.state.count}</p>
-                  <p> Total Price: {this.state.totalPrice}</p>
-                  <p>
+                  <p>Привіт, {user ? user.name : "Гість"}</p>
+                  <div>
                     {" "}
-                    Cart:{" "}
+                    Блюда у кошику:{" "}
                     {cartN.map((item) => {
-                      return <p className="cartItem"> {item} </p>;
+                      return (
+                        <div className="cartItem" key={item.id}>
+                          {" "}
+                          {item}{" "}
+                        </div>
+                      );
                     })}
-                  </p>
+                  <p> Сума: {this.state.totalPrice} ГРН</p>
+                    <Link className="nav-link" to="/cart">
+                      У кошик
+                    </Link>
+                  </div>
+                </div>
+
+                <div>
+                  <TypesOfCuisines />
                 </div>
               </div>
               <div className="col-md-9">
@@ -147,13 +146,13 @@ class TypesOfDishes extends Component {
             </div>
           </div>
         </div>
+        <ClientFooter />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log("mapStateToPropsDishes", state);
   return {
     listTypesOfDishes: get(state, "typesOfDishes.list.data"),
   };

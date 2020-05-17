@@ -13,6 +13,13 @@ import { changeImageReducer } from "../components/ChangeImage/reducer";
 import { getAllTypesOfDishesReducer } from "../views/clientViews/TypesOfDishes/reducer";
 import { getAllDishesReducer } from "../views/clientViews/Dishes/reducer";
 import { cartReducer } from "../views/clientViews/Cart/reducer";
+import {loginReducer} from '../views/defaultViews/LoginPage/reducer';
+import {changePasswordReducer} from '../views/defaultViews/ChangePasswordPage/reducer'
+import { bestsellerReducer } from "../views/adminViews/Bestseller/reducer";
+import {getAllTypesOfCuisinesReducer} from "../components/TypesOfCuisines/reducer";
+import { getAllTypeDishesReducer } from "../views/adminViews/TypeDishesGraph/reducer";
+import { getAllSoldDishesReducer } from "../views/adminViews/GraphPercentageDishes/reducer";
+
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
@@ -29,6 +36,12 @@ export default function configureStore(history, initialState) {
     typesOfDishes: getAllTypesOfDishesReducer,
     dishes: getAllDishesReducer,
     cart: cartReducer,
+    changePassword: changePasswordReducer,
+    bestseller: bestsellerReducer,
+   
+    typeDishesGraph: getAllTypeDishesReducer,
+    cuisineGraph: getAllSoldDishesReducer,
+    typesOfCuisines: getAllTypesOfCuisinesReducer,
   };
 
   const middleware = [thunk, routerMiddleware(history)];

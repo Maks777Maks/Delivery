@@ -9,11 +9,10 @@ namespace Delivery.ViewModels
     {
         public string Id { get; set; }
     }
-
     public class UserProfileInfoVM
     {
-        public string Id { get; set; }
         public string Name { get; set; }
+        public string MiddleName { get; set; }
         public string Surname { get; set; }
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
@@ -24,12 +23,18 @@ namespace Delivery.ViewModels
 
     public class UserBaseProfileInfoVM
     {
-        public string Id { get; set; }
         public string Name { get; set; }
+        public string MiddleName { get; set; }
+
         public string Surname { get; set; }
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+    }
+
+    public class UserNewPasswordVM
+    {
+        public string Password { get; set; }
     }
 }

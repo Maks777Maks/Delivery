@@ -1,4 +1,5 @@
 import React, { Component, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
     Col, Row, Button, Form, Input, FormFeedback, InputGroup, InputGroupAddon, InputGroupText,
     CardImg, Collapse, ModalBody, Modal, ModalHeader, ModalFooter
@@ -6,6 +7,8 @@ import {
 import * as getListActions from './reducer';
 import { connect } from 'react-redux';
 import get from "lodash.get";
+import no_avatar from '../../assets/images/no-avatar.png';
+import { serverUrl } from '../../config';
 
 import jwt from 'jsonwebtoken';
 
@@ -13,32 +16,6 @@ let user;
 if (localStorage.jwtToken) {
     let data = { token: localStorage.jwtToken, refToken: localStorage.refreshToken };
     user = jwt.decode(data.token);
-}
-
-const CardWithButton = (props) => {
-    const { srcImg, submitConfirm } = props;
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
-
-    return (
-        <div>
-            <CardImg onMouseOver={toggle} src={srcImg} alt="ProfileCard"
-            />
-            <Collapse isOpen={isOpen}>
-                <ModalButton buttonLabel={'Поміняти фотографію'} submitConfirm={submitConfirm}></ModalButton>
-            </Collapse>
-        </div>
-    );
-}
-
-const CollapseButton = (props) => {
-    const { submitConfirm, isShowSubmitBtn, isForceShowModal = false } = props;
-    return (
-        <Collapse isOpen={isShowSubmitBtn}>
-            <ModalButton buttonLabel={'Зберегти зміни'} submitConfirm={submitConfirm}
-                isForceShowModal={isForceShowModal}></ModalButton>
-        </Collapse>
-    );
 }
 
 const ModalButton = (props) => {
@@ -55,7 +32,6 @@ const ModalButton = (props) => {
         setModal(!modal);
         if (submitConfirm)
             submitConfirm();
-        else { alert("HELOO") };
     };
 
     return (
@@ -76,29 +52,39 @@ const ModalButton = (props) => {
     );
 }
 
-
 class ProfileManager extends Component {
     state = {
         name: {
-            name: 'client name',
+            name: '',
             isInvalid: false
         },
+
+        middleName: {
+            middleName: '',
+            isInvalid: false
+        },
+
         surname: {
-            surname: 'client surname',
+            surname: '',
             isInvalid: false
         },
         phone: {
-            phone: 'client phone',
+            phone: '',
             isInvalid: false
         },
 
         email: {
-            email: 'client email',
+            email: '',
             isInvalid: false
         },
 
         password: {
-            password: 'password',
+            password: '',
+            isInvalid: false
+        },
+
+        confirmPassword: {
+            confirmPassword: '',
             isInvalid: false
         },
 
@@ -109,28 +95,30 @@ class ProfileManager extends Component {
         },
 
         address: {
-            address: 'client address',
+            address: '',
             isInvalid: false
 
         },
 
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/768px-Circle-icons-profile.svg.png',
+        photo: no_avatar,
         profileUrl: '',
         error: 'Введіть, будь ласка, коректні дані',
         typeInput: 'password',
         isChange: false,
+        isShowChangePassword: false,
+        isShowChangeImage: false,
+        isLoadData: false
     }
 
     componentDidMount = () => {
         if (user) {
-            const model = { id: user.id };
-            console.log("GET_PROFILE USER", model);
-            this.props.getUserProfile(model);
+            this.props.getUserProfile();
         }
-        else
+        else {
             console.log("user is not logged in", user);
+            this.props.history.push("/login");
+        }
     }
-
 
     setFormatDate = (date = new Date()) => {
         let dateJS = new Date();
@@ -152,16 +140,29 @@ class ProfileManager extends Component {
 
         return yy + '-' + mm + '-' + dd;
     }
-    componentDidUpdate(prevProps) {
-        if (this.props.userProfile.email !== prevProps.userProfile.email) {
-            const { name, surname, email, phone, birthDate, address, photo } = this.props.userProfile;
-            if (photo)
-                this.setState({ photo });
+    componentDidUpdate() {
+        if (!this.state.isLoadData) {
+            
+            const { name, middleName, surname, email, phone, birthDate, address, photo } = this.props.userProfile;
+            let image = '';
+            if (photo) {
+                image = serverUrl + photo;
+            }
+            else {
+                image = no_avatar;
+            }
+
             this.setState({
                 name: {
                     name,
                     isInvalid: false
                 },
+
+                middleName: {
+                    middleName,
+                    isInvalid: false
+                },
+
                 surname: {
                     surname,
                     isInvalid: false
@@ -181,7 +182,9 @@ class ProfileManager extends Component {
                 address: {
                     address,
                     isInvalid: false
-                }
+                },
+                photo : image,
+                isLoadData: true
             });
         }
     }
@@ -207,42 +210,43 @@ class ProfileManager extends Component {
     };
 
     submitConfirm = e => {
-        const { name, surname, email, phone, birthDate, address } = this.state;
+        const { name, middleName, surname, email, phone, birthDate, address } = this.state;
         const model = {
-            id: user.id,
             name: name.name,
+            middleName: middleName.middleName,
             surname: surname.surname,
             birthDate: new Date(birthDate.birthDate),
             email: email.email,
             phone: phone.phone,
             address: address.address
         };
-        console.log("SET_PROFILE USER", model);
+        
         this.props.setUserBaseInfoProfile(model);
     }
-    
+
     checkValid = (e) => {
         let isValidAll = true;
-        const { name, surname, email, phone, birthDate, address } = this.state;
-        const user = [name, surname, email, phone, birthDate, address];
-        
+        const { name, middleName, surname, email, phone, birthDate, address } = this.state;
+        const user = [name, middleName, surname, email, phone, birthDate, address];
+
         user.forEach(item => {
-            if(item.isInvalid)
-            isValidAll = false;
+            if (item.isInvalid)
+                isValidAll = false;
         })
 
         let newState = {
             [e.target.name]: e.target.value,
             isInvalid: true
         }
-        
-        const nameRegex = /^[А-Яа-яЁёЇїІіЄєҐґ' ]+$/;
+
+        const nameRegex = /^[А-Яа-яЁёЇїІіЄєҐґ' -]+$/;
         const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
         const addressRegex = /^[А-Яа-яЁёЇїІіЄєҐґ' a-zA-Z0-9\s,'-.]+$/;
 
         switch (e.target.name) {
             case 'name':
+            case 'middleName':
             case 'surname':
                 if (!nameRegex.test(e.target.value)) {
                     isValidAll = false;
@@ -268,21 +272,82 @@ class ProfileManager extends Component {
                 }
                 break;
             default:
-                console.log("AFTER SWITCH" , e.target.name);
+                console.log("AFTER SWITCH", e.target.name);
         }
-        if(isValidAll)
-        this.setState({isChange: true});
+        if (isValidAll)
+            this.setState({ isChange: true });
         else
-        this.setState({isChange: false});
+            this.setState({ isChange: false });
+    }
+
+    sendNewPasswordToServer = () => {
+        const { password, confirmPassword } = this.state;
+        let newState = {};
+
+        if (!!!password.password) {
+            newState = Object.assign(password);
+            newState.isInvalid = true;
+            this.setState({ password: newState });
+        }
+
+        if (!!!confirmPassword.confirmPassword) {
+            newState = Object.assign(confirmPassword);
+            newState.isInvalid = true;
+            this.setState({ confirmPassword: newState });
+        }
+
+        if (password.isInvalid === true || confirmPassword.isInvalid === true) {
+            return;
+        }
+
+        const model = {
+            password: password.password,
+        };
+
+        this.props.setNewPasswordProfile(model);
+        this.setState({ 
+            isShowChangePassword: false,
+            password: {password: '', isInvalid : false},
+            confirmPassword : {confirmPassword : '', isInvalid : false }
+         });
+    }
+
+    checkValidPasswords = (e) => {
+        const { password } = this.state.password;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-!@#$%^&*])(?=.{8,})/;
+
+        let newState = {
+            [e.target.name]: e.target.value,
+            isInvalid: true
+        }
+
+        switch (e.target.name) {
+            case 'password':
+                if (!passwordRegex.test(e.target.value)) {
+                    this.setState({ [e.target.name]: newState });
+                }
+                break;
+            case 'confirmPassword':
+                if (!passwordRegex.test(e.target.value) || e.target.value !== password) {
+                    this.setState({ [e.target.name]: newState });
+                }
+                break;
+            default:
+                console.log("AFTER SWITCH CHECK PASSWORD", e.target.name);
+        }
     }
 
     changePhoto = () => {
-        alert("Super you can change photo");
+        this.setState({photo : no_avatar});
+        this.props.history.push("/changeimage");
     }
 
     render() {
-        const { name, surname, birthDate, phone, email, photo, password, address, error, typeInput, isChange } = this.state;
+        const { name, middleName, surname, birthDate, phone, email, photo, password, confirmPassword, address, error,
+             typeInput, isChange, isShowChangePassword, isShowChangeImage } = this.state;
+       
         let style = { marginTop: '10px', marginBottom: '5px' };
+
         return (
             <React.Fragment>
                 <Row>
@@ -292,7 +357,24 @@ class ProfileManager extends Component {
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText><i className="fa fa-user" aria-hidden="true"></i></InputGroupText>
                                 </InputGroupAddon>
-                                <Input invalid={name.isInvalid} onBlur={this.checkValid} type="text" name="name" id="idNameProfile" value={name.name}
+                                <Input invalid={name.isInvalid} 
+                                    onBlur={this.checkValid} 
+                                    type="text" 
+                                    name="name" 
+                                    id="idNameProfile" 
+                                    value={name.name}
+                                    placeholder="ім'я"
+                                    autoComplete="new-password"
+                                    onChange={this.handleChangeData} />
+                                <FormFeedback>{error}</FormFeedback>
+
+                                <Input style={{marginLeft: '5px'}}
+                                    invalid={middleName.isInvalid} 
+                                    onBlur={this.checkValid} 
+                                    type="text" name="middleName"
+                                    id="idMiddleNameProfile" 
+                                    value={middleName.middleName}
+                                    placeholder="по батькові"
                                     autoComplete="new-password"
                                     onChange={this.handleChangeData} />
                                 <FormFeedback>{error}</FormFeedback>
@@ -302,7 +384,13 @@ class ProfileManager extends Component {
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText><i className="fa fa-user" aria-hidden="true"></i></InputGroupText>
                                 </InputGroupAddon>
-                                <Input invalid={surname.isInvalid} onBlur={this.checkValid} type="text" name="surname" id="idSurnameProfile" value={surname.surname}
+                                <Input invalid={surname.isInvalid} 
+                                    onBlur={this.checkValid} 
+                                    type="text" 
+                                    name="surname" 
+                                    id="idSurnameProfile" 
+                                    value={surname.surname}
+                                    placeholder="прізвище"
                                     autoComplete="new-password"
                                     onChange={this.handleChangeData} />
                                 <FormFeedback>{error}</FormFeedback>
@@ -312,7 +400,13 @@ class ProfileManager extends Component {
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText><i className="fa fa-phone" aria-hidden="true"></i></InputGroupText>
                                 </InputGroupAddon>
-                                <Input invalid={phone.isInvalid} onBlur={this.checkValid} type="tel" name="phone" id="idPhoneProfile" value={phone.phone}
+                                <Input invalid={phone.isInvalid} 
+                                    onBlur={this.checkValid} 
+                                    type="tel" 
+                                    name="phone" 
+                                    id="idPhoneProfile" 
+                                    value={phone.phone}
+                                    placeholder="телефон"
                                     autoComplete="new-password"
                                     onChange={this.handleChangeData} />
                                 <FormFeedback>{error}</FormFeedback>
@@ -322,7 +416,13 @@ class ProfileManager extends Component {
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText><i className="fa fa-envelope" aria-hidden="true"></i></InputGroupText>
                                 </InputGroupAddon>
-                                <Input invalid={email.isInvalid} onBlur={this.checkValid} type="email" name="email" id="idEmailProfile" value={email.email}
+                                <Input invalid={email.isInvalid} 
+                                    onBlur={this.checkValid} 
+                                    type="email" 
+                                    name="email" 
+                                    id="idEmailProfile" 
+                                    value={email.email}
+                                    placeholder="example@gmail.com"
                                     autoComplete="new-password"
                                     onChange={this.handleChangeData} />
                                 <FormFeedback>{error}</FormFeedback>
@@ -332,7 +432,12 @@ class ProfileManager extends Component {
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText><i className="fa fa-birthday-cake" aria-hidden="true"></i></InputGroupText>
                                 </InputGroupAddon>
-                                <Input invalid={birthDate.isInvalid} onBlur={this.checkValid} type="date" name="birthDate" id="idBirthDateProfile" value={birthDate.birthDate}
+                                <Input invalid={birthDate.isInvalid} 
+                                    onBlur={this.checkValid} 
+                                    type="date" 
+                                    name="birthDate" 
+                                    id="idBirthDateProfile" 
+                                    value={birthDate.birthDate}
                                     autoComplete="new-password"
                                     onChange={this.handleChangeData} />
                                 <FormFeedback>{error}</FormFeedback>
@@ -342,38 +447,108 @@ class ProfileManager extends Component {
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText><i className="fa fa-address-card-o" aria-hidden="true"></i></InputGroupText>
                                 </InputGroupAddon>
-                                <Input invalid={address.isInvalid} onBlur={this.checkValid} type="text" name="address" id="idAddressProfile" value={address.address}
+                                <Input invalid={address.isInvalid} 
+                                    onBlur={this.checkValid} 
+                                    type="text" 
+                                    name="address" 
+                                    id="idAddressProfile" 
+                                    value={address.address}
+                                    placeholder="адреса"
                                     autoComplete="new-password"
                                     onChange={this.handleChangeData} />
                                 <FormFeedback>{error}</FormFeedback>
                             </InputGroup>
+                            <Collapse isOpen={isChange}>
+                                <ModalButton buttonLabel={'Зберегти зміни'} submitConfirm={this.submitConfirm} ></ModalButton>
+                            </Collapse>
 
-                            <InputGroup style={style}>
+                            <InputGroup style={{ marginTop: '20px' , color: 'blue' }}>
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText><i className="fa fa-key" aria-hidden="true"></i></InputGroupText>
                                 </InputGroupAddon>
-                                <Input invalid={password.isInvalid}
-                                    type={typeInput}
-                                    name="password"
-                                    id="idPasswordProfile"
-                                    value={password.password}
-                                    autoComplete="new-password"
-                                    onChange={this.handleChangeData} />
-                                <FormFeedback>{error}</FormFeedback>
-                                <InputGroupAddon addonType="append">
-                                    <InputGroupText style={{ color: 'blue' }} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
-                                        {typeInput === "text" ? <i className="fa fa-eye" />
-                                            : <i className="fa fa-eye-slash" />}
-                                    </InputGroupText>
-                                </InputGroupAddon>
+                                <Input 
+                                    style={{ color: 'blue' }}
+                                    type="button" 
+                                    value="Змінити пароль"
+                                    onClick={() => { this.setState({ isShowChangePassword: !isShowChangePassword }) }} ></Input>
                             </InputGroup>
+                            
+                            <Modal isOpen={isShowChangePassword} toggle={() => { this.setState({ isShowChangePassword: !isShowChangePassword }) }}>
+                                <ModalHeader toggle={() => { this.setState({ isShowChangePassword: !isShowChangePassword }) }}>Зміна пароля</ModalHeader>
+                                <ModalBody>
+                                    <Form onSubmit={(e) => e.preventDefault()}>
+                                        <InputGroup style={style}>
+                                            <h5>Пароль має містити: латинські букви; щонайменше 1-ну прописну букву,
+                                            1-ну маленьку букву, 1-ну цифру і один спеціальний символ;
+                                            мінімальна довжина - 6 символів</h5>
+                                            <InputGroupAddon addonType="prepend">
+                                                <InputGroupText><i className="fa fa-key" aria-hidden="true"></i></InputGroupText>
+                                            </InputGroupAddon>
+                                            <Input invalid={password.isInvalid}
+                                                name="password"
+                                                type={typeInput}
+                                                placeholder="Введіть новий пароль"
+                                                id="idPasswordProfile"
+                                                value={password.password}
+                                                autoComplete="username"
+                                                onChange={this.handleChangeData}
+                                                onBlur={this.checkValidPasswords} />
+                                            <InputGroupAddon addonType="append">
+                                                <InputGroupText style={{ color: 'blue' }} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
+                                                    {typeInput === "text" ? <i className="fa fa-eye" />
+                                                        : <i className="fa fa-eye-slash" />}
+                                                </InputGroupText>
+                                            </InputGroupAddon>
+                                            <FormFeedback>{error}</FormFeedback>
+                                        </InputGroup>
 
-                            <CollapseButton submitConfirm={this.submitConfirm} isShowSubmitBtn={isChange}></CollapseButton>
+                                        <InputGroup style={style}>
+                                            <InputGroupAddon addonType="prepend">
+                                                <InputGroupText><i className="fa fa-key" aria-hidden="true"></i></InputGroupText>
+                                            </InputGroupAddon>
+                                            <Input invalid={confirmPassword.isInvalid}
+                                                type={typeInput}
+                                                name="confirmPassword"
+                                                placeholder="Підтвердіть пароль"
+                                                id="idConfirmPasswordProfile"
+                                                value={confirmPassword.confirmPassword}
+                                                autoComplete="username"
+                                                onChange={this.handleChangeData}
+                                                onBlur={this.checkValidPasswords} />
+                                            <InputGroupAddon addonType="append">
+                                                <InputGroupText style={{ color: 'blue' }}
+                                                    onMouseEnter={this.mouseEnter}
+                                                    onMouseLeave={this.mouseLeave}>
+                                                    {typeInput === "text" ? <i className="fa fa-eye" />
+                                                        : <i className="fa fa-eye-slash" />}
+                                                </InputGroupText>
+                                            </InputGroupAddon>
+                                            <FormFeedback>{error}</FormFeedback>
+                                        </InputGroup>
+                                    </Form>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button color="primary" onClick={this.sendNewPasswordToServer}>Так</Button>
+                                    <span>  </span>
+                                    <Button color="light" 
+                                    onClick={() => { this.setState({ isShowChangePassword: !isShowChangePassword }) }}>Ні</Button>
+                                </ModalFooter>
+                            </Modal>
                         </Form>
                     </Col>
                     <Col md={6}>
-                        <CardWithButton srcImg={photo} submitConfirm={this.changePhoto} />
+
+                        <CardImg style={style} onMouseOver={() => { this.setState( {isShowChangeImage: !isShowChangeImage} ) }} 
+                        src={`${photo}?t=${new Date().getTime()}`} alt="ProfileCard" />
+                        <Collapse isOpen={isShowChangeImage}>
+                            <ModalButton buttonLabel={'Поміняти фотографію'} submitConfirm={this.changePhoto}></ModalButton>
+                        </Collapse>
                     </Col>
+                </Row>
+                <Row className="justify-content-center align-items-center">
+                    <Link to="/client">
+                        <Button outline color="primary" style={{ marginTop: '20px' }} > Повернутися </Button>
+                    </Link>
                 </Row>
             </React.Fragment>
         );
@@ -382,14 +557,15 @@ class ProfileManager extends Component {
 
 const mapStateToProps = state => {
     return {
-        userProfile: get(state, "userProfile.list.data")
+        userProfile: get(state, "userProfile.list.data"),
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserProfile: (model) => { dispatch(getListActions.getUserProfile(model)) },
-        setUserBaseInfoProfile: (model) => { dispatch(getListActions.setUserBaseInfoProfile(model)) }
+        getUserProfile: () => { dispatch(getListActions.getUserProfile()) },
+        setUserBaseInfoProfile: (model) => { dispatch(getListActions.setUserBaseInfoProfile(model)) },
+        setNewPasswordProfile: (model) => { dispatch(getListActions.setNewPasswordProfile(model)) }
     }
 }
 

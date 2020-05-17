@@ -1,10 +1,33 @@
-﻿using System;
+﻿using Delivery.DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Delivery.ViewModels
 {
+    public class GetTypeOfCuisineViewModelClient
+    {
+        public int Id { get; set; }
+        public string TypeOfCuisineName { get; set; }
+        public string Image { get; set; }
+    }
+
+    public class GetAllTypesOfCuisinesViewModel
+    {
+        public ICollection<GetTypeOfCuisineViewModelClient> TypesOfCuisines { get; set; }
+    }
+
+    public class FiltersTypesOfDishesViewModel
+    {
+        public int CurrentPage { get; set; }
+    }
+
+    public class FiltersTypesOfCuisinesViewModel
+    {
+        public int CurrentPage { get; set; }
+    }
+
     public class GetTypeOfDishesViewModel
     {
         public int Id { get; set; }
@@ -17,12 +40,6 @@ namespace Delivery.ViewModels
         public ICollection<GetTypeOfDishesViewModel> TypeOfDishes { get; set; }
     }
 
-    public class FiltersTypesOfDishesViewModel
-    {
-        public int CurrentPage { get; set; }
-
-    }
-
     public class GetDishesViewModel
     {
         public int Id { get; set; }
@@ -30,14 +47,14 @@ namespace Delivery.ViewModels
         public string Ingredients { get; set; }
         public string Description { get; set; }
         public double Weight { get; set; }
-         public string Image { get; set; }
-        //  public bool IsVegetarian { get; set; }
+        public string Image { get; set; }
+        public bool IsVegetarian { get; set; }
         public decimal Price { get; set; }
-        //   public bool IsAvailable { get; set; }
-        //  public int TypeOfCuisineId { get; set; }
-        // public virtual TypeOfCuisine TypeOfCuisine { get; set; }
+        public bool IsAvailable { get; set; }
+        public int TypeOfCuisineId { get; set; }
+        public virtual TypeOfCuisine TypeOfCuisineF { get; set; }
         public int TypeOfDishId { get; set; }
-        //  public virtual TypeOfDish TypeOfDish { get; set; }
+        public string TypeOfCuisineName { get; set; }
     }
 
     public class GetAllDishesViewModel
@@ -48,7 +65,6 @@ namespace Delivery.ViewModels
     public class FiltersDishesViewModel
     {
         public int CurrentPage { get; set; }
-
     }
     public class AddDishToCartViewModel
     {

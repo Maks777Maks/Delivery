@@ -12,7 +12,7 @@ const initialState = {
     loading: false,
     success: false,
     failed: false,
-    totCount: 555,
+    totCount: 0,
   },
 };
 
@@ -35,35 +35,12 @@ export const getAllDishesData = (model) => {
   };
 };
 
-// export const addToCart = () => {
-//     return (dispatch) => {
-//         dispatch(getCartListActions.success());
-       
-//     }
-// }
-
-// export const getCartListActions  = {
-//   //data - added dish arr
- 
-//   success: (newCart) => {
-//       console.log("newCart" + newCart);
-//     return {
-//       type: ADD_TO_CART,
-//       payload: newCart,
-//     };
-//   },
-// };
-
-
-export const addDishToBasket = name => dispatch => {
-  console.log("newCartDish" + name);
-  dispatch({
+export const addDishToBasket = (name) => (dispatch) => {
+   dispatch({
     type: ADD_TO_CART,
-    payload: name
-  })
-}
-
-
+    payload: name,
+  });
+};
 
 export const getListActions = {
   started: () => {
@@ -113,7 +90,6 @@ export const getAllDishesReducer = (state = initialState, action) => {
       newState = update.set(newState, "list.success", false);
       newState = update.set(newState, "list.failed", true);
       newState = update.set(newState, "list.cart", action.payload);
-      console.log("newState: " + newState.list.cart);
       break;
     }
     default: {
