@@ -25,7 +25,6 @@ namespace Delivery.DAL.EFContext
         public virtual DbSet<OrderStatus> OrdersStatuses { get; set; }
         public virtual DbSet<TypeOfCuisine> TypesOfCuisines { get; set; }
         public virtual DbSet<TypeOfDish> TypesOfDishes { get; set; }
-
         public virtual DbSet<TestCart> TestCarts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

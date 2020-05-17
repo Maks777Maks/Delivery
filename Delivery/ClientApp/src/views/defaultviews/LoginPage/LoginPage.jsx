@@ -8,7 +8,6 @@ import get from "lodash.get";
 import { Button, Card, CardBody, CardGroup,
     Col, Container, Form, Input, InputGroup,
     InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
 import {
     MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput
 } from "mdbreact";
@@ -151,7 +150,15 @@ class LoginPage extends Component {
                                 </Button>
                             </div>
                             <div>
-                                <Link to="/forgot-password" style={{textDecoration: "none", fontSize: "15px"}}>Забув пароль?</Link>
+                                <Link to="/forgot-password" style={{ textDecoration: "none", fontSize: "15px" }}>Забув пароль?</Link>
+                            </div>
+                            <div className="text-left">         
+                                <MDBBtn color="primary" >
+                                    <Link to="/register" style={{color: "white", textDecoration: "none"}}>Реєстрація</Link>
+                                </MDBBtn>  
+                            </div>
+                            <div className="text-right">
+                                <MDBBtn type="submit" color='primary'>Вхід</MDBBtn>
                             </div>
                         </Form>
                     </Col>
