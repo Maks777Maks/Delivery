@@ -149,17 +149,15 @@ class LoginPage extends Component {
                                     <i className="fas fa-sign-in-alt" style={{marginLeft: "5px"}}></i>
                                 </Button>
                             </div>
-                            <div>
+                            <div className="text-left">
                                 <Link to="/forgot-password" style={{ textDecoration: "none", fontSize: "15px" }}>Забув пароль?</Link>
                             </div>
-                            <div className="text-left">         
+                            <div className="text-right">         
                                 <MDBBtn color="primary" >
                                     <Link to="/register" style={{color: "white", textDecoration: "none"}}>Реєстрація</Link>
                                 </MDBBtn>  
                             </div>
-                            <div className="text-right">
-                                <MDBBtn type="submit" color='primary'>Вхід</MDBBtn>
-                            </div>
+                           
                         </Form>
                     </Col>
                 </Row>
