@@ -7,7 +7,4 @@ export default class DishesService{
         return axios.post(url, filter);
         
     }
-    // static addDishToCart(model) {       
-    //     return axios.post(`${serverUrl}api/client/addtocart`, model)
-//}
-}
+   }

@@ -7,25 +7,26 @@ using Delivery.DAL.Models;
 using Delivery.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Delivery.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [ApiController]
-    public class ClientController : ControllerBase
+      public class ClientController : ControllerBase
     {
         private readonly EFDbContext _context;
-        public ClientController(EFDbContext context)
+        private readonly IConfiguration _configuration;
+        public ClientController(EFDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         [HttpPost("gettypesdishes")]
         public IActionResult GetAllTypesOfDishes([FromBody] FiltersTypesOfDishesViewModel model)
         {
             var query = _context.TypesOfDishes.AsQueryable();
-            // var query = _context.Users.Include(x => x.UserProfile).AsQueryable();
             GetAllTypesOfDishesViewModel result = new GetAllTypesOfDishesViewModel();
 
             result.TypeOfDishes = query.Select(t => new GetTypeOfDishesViewModel
@@ -33,7 +34,6 @@ namespace Delivery.Controllers
                 Id = t.Id,
                 TypeOfDishName = t.TypeOfDishName
             }).ToList();
-                      
 
             return Ok(result);
         }
@@ -42,8 +42,17 @@ namespace Delivery.Controllers
         public IActionResult GetDishes([FromBody] FiltersDishesViewModel model)
         {
             var query = _context.Dishes.AsQueryable();
-            // var query = _context.Users.Include(x => x.UserProfile).AsQueryable();
             GetAllDishesViewModel result = new GetAllDishesViewModel();
+
+            var queryCuisines = _context.TypesOfCuisines.AsQueryable();
+            GetAllTypesOfCuisinesViewModel cuisines = new GetAllTypesOfCuisinesViewModel();
+
+            cuisines.TypesOfCuisines = queryCuisines.Select(c => new GetTypeOfCuisineViewModelClient
+            {
+                Id = c.Id,
+                TypeOfCuisineName = c.TypeOfCuisineName
+            }).ToList();
+
             result.Dishes = query.Select(d => new GetDishesViewModel
             {
                 Id = d.Id,
@@ -52,39 +61,36 @@ namespace Delivery.Controllers
                 Price = d.Price,
                 Ingredients = d.Ingredients,
                 Weight = d.Weight,
-                Image = d.Image,
-                TypeOfDishId = d.TypeOfDishId
-                
+               Image = $"{_configuration.GetValue<string>("ProductUrlImages")}/250_" + d.Image,
+                TypeOfDishId = d.TypeOfDishId,
+                IsAvailable = d.IsAvailable,
+                IsVegetarian = d.IsVegetarian,
+                TypeOfCuisineId = d.TypeOfCuisineId,
+                TypeOfCuisineName = ""
             }).ToList();
 
-            //result.TypeOfDishes = query.Select(t => new GetTypeOfDishesViewModel
-            //{
-            //    TypeOfDishId = t.TypeOfDishId,
-            //    TypeOfDishName = t.TypeOfDishName
-            //}).ToList();
-
+            foreach (var item in result.Dishes)
+            {
+                var typeCuisine = _context.TypesOfCuisines.Find(item.TypeOfCuisineId);
+                item.TypeOfCuisineName = typeCuisine.TypeOfCuisineName;
+            }
 
             return Ok(result);
         }
 
-        [HttpPost]
-        [Route("addtocart")]
-        public IActionResult AddDishToCart([FromBody] AddDishToCartViewModel model)
+        [HttpPost("gettypescuisines")]
+        public IActionResult GetAllTypesOfCuisines([FromBody] FiltersTypesOfCuisinesViewModel model)
         {
-            var newCart = new TestCart
-            {
-                Name = model.Name
-            };
+            var queryCuisines = _context.TypesOfCuisines.AsQueryable();
+            GetAllTypesOfCuisinesViewModel result = new GetAllTypesOfCuisinesViewModel();
 
-            _context.TestCarts.Add(newCart);
-            _context.SaveChanges();
-
-            return Ok(new AddDishToCartViewModel
+            result.TypesOfCuisines = queryCuisines.Select(c => new GetTypeOfCuisineViewModelClient
             {
-                Id = newCart.Id,
-                Name = newCart.Name
-            });
-           
+                Id = c.Id,
+                Image = c.Image,
+                TypeOfCuisineName = c.TypeOfCuisineName
+            }).ToList();
+            return Ok(result);
         }
     }
 }
