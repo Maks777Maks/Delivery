@@ -57,7 +57,6 @@ namespace Delivery.Controllers
         [HttpPost("getdishes")]
         public IActionResult GetDishes([FromBody] FiltersDishesAdminViewModel model)
         {
-            //var query = _context.Dishes.AsQueryable();
             var Dishes = _context.Dishes.ToList();
             var query = _context.DishesInOrder.Where(x => x.Order.OrderStatusId == 3).AsQueryable();
             GetAllDishesAdminViewModel result = new GetAllDishesAdminViewModel();
